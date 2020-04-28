@@ -1,0 +1,104 @@
+<div class="example-container mat-elevation-z8">
+  <h2>Add Product</h2>
+  <div class="example-loading-shade"
+        *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+  <div class="button-row">
+    <a mat-flat-button color="primary" [routerLink]="['/products']"><mat-icon>list</mat-icon></a>
+  </div>
+  <mat-card class="example-card">
+    <form [formGroup]="productsForm" (ngSubmit)="onFormSubmit()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Name" formControlName="name"
+                [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!productsForm.get('name').valid && productsForm.get('name').touched">Please enter Name</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Image</mat-label>
+        <mat-select formControlName="img">
+          <mat-option *ngFor="let gl of genderList" [value]="gl">
+            {{gl}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          <span *ngIf="!productsForm.get('img').valid && productsForm.get('img').touched">Please choose Gender</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Description</mat-label>
+        <input matInput placeholder="Description" formControlName="description"
+                [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!productsForm.get('description').valid && productsForm.get('description').touched">Please enter Age</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Provider</mat-label>
+        <input matInput placeholder="Provider" formControlName="provider"
+                [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!productsForm.get('provider').valid && productsForm.get('provider').touched">Please enter Address</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>English Name</mat-label>
+        <input matInput placeholder="English Name" formControlName="english_name"
+                [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!productsForm.get('english_name').valid && productsForm.get('english_name').touched">Please enter City</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>English description</mat-label>
+        <input matInput placeholder="English description" formControlName="english_description"
+                [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!productsForm.get('english_description').valid && productsForm.get('english_description').touched">Please enter City</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>price</mat-label>
+        <input matInput type="number" placeholder="price" formControlName="price"
+                [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!productsForm.get('price').valid && productsForm.get('price').touched">Please enter Country</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Sale price</mat-label>
+        <input matInput type="number" placeholder="Sale price" formControlName="sale_price"
+        [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!productsForm.get('sale_price').valid && productsForm.get('sale_price').touched">Please select Status</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Stock Units</mat-label>
+        <input matInput type="number" placeholder="Stock Units" formControlName="stock_units"
+                [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!productsForm.get('stock_units').valid && productsForm.get('stock_units').touched">Please enter Country</span>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+            <mat-option *ngFor="let sl of statusList" [value]="sl">
+              {{sl}}
+            </mat-option>
+          </mat-select>
+        <mat-error>
+          <span *ngIf="!productsForm.get('status').valid && productsForm.get('status').touched">Please enter Country</span>
+        </mat-error>
+      </mat-form-field>
+      <div class="button-row">
+        <button type="submit" [disabled]="!productsForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+      </div>
+    </form>
+  </mat-card>
+</div>
+
