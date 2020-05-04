@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 //import { ApiService } from '../api.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { ProductsService } from 'src/app/services/products.service';
+import { Product } from 'src/app/models/product';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -19,62 +21,82 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class EditProductComponent implements OnInit {
 
-  casesForm: FormGroup;
-  _id = '';
-  name = '';
-  gender = '';
-  age: number = null;
-  address = '';
-  city = '';
-  country = '';
-  status = '';
-  statusList = ['Positive', 'Dead', 'Recovered'];
-  genderList = ['Male', 'Female'];
+  productsForm: FormGroup;
+  statusList = [{value:0,text:"לא פעיל"},{value:1,text:"פעיל"}];
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
-  constructor(private router: Router, private route: ActivatedRoute,  private formBuilder: FormBuilder) { }
+  imageSrc: string;
+  id:number;
+  constructor(private router: Router, private route: ActivatedRoute,  private formBuilder: FormBuilder ,private productsService :ProductsService) { }
 
   ngOnInit(): void {
-    this.getCasesById(this.route.snapshot.params.id);
-    this.casesForm = this.formBuilder.group({
+    this.id = this.route.snapshot.params.id;
+    this.getProductById(this.id);
+    this.productsForm = this.formBuilder.group({
+      id : [null, Validators.required],
       name : [null, Validators.required],
-      gender : [null, Validators.required],
-      age : [null, Validators.required],
-      address : [null, Validators.required],
-      city : [null, Validators.required],
-      country : [null, Validators.required],
-      status : [null, Validators.required]
+      //img : [null, Validators.required],
+      img: new FormControl(null),
+      fileSource: new FormControl(null),
+      description : [null, Validators.required],
+      provider : [null, Validators.required],
+      english_name : [null, Validators.required],
+      english_description : [null, Validators.required],
+      price : [null, Validators.required],
+      sale_price : [null, Validators.required],
+      stock_units : [null, Validators.required],
+      status : [null, Validators.required],
     });
   }
-  getCasesById(id: any) {
-    // this.api.getCasesById(id).subscribe((data: any) => {
-    //   this._id = data._id;
-    //   this.casesForm.setValue({
-    //     name: data.name,
-    //     gender: data.gender,
-    //     age: data.age,
-    //     address: data.address,
-    //     city: data.city,
-    //     country: data.country,
-    //     status: data.status
-    //   });
-    // });
+  getProductById(id: any) {
+    this.productsService.get(id).subscribe((product: Product) => {
+      this.productsForm.setValue({
+        id : product.id,
+        name : product.name,
+        img: null,
+        fileSource: null,
+        description : product.description,
+        provider : product.provider,
+        english_name : product.english_name,
+        english_description : product.english_description,
+        price : product.price,
+        sale_price : product.sale_price,
+        stock_units : product.stock_units,
+        status : product.status,
+      });
+    });
   }
   onFormSubmit() {
     this.isLoadingResults = true;
-    // this.api.updateCases(this._id, this.casesForm.value)
-    //   .subscribe((res: any) => {
-    //       const id = res._id;
-    //       this.isLoadingResults = false;
-    //       this.router.navigate(['/cases-details', id]);
-    //     }, (err: any) => {
-    //       console.log(err);
-    //       this.isLoadingResults = false;
-    //     }
-    //   );
+    this.productsService.edit(this.productsForm.value)
+      .subscribe((product: Product) => {
+          this.isLoadingResults = false;
+          this.router.navigate(['/product']);
+        }, (err: any) => {
+          console.log(err);
+          this.isLoadingResults = false;
+        }
+      );
   }
-  casesDetails() {
-    this.router.navigate(['/cases-details', this._id]);
+  onFileChange(event) {
+    const reader = new FileReader();
+    
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+    
+      reader.onload = () => {
+   
+        //this.imageSrc = reader.result as string;
+     
+        this.productsForm.patchValue({
+          fileSource: reader.result,
+          img:reader.result as string
+        });
+   
+      };
+   
+    }
   }
 
 }

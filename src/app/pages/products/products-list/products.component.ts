@@ -8,14 +8,16 @@ import { Product } from 'src/app/models/product';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-  data: Product[];
-
+  data: Product[] = [];
   displayedColumns: string[] = ['status', 'id', 'img', 'name', 'description', 'english_name', 'english_description', 'price', 'sale_price', 'stock_units', 'open'];
-  //data: Product[] = [];
   isLoadingResults = true;
   constructor(private productsService :ProductsService) { }
 
   ngOnInit(): void {
+    this.getProductsList();
+  }
+
+  getProductsList(){
     this.productsService.getList()
     .subscribe((res: Product[]) => {
       this.data = res;
@@ -25,6 +27,20 @@ export class ProductsComponent implements OnInit {
       console.log(err);
       this.isLoadingResults = false;
     });
+  }
+  
+  deleteProduct(product : Product){
+    this.isLoadingResults = true;
+    this.productsService.delete(product)
+      .subscribe(res => {
+        this.getProductsList();
+          //this.isLoadingResults = false;
+          
+        }, (err) => {
+          console.log(err);
+          this.isLoadingResults = false;
+        }
+      );
   }
 
 }

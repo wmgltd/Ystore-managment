@@ -25,11 +25,11 @@ export class ProductsService {
   }
 
   public edit(product:Product){
-    return this.http.put(environment.baseUrl+"product/update?"+product.id,product);
+    return this.http.post(environment.baseUrl+"product/update?id="+product.id,product);
   }
 
   public delete(product:Product){
-    return this.http.delete(environment.baseUrl+"product?id="+product.id,{
+    return this.http.delete(environment.baseUrl+"product/delete?id="+product.id,{
       headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
       observe: 'response'

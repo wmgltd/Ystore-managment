@@ -1,0 +1,53 @@
+<div class="example-container mat-elevation-z8">
+    <h2>יצירת משלוח</h2>
+    <div class="example-loading-shade"
+          *ngIf="isLoadingResults">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div class="button-row">
+      <a mat-flat-button color="primary" [routerLink]="['/shipments']"><mat-icon>list</mat-icon></a>
+    </div>
+    <mat-card class="example-card">
+      <form [formGroup]="shipmentsForm" (ngSubmit)="onFormSubmit()">
+        <mat-form-field class="example-full-width">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" formControlName="name"
+                  [errorStateMatcher]="matcher">
+          <mat-error>
+            <span *ngIf="!shipmentsForm.get('name').valid && shipmentsForm.get('name').touched">Please enter Name</span>
+          </mat-error>
+        </mat-form-field>
+  
+        <mat-form-field class="example-full-width">
+          <mat-label>Sum</mat-label>
+          <input matInput placeholder="sum" formControlName="sum"
+                  [errorStateMatcher]="matcher">
+          <mat-error>
+            <span *ngIf="!shipmentsForm.get('sum').valid && shipmentsForm.get('sum').touched">Please enter Age</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Condition</mat-label>
+          <input matInput placeholder="condition" formControlName="condition"
+                  [errorStateMatcher]="matcher">
+          <mat-error>
+            <span *ngIf="!shipmentsForm.get('condition').valid && shipmentsForm.get('condition').touched">Please enter Address</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Status</mat-label>
+          <mat-select formControlName="status">
+              <mat-option *ngFor="let sl of statusList" [value]="sl">
+                {{sl}}
+              </mat-option>
+            </mat-select>
+          <mat-error>
+            <span *ngIf="!shipmentsForm.get('status').valid && shipmentsForm.get('status').touched">Please enter Country</span>
+          </mat-error>
+        </mat-form-field>
+        <div class="button-row">
+          <button type="submit" [disabled]="!shipmentsForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+        </div>
+      </form>
+    </mat-card>
+  </div>

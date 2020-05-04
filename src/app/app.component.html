@@ -317,6 +317,36 @@
       </svg>
     </a>
 </div> -->
-<div class="container">
-  <router-outlet></router-outlet>
-</div>
+<nav mat-tab-nav-bar>
+  <a mat-tab-link
+  [routerLink]="['/products']"
+  routerLinkActive #rla1="routerLinkActive"
+  [active]="rla1.isActive || router.url === '/products'"
+  >
+  מוצרים
+</a>
+
+<a mat-tab-link
+  [routerLink]="['/shipments']"
+  routerLinkActive #rla2="routerLinkActive"
+  [active]="rla2.isActive || router.url === '/shipments'"
+ >
+  משלוחים
+</a>
+
+<a mat-tab-link
+  [routerLink]="['/coupons']"
+  routerLinkActive #rla3="routerLinkActive"
+  [active]="rla3.isActive || router.url === '/coupons'">
+  קופונים
+</a>
+
+<a mat-tab-link
+  [routerLink]="['/settings']"
+  routerLinkActive #rla3="routerLinkActive"
+  [active]="rla3.isActive || router.url === '/settings'">
+  הגדרות
+</a>
+
+</nav>
+<router-outlet></router-outlet>

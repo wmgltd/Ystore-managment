@@ -20,9 +20,21 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
+
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProductComponent } from './pages/products/add-product/add-product.component';
 import { EditProductComponent } from './pages/products/edit-product/edit-product.component';
+import { ShipmentsListComponent } from './pages/shipments/shipments-list/shipments-list.component';
+import { AddShipmentComponent } from './pages/shipments/add-shipment/add-shipment.component';
+import { EditShipmentComponent } from './pages/shipments/edit-shipment/edit-shipment.component';
+import { EditCouponComponent } from './pages/coupons/edit-coupon/edit-coupon.component';
+import { AddCouponComponent } from './pages/coupons/add-coupon/add-coupon.component';
+import { CouponsListComponent } from './pages/coupons/coupons-list/coupons-list.component';
+import { EditSettingsComponent } from './pages/settings/edit-settings/edit-settings.component';
 
 
 @NgModule({
@@ -31,6 +43,13 @@ import { EditProductComponent } from './pages/products/edit-product/edit-product
     ProductsComponent,
     AddProductComponent,
     EditProductComponent,
+    ShipmentsListComponent,
+    AddShipmentComponent,
+    EditShipmentComponent,
+    EditCouponComponent,
+    AddCouponComponent,
+    CouponsListComponent,
+    EditSettingsComponent,
    
   ],
   imports: [
@@ -51,6 +70,8 @@ import { EditProductComponent } from './pages/products/edit-product/edit-product
     MatSlideToggleModule,
     MatButtonToggleModule,
     MatSelectModule,
+    MatTabsModule,
+    MatToolbarModule,
     FormsModule,
     ReactiveFormsModule,
   ],

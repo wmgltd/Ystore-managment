@@ -1,5 +1,5 @@
 <div class="example-container mat-elevation-z8">
-  <h2>Add Product</h2>
+  <h2>הוספת מוצר</h2>
   <div class="example-loading-shade"
         *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
@@ -19,15 +19,15 @@
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Image</mat-label>
-        <mat-select formControlName="img">
-          <mat-option *ngFor="let gl of genderList" [value]="gl">
-            {{gl}}
-          </mat-option>
-        </mat-select>
-        <mat-error>
-          <span *ngIf="!productsForm.get('img').valid && productsForm.get('img').touched">Please choose Gender</span>
-        </mat-error>
-      </mat-form-field>
+        <input matInput placeholder="בחר מסמך לשליחה" disabled #showFileName required>
+        <mat-icon class="btn_circle" matSuffix (click)="fileToUpload.click();">attach_file</mat-icon>
+        <mat-error >
+          <span *ngIf="!productsForm.get('img').valid">עליך להעלאות קובץ לשליחה</span>
+          </mat-error>
+        <input #fileToUpload type="file" style="display:none;" formControlName="img" (change)="onFileChange($event)">
+    </mat-form-field>
+    
+
       <mat-form-field class="example-full-width">
         <mat-label>Description</mat-label>
         <input matInput placeholder="Description" formControlName="description"
@@ -101,4 +101,38 @@
     </form>
   </mat-card>
 </div>
+
+<!-- <h1>Angular 9 Image Upload with Preview - ItSolutionStuff.com</h1>
+   
+<form [formGroup]="myForm" (ngSubmit)="submit()">
+     
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input 
+            formControlName="name"
+            id="name" 
+            type="text" 
+            class="form-control">
+        <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+            <div *ngIf="f.name.errors.required">Name is required.</div>
+            <div *ngIf="f.name.errors.minlength">Name should be 3 character.</div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="file">File</label>
+        <input 
+            formControlName="file"
+            id="file" 
+            type="file" 
+            class="form-control"
+            (change)="onFileChange($event)">
+        <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+            <div *ngIf="f.file.errors.required">File is required.</div>
+        </div>
+    </div>
+    
+    <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form> -->
 

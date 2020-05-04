@@ -1,0 +1,101 @@
+<div class="example-container mat-elevation-z8">
+    <h2>הוספת קופון</h2>
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div class="button-row">
+        <a mat-flat-button color="primary" [routerLink]="['/coupons']">
+            <mat-icon>list</mat-icon>
+        </a>
+    </div>
+    <mat-card class="example-card">
+        <form [formGroup]="couponsForm" (ngSubmit)="onFormSubmit()">
+
+            <mat-form-field class="example-full-width">
+                <mat-label>סטאטוס</mat-label>
+                <mat-select formControlName="status">
+                    <mat-option *ngFor="let sl of statusList" [value]="sl.value">
+                      {{sl.text}}
+                    </mat-option>
+                  </mat-select>
+                <mat-error>
+                    <span *ngIf="!couponsForm.get('status').valid && couponsForm.get('status').touched">Please enter
+                        Country</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>שם</mat-label>
+                <input matInput placeholder="Name" formControlName="name" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!couponsForm.get('name').valid && couponsForm.get('name').touched">Please enter
+                        Name</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>קופון</mat-label>
+                <input matInput placeholder="Code" formControlName="code" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!couponsForm.get('code').valid && couponsForm.get('code').touched">Please enter
+                        Code</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>הנחה</mat-label>
+                <input matInput placeholder="Discount" formControlName="discount" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!couponsForm.get('discount').valid && couponsForm.get('discount').touched">Please enter
+                        Discount</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>אחוז/סכום</mat-label>
+                <mat-select formControlName="discount_type">
+                    <mat-option *ngFor="let dt of discountTypeList" [value]="dt.value">
+                      {{dt.text}}
+                    </mat-option>
+                  </mat-select>
+                <mat-error>
+                    <span *ngIf="!couponsForm.get('discount_type').valid && couponsForm.get('discount_type').touched">Please enter
+                        discount type</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>כמות</mat-label>
+                <input matInput placeholder="quantity" formControlName="quantity" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!couponsForm.get('quantity').valid && couponsForm.get('quantity').touched">Please enter
+                        quantity</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>ניצול</mat-label>
+                <input matInput placeholder="quantity utilized" formControlName="quantity_utilized" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!couponsForm.get('quantity_utilized').valid && couponsForm.get('quantity_utilized').touched">Please enter
+                        Code</span>
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>תאריך תפוגה</mat-label>
+                <input matInput placeholder="expiry date" formControlName="expiry_date" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!couponsForm.get('expiry_date').valid && couponsForm.get('expiry_date').touched">Please enter
+                        expiry date</span>
+                </mat-error>
+            </mat-form-field>
+
+            
+            <div class="button-row">
+                <button type="submit" [disabled]="!couponsForm.valid" mat-flat-button color="primary">
+                    <mat-icon>save</mat-icon>
+                </button>
+            </div>
+        </form>
+    </mat-card>
+</div>
