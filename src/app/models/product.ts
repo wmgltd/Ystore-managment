@@ -3,6 +3,7 @@ export class Product {
     store_id :number;
     name : string;
     img : string;
+   // fileSource:any;
     description : string;
     provider : string;
     english_name : string;

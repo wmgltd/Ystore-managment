@@ -36,8 +36,8 @@ export class EditProductComponent implements OnInit {
       id : [null, Validators.required],
       name : [null, Validators.required],
       //img : [null, Validators.required],
-      img: new FormControl(null),
-      fileSource: new FormControl(null),
+      img: new FormControl(""),
+      fileSource: new FormControl(""),
       description : [null, Validators.required],
       provider : [null, Validators.required],
       english_name : [null, Validators.required],
@@ -53,8 +53,8 @@ export class EditProductComponent implements OnInit {
       this.productsForm.setValue({
         id : product.id,
         name : product.name,
-        img: null,
-        fileSource: null,
+        img: "",
+        fileSource: "",
         description : product.description,
         provider : product.provider,
         english_name : product.english_name,
@@ -91,7 +91,7 @@ export class EditProductComponent implements OnInit {
      
         this.productsForm.patchValue({
           fileSource: reader.result,
-          img:reader.result as string
+          img: reader.result
         });
    
       };
