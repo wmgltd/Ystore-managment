@@ -2,7 +2,7 @@
 
 .example-container {
     position: relative;
-    padding: 5px;
+    
 }
 
 .example-table-container {
@@ -53,3 +53,27 @@ table {
 td img {
     max-width: 60px;
 }
+.actions-cell{
+    text-align: center;
+    .mat-icon{
+        cursor: pointer;
+        margin:5px;
+        ::ng-deep .a{
+            stroke: transparent;
+            fill:transparent
+        }
+    }
+}
+::ng-deep .mat-row:hover .actions-cell .mat-icon .a{
+    fill: #051f43;
+
+}
+::ng-deep .img-icon svg .a{
+    fill: #051f43!important;
+}
+::ng-deep .mat-icon svg .a {
+    stroke:inherit; 
+  }
+  ::ng-deep .mat-button .mat-icon svg .a {
+    stroke:#fff; 
+  }

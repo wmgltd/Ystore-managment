@@ -10,9 +10,13 @@ import { EditCouponComponent } from './pages/coupons/edit-coupon/edit-coupon.com
 import { AddCouponComponent } from './pages/coupons/add-coupon/add-coupon.component';
 import { CouponsListComponent } from './pages/coupons/coupons-list/coupons-list.component';
 import { EditSettingsComponent } from './pages/settings/edit-settings/edit-settings.component';
+import { SettingsComponent } from './pages/settings/settings/settings.component';
+import { DeliveryTypeComponent } from './pages/settings/delivery-type/delivery-type.component';
+import { ExternalLinkComponent } from './pages/settings/external-link/external-link.component';
+import { CategoryComponent } from './pages/settings/category/category.component';
 
 const routes: Routes = [
-  {
+  { 
     path: 'products',
     component: ProductsComponent,
     data: { title: 'List of Products' }
@@ -59,8 +63,26 @@ const routes: Routes = [
   },
   {
     path: 'settings',
-    component: EditSettingsComponent,
-    data: { title: 'List of settings' }
+    component: SettingsComponent,
+    data: { title: 'List of settings' },
+    children:[{
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'company-details'
+    },
+    {
+      path:'company-details',
+      component:EditSettingsComponent
+    },{
+      path:'delivery-type',
+      component:DeliveryTypeComponent
+    },{
+      path:'external-link',
+      component:ExternalLinkComponent
+    },{
+      path:'category',
+      component:CategoryComponent
+    }]
   },
   { path: '',
     redirectTo: '/products',

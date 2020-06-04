@@ -27,6 +27,10 @@ export class ShipmentsService {
     return this.http.post(environment.baseUrl+"shipment/update?id="+shipment.id,shipment);
   }
 
+  public changeStatus(id:number,status:number){
+    return this.http.post(environment.baseUrl+"shipment/status?id="+id,{status:status});
+  }
+
   public delete(shipment:Shipment){
     return this.http.delete(environment.baseUrl+"shipment/delete?id="+shipment.id,{
       headers: new HttpHeaders()

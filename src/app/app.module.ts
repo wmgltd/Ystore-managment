@@ -22,8 +22,13 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProductComponent } from './pages/products/add-product/add-product.component';
@@ -35,6 +40,14 @@ import { EditCouponComponent } from './pages/coupons/edit-coupon/edit-coupon.com
 import { AddCouponComponent } from './pages/coupons/add-coupon/add-coupon.component';
 import { CouponsListComponent } from './pages/coupons/coupons-list/coupons-list.component';
 import { EditSettingsComponent } from './pages/settings/edit-settings/edit-settings.component';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { ChartComponent } from './components/chart/chart.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { SettingsComponent } from './pages/settings/settings/settings.component';
+import { ViewProductComponent } from './pages/products/view-product/view-product.component';
+import { DeliveryTypeComponent } from './pages/settings/delivery-type/delivery-type.component';
+import { ExternalLinkComponent } from './pages/settings/external-link/external-link.component';
+import { CategoryComponent } from './pages/settings/category/category.component';
 
 
 @NgModule({
@@ -50,6 +63,13 @@ import { EditSettingsComponent } from './pages/settings/edit-settings/edit-setti
     AddCouponComponent,
     CouponsListComponent,
     EditSettingsComponent,
+    SideMenuComponent,
+    ChartComponent,
+    SettingsComponent,
+    ViewProductComponent,
+    DeliveryTypeComponent,
+    ExternalLinkComponent,
+    CategoryComponent
    
   ],
   imports: [
@@ -72,8 +92,20 @@ import { EditSettingsComponent } from './pages/settings/edit-settings/edit-setti
     MatSelectModule,
     MatTabsModule,
     MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatMenuModule,
+    MatGridListModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
+    NgCircleProgressModule.forRoot({
+      showUnits:false,
+      showSubtitle:false,
+
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

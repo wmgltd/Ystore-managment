@@ -29,7 +29,8 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/assets/font/assistant.css" 
             ],
             "scripts": []
           },
@@ -127,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "yStore-management"
+  "defaultProject": "yStore-management",
+  "cli": {
+    "analytics": "b258bf7b-0032-4210-bc95-fb3eca43a20b"
+  }
 }

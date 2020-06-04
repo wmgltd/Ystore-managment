@@ -1,0 +1,50 @@
+<mat-nav-list>
+    <mat-list-item class="logo-img" (click)="selectedItem='מוצרים'">
+
+      <a 
+        [routerLink]="'/'"  
+        routerLinkActive="active" 
+        matLine>
+      <img  src="assets/img/logo.png"/>
+        
+      </a>
+  </mat-list-item>
+    <mat-list-item class="icon" *ngFor="let item of listItems" (click)="handleClick(item)"  [ngClass]="{'list-item-active': item.title==selectedItem}">
+
+        <a 
+          [routerLink]="item.link"  
+          routerLinkActive="active" 
+          matLine>
+          <mat-icon   matLine [inline]="false" svgIcon="{{item.icon}}"></mat-icon>
+
+          {{item.title}} 
+        </a>
+    </mat-list-item>
+  
+</mat-nav-list>
+
+<mat-nav-list class="bottom-list">
+
+  <mat-list-item *ngFor="let item of bottomItems" (click)="handleClick(item)" [ngClass]="{'list-item-active': item.title==selectedItem}">
+
+    <a 
+    *ngIf="item.link"
+    [routerLink]="item.link"  
+    routerLinkActive="active" 
+    matLine>
+    <mat-icon   matLine [inline]="false" svgIcon="{{item.icon}}"></mat-icon>
+
+    {{item.title}} 
+  </a>
+
+  <a 
+    *ngIf="item.externalLink"
+    [href]="item.externalLink"  
+    matLine>
+    <mat-icon   matLine [inline]="false" svgIcon="{{item.icon}}"></mat-icon>
+
+    {{item.title}} 
+  </a>
+  </mat-list-item>
+
+</mat-nav-list>

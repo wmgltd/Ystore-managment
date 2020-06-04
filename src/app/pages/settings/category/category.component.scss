@@ -1,0 +1,78 @@
+.categories-grid{
+    margin: 15px 30px;
+    font: 600 14px/24px Assistant;
+    letter-spacing: 0px;
+    color: #051F43;
+    ::ng-deep .mat-grid-tile .mat-figure{
+        justify-content: right;
+    }
+    .header-label{
+        margin-top:35px;
+    }
+    .cancel-icon{
+        width: 20px;
+        height: 20px;
+        line-height: 19px;
+        margin-top: 13px;
+        margin-right: 15px;
+
+        img{
+            width: 20px;
+        }
+    }
+    .add-icon{
+        width: 26px;
+        height: 26px;
+        line-height: 25px;
+        margin-top: 13px;
+        margin-right: 15px;
+
+        img{
+            width: 26px;
+        }
+    }
+    .add-category{
+        height: calc(80px)!important;        
+        ::ng-deep .mat-figure{
+            flex-direction: column;
+        }
+        .mat-divider{
+            width:100%;
+        }
+        .mat-divider:first-child{
+            margin-top: 20px;
+        }
+        .mat-divider:last-child{
+            margin-top:10px;
+        }
+        mat-label{ 
+            width: 100%;
+        }
+    }
+    .mat-form-field{
+        width: 100%;
+        margin-left: 15px;
+    }
+    ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+        background: #FCFDFE 0% 0% no-repeat padding-box;
+        border: 1px solid #E7E9ED;
+        border-radius: 5px;
+        height: 25px;
+        line-height: 25px;
+        padding: 5px;
+        margin-top: 30px;
+        font: 600 16px/26px Assistant;
+        color: #051D3F;
+
+      }
+      input.mat-input-element, textarea.mat-input-element {
+        font: 600 16px/24px Assistant;
+        letter-spacing: 0px;
+        color: #051F43;
+    }
+}
+.tabs-footer{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+  }

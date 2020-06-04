@@ -1,0 +1,67 @@
+<form [formGroup]="settingsForm" (ngSubmit)="onFormSubmit()"    >
+<mat-grid-list cols="5" rowHeight="50px" class="delivery-type-grid" >
+ <ng-container >
+    <mat-grid-tile  colspan="2"><mat-label class="header-label">סוג המשלוח</mat-label></mat-grid-tile>
+    <mat-grid-tile  colspan="2"><mat-label class="header-label">מחיר</mat-label></mat-grid-tile>
+    <mat-grid-tile ></mat-grid-tile>
+</ng-container>
+<ng-container  formArrayName="delivery_types">
+    <ng-container *ngFor="let item of deliveryTypes.controls; let i = index" [formGroupName]="i">
+    <mat-grid-tile colspan="2">
+        <mat-form-field floatLabel="always"   class="example-full-width">
+            <mat-label>סוג המשלוח</mat-label>
+            <input matInput placeholder="סוג המשלוח" formControlName="type" [errorStateMatcher]="matcher" >
+            <mat-error>
+                 <!-- <span *ngIf="!deliveryTypes.at(i).get('type').valid && deliveryTypes.at(i).get('type').touched">יש למלא את סוג המשלוח</span> -->
+
+            </mat-error>
+        </mat-form-field>
+
+
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+
+        <mat-form-field floatLabel="always" class="example-full-width">
+            <mat-label>מחיר</mat-label>
+            <input type="number" min="0" class="price-input" min="0" matInput placeholder="מחיר" formControlName="cost" [errorStateMatcher]="matcher">
+            <!-- <span class="currency-span" [ngStyle]="{'right':((item.get('cost').value.toString().length)*10+5)+'px' }" *ngIf="settingsForm.get('cost').valid">₪</span> -->
+            <mat-error>
+                <!-- <span *ngIf="!item.get('cost').valid && item.get('cost').touched">יש למלא מחיר</span> -->
+
+            </mat-error>
+            <!-- <div  class="inc-button spinner-button"></div>
+            <div  class="dec-button spinner-button"></div> -->
+           
+        </mat-form-field>
+
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+        <button  class="cancel-icon" type="button"  (click)="removeItem(i)" mat-icon-button >
+            <img   [src]="'assets/img/cancel.svg'"/>
+        </button>
+    </mat-grid-tile>
+</ng-container>
+</ng-container>
+
+
+<ng-container >
+    <mat-grid-tile class="add-delivery-type"  colspan="3">
+        <mat-divider class=""></mat-divider>
+        <mat-label>הוסף עוד סוג משלוח 
+            <button  class="add-icon" type="button" (click)="addItem()"  mat-icon-button >
+                <img   [src]="'assets/img/add.svg'"/>
+            </button>
+        </mat-label>
+        
+        <mat-divider class=""></mat-divider>
+
+    </mat-grid-tile>
+    <mat-grid-tile  colspan="2"></mat-grid-tile>
+</ng-container>
+</mat-grid-list>
+<div class="tabs-footer">
+    <mat-divider></mat-divider> 
+    <button mat-button type="submit" [disabled]="!settingsForm.valid" class="save-item-button save-item-button-primary" >שמור שינויים     
+    </button>
+  </div>
+</form>

@@ -1,0 +1,65 @@
+<mat-toolbar>
+    <mat-toolbar-row> 
+        <h1>הגדרות</h1>
+
+    </mat-toolbar-row>
+    
+ 
+
+</mat-toolbar>
+
+<mat-grid-list  class="settings-grid" cols="3" rowHeight="600" [gutterSize]="'25px'">
+    <mat-grid-tile colspan="1">
+        <div class="preview-card">
+        <mat-card class="company-card">
+            <div class="img-container">
+                <div mat-card-image [ngStyle]="{'background-image':settings.main_banner?'url('+imgUrl+settings.main_banner+')':'url(./../../../../assets/img/banner-example.png/)' }"></div>
+            	
+            <input id="file" #fileInput hidden type='file' (change)="onSelectFile($event,'main_banner')" multiple >   
+
+            <button class="company-img"  (click)="fileInput.click()"   mat-icon-button >
+                <mat-icon svgIcon="picture"></mat-icon>
+            </button>
+        </div>
+        
+        </mat-card>
+        <mat-card class="details-card">
+           <a class="external-link" *ngIf="settings&&settings.external_facebook_page" [href]="settings.external_facebook_page"><img  src="assets/img/facebook.svg"/></a>
+           <a class="external-link" *ngIf="settings&&settings.external_instagram_page" [href]="settings.external_instagram_page"><img  src="assets/img/instagram.svg"/></a>
+           <div class="logo-img">
+            <img   [src]="settings.logo?imgUrl+settings.logo:'assets/img/logo-example.png'"/> 
+            <input id="file" #logoFileInput hidden type='file' (change)="onSelectFile($event,'logo')" multiple >   
+
+            <button class="company-img"  (click)="logoFileInput.click()"   mat-icon-button >
+                <mat-icon svgIcon="picture"></mat-icon>
+            </button>
+
+           </div> 
+           
+            <h3 >{{settings.company_name}}</h3>
+           <div class="contact-details">
+            <mat-grid-list  cols="2" rowHeight="40">
+                <mat-grid-tile class="company-details"><mat-icon svgIcon="location"></mat-icon> כתובת : {{settings.company_address}}, {{settings.company_city}}</mat-grid-tile>
+                <!-- <mat-grid-tile><mat-icon>mail_outline</mat-icon>:אימייל Info@gmail.com</mat-grid-tile> -->
+                <mat-grid-tile class="company-details"><mat-icon svgIcon="phone"></mat-icon> טלפון : {{settings.company_phone}}</mat-grid-tile>
+                <!-- <mat-grid-tile><mat-icon>location_on</mat-icon>:פקס 03-8541587</mat-grid-tile> -->
+
+            </mat-grid-list>
+
+        </div>
+        </mat-card>
+    </div>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+        <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="navigateTab($event)" class="edit-settings-tabs" animationDuration="0ms">
+            <mat-tab label="הגדרות חברה"> <app-edit-settings (form_submit)="initialSettings(id)" [settings]="settings"></app-edit-settings> </mat-tab>
+            <mat-tab label="סוגי משלוח"> <app-delivery-type (form_submit)="initialSettings(id)" [settings]="settings"></app-delivery-type> </mat-tab>
+            <mat-tab label="קישורים חיצוניים"><app-external-link (form_submit)="initialSettings(id)" [settings]="settings"></app-external-link>  </mat-tab>
+            <mat-tab label="קטגוריות"> <app-category></app-category> </mat-tab>
+
+          </mat-tab-group>
+        
+
+    </mat-grid-tile>
+
+</mat-grid-list>

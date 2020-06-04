@@ -6,7 +6,7 @@ export const environment = {
   production: false,
  // baseUrl: 'http://localhost:88/Ystore-server/api/',
   baseUrl: 'http://185.28.152.210/~ystore/Ystore-server/api/',
-  imgUrl:"../Ystore-server/"
+  imgUrl:"http://185.28.152.210/~ystore/Ystore-server/"
 };
 
 /*

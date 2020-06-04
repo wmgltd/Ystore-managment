@@ -22,13 +22,16 @@ export class CouponsService {
   public add(coupon:Coupon){
     return this.http.post(environment.baseUrl+"coupon/create",coupon);
   }
-
-  public edit(coupon:Coupon){
-    return this.http.post(environment.baseUrl+"coupon/update?id="+coupon.store_id,coupon);
+  public changeStatus(id:number,status:number){
+    return this.http.post(environment.baseUrl+"coupon/status?id="+id,{status:status});
   }
 
-  public delete(coupon:Coupon){
-    return this.http.delete(environment.baseUrl+"coupon/delete?id="+coupon.id,{
+  public edit(coupon:Coupon){
+    return this.http.post(environment.baseUrl+"coupon/update?id="+coupon.id,coupon);
+  }
+
+  public delete(id:number){
+    return this.http.delete(environment.baseUrl+"coupon/delete?id="+id,{
       headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
       observe: 'response'

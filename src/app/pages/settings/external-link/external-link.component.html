@@ -1,0 +1,54 @@
+
+    <form [formGroup]="settingsForm" (ngSubmit)="onFormSubmit()">
+
+        <div class="account-settings">
+    
+          <mat-grid-list cols="3" rowHeight="80" [gutterSize]="'25px'">
+            <mat-grid-tile colspan="2">
+              <mat-form-field floatLabel="always"   class="example-full-width">
+                <mat-label>עמוד פייסבוק</mat-label>
+                <input matInput placeholder="הדבק כאן את הקישור לעמוד פייסבוק"  formControlName="external_facebook_page"  [errorStateMatcher]="matcher">
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile></mat-grid-tile>
+            <mat-grid-tile colspan="2">
+                <mat-form-field floatLabel="always"   class="example-full-width">
+                  <mat-label>עמוד אינסטגרם</mat-label>
+                  <input matInput placeholder="הדבק כאן את הקישור לעמוד אינסטגרם" formControlName="external_instagram_page"  [errorStateMatcher]="matcher">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile></mat-grid-tile>
+              <mat-grid-tile colspan="2">
+                <mat-form-field floatLabel="always"   class="example-full-width">
+                  <mat-label>פיקסל פייסבוק</mat-label>
+                  <input matInput placeholder="הדבק כאן את הקוד מפייסבוק פיקסל" formControlName="external_facebook_pixel"  [errorStateMatcher]="matcher">
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile></mat-grid-tile>
+              <mat-grid-tile class="textarea-form-field" colspan="2" >
+                <mat-form-field  floatLabel="always"   class="example-full-width">
+                  <mat-label>גוגל אנליטיקס</mat-label>
+                  <textarea matInput placeholder="הדבק כאן את הקוד מגוגל אנליטיקס"  formControlName="external_google_analytics" [errorStateMatcher]="matcher">
+                  </textarea>
+                </mat-form-field>
+              </mat-grid-tile>
+              <mat-grid-tile></mat-grid-tile>
+        
+      
+            
+        
+          
+        
+          </mat-grid-list>
+    
+        </div>
+         <div class="tabs-footer">
+        <mat-divider></mat-divider> 
+        <button mat-button type="submit" [disabled]="!settingsForm.valid" class="save-item-button save-item-button-primary" >שמור שינויים     
+        </button>
+      </div>
+        </form>
+    
+            
+          
+          

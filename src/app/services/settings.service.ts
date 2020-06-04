@@ -23,5 +23,14 @@ export class SettingsService {
   public edit(settings:Settings){
     return this.http.post(environment.baseUrl+"settings/update?id="+settings.id,settings);
   }
+  public editExternal(settings:Settings){
+    return this.http.post(environment.baseUrl+"settings/update/external?id="+settings.id,settings);
+  }
+  public editDeliveryTypes(data:any){
+    return this.http.post(environment.baseUrl+"settings/update/delivery_types?id="+data.id,data);
+  }
+  public uploadImage(id,data,attr:string,saved_img){
+    return this.http.post(environment.baseUrl+"settings/upload?id="+id,{attr:attr,saved_img:saved_img,data:data});
+  }
 
 }

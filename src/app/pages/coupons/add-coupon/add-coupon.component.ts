@@ -5,6 +5,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import {CouponsService} from '../../../services/coupons.service';
 import {Coupon} from '../../../models/coupon';
 import { HttpClient } from '@angular/common/http';
+import { MatDialogRef } from '@angular/material/dialog';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -29,7 +30,9 @@ export class AddCouponComponent implements OnInit {
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private couponsService :CouponsService,private http: HttpClient) { }
+  constructor(private router: Router,
+     private formBuilder: FormBuilder, private couponsService :CouponsService,private http: HttpClient,
+     public dialogRef: MatDialogRef<AddCouponComponent>) { }
 
   ngOnInit(): void {
     this.couponsForm = this.formBuilder.group({
@@ -38,20 +41,18 @@ export class AddCouponComponent implements OnInit {
       discount : [null, Validators.required],
       discount_type : [null, Validators.required],
       quantity : [null, Validators.required],
-      quantity_utilized : [null, Validators.required],
-      expiry_date : [null, Validators.required],
-      status : [null, Validators.required],
-    });
+      expiry_date : [null, Validators.required]    });
   }
   
   onFormSubmit() {
-    this.isLoadingResults = true;
+    //this.isLoadingResults = true;
     this.couponsService.add(this.couponsForm.value)
       .subscribe((res: any) => {
           this.isLoadingResults = false;
-          this.router.navigate(['/coupons']);
+          this.dialogRef.close();
         }, (err: any) => {
           console.log(err);
+          this.dialogRef.close();
           this.isLoadingResults = false;
         });
   }

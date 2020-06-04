@@ -1,68 +1,79 @@
-<div class="example-container mat-elevation-z8">
-    <h2>קופונים</h2>
+<div class=" mat-elevation-z8">
+  <mat-toolbar class="mat-toolbar-multiple">
+    <mat-toolbar-row> 
+        <h1>קופונים</h1>
+
+    </mat-toolbar-row>
+    <mat-toolbar-row>           
+         <h5>סה״כ קופונים: <b>{{data.length}} קופונים</b></h5>
+         <button mat-button class="add-item-button add-item-button-primary" (click)="addCoupon()">הוסף קופון     
+            <mat-icon class="add-item-icon" [inline]="false" svgIcon="plus"></mat-icon>
+        </button>
+    </mat-toolbar-row>   
+ 
+
+</mat-toolbar>
     <div class="example-loading-shade"
          *ngIf="isLoadingResults">
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
-    <div class="button-row">
-      <a mat-flat-button color="primary" [routerLink]="['/add-coupon']"><mat-icon>add</mat-icon> קופון</a>
-    </div>
+
     <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="data" class="example-table mat-elevation-z8"
-             matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
-  
-        <!-- coupons Status Column -->
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef>סטטוס</th>
-          <td mat-cell *matCellDef="let row">{{row.status}}</td>
-        </ng-container>
-  
-        <!-- coupons Age Column -->
-        <ng-container matColumnDef="code">
-          <th mat-header-cell *matHeaderCellDef>קופון</th>
-          <td mat-cell *matCellDef="let row">{{row.code}}</td>
-        </ng-container>
+      <mat-grid-list class="card-list" [cols]="breakpoint" rowHeight="230" [gutterSize]="'25px'">
+        <mat-grid-tile *ngFor="let item of data; let i = index">      
+          <mat-card [ngClass]="{'mat-card-inactive': item.status==0}">
+            <mat-card-title>
+              {{item.name}}
+              <div class="card-toggle"  >
+              <mat-slide-toggle  color="primary" [checked]="item.status==1" (change)="changeStatus(item,$event)"></mat-slide-toggle>
+              <button mat-icon-button class="more-vert-button"  (click)="editCoupon(item.id)">
+                <mat-icon class="menu-action-icon" [inline]="false" svgIcon="edit"></mat-icon>
+              </button>
+              
 
-        <!-- coupons Age Column -->
-        <ng-container matColumnDef="discount">
-            <th mat-header-cell *matHeaderCellDef>הנחה</th>
-            <td mat-cell *matCellDef="let row">{{row.discount}}</td>
-          </ng-container>
-  
-        <!-- coupons Age Column -->
-        <ng-container matColumnDef="discount_type">
-          <th mat-header-cell *matHeaderCellDef>אחוז/סכום</th>
-          <td mat-cell *matCellDef="let row">{{row.discount_type}}</td>
-        </ng-container>
+              </div>
+            </mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+           <div class="card-details">
+            <mat-grid-list class="card-details-grid" cols="2" rowHeight="45" >
+              <mat-grid-tile> <p class="mad-grid-text-right">קוד קופון:</p> </mat-grid-tile>
+              <mat-grid-tile> <p class="mad-grid-text-left">{{item.code}}</p></mat-grid-tile>
+              <mat-grid-tile><p class="mad-grid-text-right">ערך הנחה:</p> </mat-grid-tile>
+              <mat-grid-tile><p class="mad-grid-text-left">{{item.discount}}{{item.discount_type==1?'%':''}} {{item.discount_type==1?'':'ש"ח'}}</p></mat-grid-tile>
+              <mat-grid-tile><p class="mad-grid-text-right"> תאריך תפוגה:</p></mat-grid-tile>
+              <mat-grid-tile><p class="mad-grid-text-left"> {{item.expiry_date}}</p></mat-grid-tile>
+            </mat-grid-list>
+            
+            </div>
+            <mat-divider [vertical]="true"></mat-divider>
 
-        <!-- coupons Name Column -->
-        <ng-container matColumnDef="quantity">
-          <th mat-header-cell *matHeaderCellDef>כמות</th>
-          <td mat-cell *matCellDef="let row">{{row.quantity}}</td>
-        </ng-container>
+            <div class="card-analytics">
+              <mat-grid-list class="card-analytics-grid" cols="2" rowHeight="120" >
+                <mat-grid-tile> 
+                  <mat-list>
+                    <mat-list-item >
+                      <div mat-line class="card-title"> קופונים נוצלו: </div>
+                      <div mat-line class="card-content">{{item.quantity_utilized}}/{{item.quantity}}</div>
+                    </mat-list-item>
+                  </mat-list>
+                  
 
-        <!-- coupons Name Column -->
-        <ng-container matColumnDef="quantity_utilized">
-            <th mat-header-cell *matHeaderCellDef>ניצול</th>
-            <td mat-cell *matCellDef="let row">{{row.quantity_utilized}}</td>
-        </ng-container>
 
-          <!-- coupons Name Column -->
-        <ng-container matColumnDef="expiry_date">
-            <th mat-header-cell *matHeaderCellDef>תאריך תפוגה</th>
-            <td mat-cell *matCellDef="let row">{{row.expiry_date}}</td>
-        </ng-container>
+                </mat-grid-tile>
+                <mat-grid-tile> 
+                  <app-chart [status]="item.status==1" [quantity]="item.quantity_utilized" [percentage]="(item.quantity_utilized/item.quantity*100)"></app-chart>
 
-        <ng-container matColumnDef="open">
-          <th mat-header-cell *matHeaderCellDef>Actions</th>
-          <td mat-cell *matCellDef="let row">
-            <a mat-fab color="primary" [routerLink]="['/edit-coupon', row.id]"><mat-icon>create</mat-icon></a>
-            <a mat-fab color="warn" (click)="deleteCoupon(row)"><mat-icon>delete</mat-icon></a>
-        </ng-container>
+              </mat-grid-tile>
+               </mat-grid-list>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+            </div>
+          </mat-card-content>
+            
+          </mat-card>
 
-      </table>
+        </mat-grid-tile>
+
+      </mat-grid-list>
     </div>
   </div>

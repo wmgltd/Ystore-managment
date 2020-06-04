@@ -1,19 +1,18 @@
+import { DeliveryType } from './delivery-type';
+
 export class Settings {
     id : number;
     store_id : number;
-    store_name : string;
-    store_description :string;
-    logo:string;
+    company_name:string;
+    company_email:string;
+    company_phone:string;
+    company_city:string;
+    company_address:string;
+    external_facebook_page:string;
+    external_instagram_page	:string;
+    external_facebook_pixel	:string;
+    external_google_analytics :string;
     main_banner:string;
-    primary_address:string;
-    site_link:string;
-    facebook_link:string;
-    whatsapp_link:string;
-    messenger_link:string;
-    payment_page_address:string;
-    success_page_address:string;
-    code_analytics:string;
-    terms_link:string;
-    currency:string;
-    languages:string;
+    logo:string;
+    delivery_types:DeliveryType[];
 }

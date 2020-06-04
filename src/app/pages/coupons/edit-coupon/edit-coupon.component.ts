@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { CouponsService } from 'src/app/services/coupons.service';
 import { Coupon } from 'src/app/models/coupon';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -27,10 +28,12 @@ export class EditCouponComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
   id:number;
   
-  constructor(private router: Router, private route: ActivatedRoute,  private formBuilder: FormBuilder ,private couponsService :CouponsService) { }
+  constructor(private router: Router, private route: ActivatedRoute,  private formBuilder: FormBuilder ,private couponsService :CouponsService
+    ,public dialogRef: MatDialogRef<EditCouponComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params.id;
+    this.id = this.data.id;
     this.getcouponById(this.id);
     this.couponsForm = this.formBuilder.group({
       id : [null, Validators.required],
@@ -51,25 +54,37 @@ export class EditCouponComponent implements OnInit {
         name : coupon.name,
         code : coupon.code,
         discount : coupon.discount,
-        discount_type : coupon.discount_type,
+        discount_type : +coupon.discount_type,
         quantity : coupon.quantity,
         quantity_utilized : coupon.quantity_utilized,
         expiry_date : coupon.expiry_date,
         status : coupon.status,
       });
-    });
+    }); 
   }
-  onFormSubmit() {
-    this.isLoadingResults = true;
-    this.couponsService.edit(this.couponsForm.value)
-      .subscribe((coupon: Coupon) => {
-          this.isLoadingResults = false;
-          this.router.navigate(['/coupons']);
-        }, (err: any) => {
+  deleteCoupon(){
+    this.couponsService.delete(this.data.id)
+      .subscribe(res => {
+        this.dialogRef.close();
+          
+        }, (err) => {
           console.log(err);
-          this.isLoadingResults = false;
+          this.dialogRef.close();
         }
       );
   }
+  onFormSubmit() {
+    
+    this.couponsService.edit(this.couponsForm.value)
+      .subscribe((coupon: Coupon) => {
+        this.dialogRef.close();
+
+        }, (err: any) => {
+          console.log(err);
+          this.dialogRef.close();
+        }
+      );
+  }
+  
   
 }

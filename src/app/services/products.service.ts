@@ -24,12 +24,16 @@ export class ProductsService {
     return this.http.post(environment.baseUrl+"product/create",product);
   }
 
+  public changeStatus(id:number,status:number){
+    return this.http.post(environment.baseUrl+"product/status?id="+id,{status:status});
+  }
+
   public edit(product:Product){
     return this.http.post(environment.baseUrl+"product/update?id="+product.id,product);
   }
 
-  public delete(product:Product){
-    return this.http.delete(environment.baseUrl+"product/delete?id="+product.id,{
+  public delete(id:number){
+    return this.http.delete(environment.baseUrl+"product/delete?id="+id,{
       headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
       observe: 'response'

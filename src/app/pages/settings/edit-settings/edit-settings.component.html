@@ -1,128 +1,133 @@
-<div class="example-container mat-elevation-z8">
-    <h2>עריכת הגדרות</h2>
-    <div class="example-loading-shade"
+    <!-- <div class="example-loading-shade"
           *ngIf="isLoadingResults">
       <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
-    </div>
-    <mat-card class="example-card">
-      <form [formGroup]="settingsForm" (ngSubmit)="onFormSubmit()">
-        <mat-form-field class="example-full-width">
-          <mat-label>שם החנות</mat-label>
-          <input matInput placeholder="שם החנות" formControlName="store_name"
-                  [errorStateMatcher]="matcher">
-          <mat-error>
-            <span *ngIf="!settingsForm.get('store_name').valid && settingsForm.get('store_name').touched">יש למלא את שם החנות.</span>
-          </mat-error>
-        </mat-form-field>
+    </div> -->
+    <form [formGroup]="settingsForm" (ngSubmit)="onFormSubmit()">
 
-        <mat-form-field class="example-full-width">
-          <mat-label>תיאור החנות</mat-label>
-          <input matInput placeholder="תיאור החנות" formControlName="store_description"
-                  [errorStateMatcher]="matcher">
-          <mat-error>
-            <span *ngIf="!settingsForm.get('store_description').valid && settingsForm.get('store_description').touched">יש למלא את תיאור החנות.</span>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-          <mat-label>לוגו</mat-label>
-          <input matInput placeholder="לוגו" formControlName="logo"
-                  [errorStateMatcher]="matcher">
-          <mat-error>
-            <span *ngIf="!settingsForm.get('logo').valid && settingsForm.get('logo').touched">יש למלא את הלוגו.</span>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="example-full-width">
-            <mat-label>באנר ראשי</mat-label>
-            <input matInput placeholder="באנר ראשי" formControlName="main_banner"
+    <div class="account-settings">
+
+      <mat-grid-list cols="2" rowHeight="80" [gutterSize]="'25px'">
+        <mat-grid-tile >
+          <mat-form-field floatLabel="always"   class="example-full-width">
+            <mat-label>שם העסק</mat-label>
+            <input matInput placeholder="שם העסק" formControlName="company_name"  [errorStateMatcher]="matcher">
+            <mat-error><span *ngIf="!settingsForm.get('company_name').valid && settingsForm.get('company_name').touched">יש למלא את שם העסק.</span></mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field floatLabel="always" class="example-full-width">
+            <mat-label>דואר אלקטרוני</mat-label>
+            <input type="email" matInput placeholder="דואר אלקטרוני" formControlName="company_email"
                     [errorStateMatcher]="matcher">
             <mat-error>
-              <span *ngIf="!settingsForm.get('main_banner').valid && settingsForm.get('main_banner').touched">יש למלא את באנר ראשי.</span>
+              <span *ngIf="!settingsForm.get('company_email').valid && settingsForm.get('company_email').touched">יש למלא דואר אלקטרוני.</span>
             </mat-error>
           </mat-form-field>
-  
-          <mat-form-field class="example-full-width">
-            <mat-label>כתובת ראשית (תשמש גם לאיסוף עצמי)</mat-label>
-            <input matInput placeholder="כתובת ראשית (תשמש גם לאיסוף עצמי)" formControlName="primary_address"
-                    [errorStateMatcher]="matcher">
-            <mat-error>
-              <span *ngIf="!settingsForm.get('primary_address').valid && settingsForm.get('primary_address').touched">יש למלא את כתובת ראשית.</span>
-            </mat-error>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>קישור אתר אינטרנט (במידה ויש)</mat-label>
-            <input matInput placeholder="קישור אתר אינטרנט (במידה ויש)" formControlName="site_link"
-                    [errorStateMatcher]="matcher">
-            <mat-error>
-              <span *ngIf="!settingsForm.get('site_link').valid && settingsForm.get('site_link').touched">יש למלא את קישור אתר אינטרנט.</span>
-            </mat-error>
-          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
           
-          <mat-form-field class="example-full-width">
-            <mat-label>קישור לעמוד פייסבוק</mat-label>
-            <input matInput placeholder="קישור לעמוד פייסבוק" formControlName="facebook_link"
+      <mat-form-field floatLabel="always" class="example-full-width">
+        <mat-label>טלפון</mat-label>
+        <input matInput placeholder="טלפון" formControlName="company_phone"
+                [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!settingsForm.get('company_phone').valid && settingsForm.get('company_phone').touched">יש למלא מספר טלפון.</span>
+        </mat-error>
+      </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile ></mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field floatLabel="always" class="example-full-width">
+            <mat-label>עיר/ישוב</mat-label>
+            <input matInput placeholder="עיר/ישוב" formControlName="company_city"
                     [errorStateMatcher]="matcher">
             <mat-error>
-              <span *ngIf="!settingsForm.get('facebook_link').valid && settingsForm.get('facebook_link').touched">יש למלא את קישור לעמוד פייסבוק.</span>
+              <span *ngIf="!settingsForm.get('company_city').valid && settingsForm.get('company_city').touched">יש למלא את באנר ראשי.</span>
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>קישור לפניה בוואצפ</mat-label>
-            <input matInput placeholder="קישור לפניה בוואצפ" formControlName="whatsapp_link"
-                    [errorStateMatcher]="matcher">
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>קישור לפניה במסנג'ר</mat-label>
-            <input matInput placeholder="קישור לפניה במסנג'ר" formControlName="messenger_link"
-                    [errorStateMatcher]="matcher">
-            
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>כתובת דף תשלום</mat-label>
-            <input matInput placeholder="כתובת דף תשלום" formControlName="payment_page_address"
-                    [errorStateMatcher]="matcher">
-                    <mat-error>
-                        <span *ngIf="!settingsForm.get('languages').valid && settingsForm.get('languages').touched">יש למלא את כתובת דף תשלום.</span>
-                      </mat-error>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>כתובת עמוד הצלחה</mat-label>
-            <input matInput placeholder="כתובת עמוד הצלחה" formControlName="success_page_address"
-                    [errorStateMatcher]="matcher">
-                    <mat-error>
-                        <span *ngIf="!settingsForm.get('languages').valid && settingsForm.get('languages').touched">יש למלא את כתובת עמוד הצלחה.</span>
-                      </mat-error>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>קוד אנליטיקס</mat-label>
-            <input matInput placeholder="קוד אנליטיקס" formControlName="code_analytics"
-                    [errorStateMatcher]="matcher">
-           
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>קישור לתקנון</mat-label>
-            <input matInput placeholder="קישור לתקנון" formControlName="terms_link"
-                    [errorStateMatcher]="matcher">
-          </mat-form-field>
-           <mat-form-field class="example-full-width">
-            <mat-label>מטבע</mat-label>
-            <input matInput placeholder="מטבע" formControlName="currency"
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field floatLabel="always" class="example-full-width">
+            <mat-label>רחוב</mat-label>
+            <input matInput placeholder="רחוב" formControlName="company_address"
                     [errorStateMatcher]="matcher">
             <mat-error>
-              <span *ngIf="!settingsForm.get('currency').valid && settingsForm.get('currency').touched">יש למלא את מטבע.</span>
+              <span *ngIf="!settingsForm.get('company_address').valid && settingsForm.get('company_address').touched">יש למלא את כתובת ראשית.</span>
             </mat-error>
           </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>שפות להצגה - בחירה</mat-label>
-            <input matInput placeholder="שפות להצגה - בחירה" formControlName="languages"
-                    [errorStateMatcher]="matcher">
-            <mat-error>
-              <span *ngIf="!settingsForm.get('languages').valid && settingsForm.get('languages').touched">יש למלא את שפות להצגה.</span>
-            </mat-error>
-          </mat-form-field>
-          
-        <div class="button-row">
-          <button type="submit" [disabled]="!settingsForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
-        </div>
-      </form>
-    </mat-card>
+        </mat-grid-tile>
+      
+    
+      </mat-grid-list>
+
+    </div>
+     <div class="tabs-footer">
+    <mat-divider></mat-divider> 
+    <button mat-button type="submit" [disabled]="!settingsForm.valid" class="save-item-button save-item-button-primary" >שמור שינויים     
+    </button>
   </div>
+    </form>
+    
+     
+
+       
+       
+        
+<!--         
+        <mat-form-field class="example-full-width">
+          <mat-label>קישור לפניה בוואצפ</mat-label>
+          <input matInput placeholder="קישור לפניה בוואצפ" formControlName="whatsapp_link"
+                  [errorStateMatcher]="matcher">
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>קישור לפניה במסנג'ר</mat-label>
+          <input matInput placeholder="קישור לפניה במסנג'ר" formControlName="messenger_link"
+                  [errorStateMatcher]="matcher">
+          
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>כתובת דף תשלום</mat-label>
+          <input matInput placeholder="כתובת דף תשלום" formControlName="payment_page_address"
+                  [errorStateMatcher]="matcher">
+                  <mat-error>
+                      <span *ngIf="!settingsForm.get('languages').valid && settingsForm.get('languages').touched">יש למלא את כתובת דף תשלום.</span>
+                    </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>כתובת עמוד הצלחה</mat-label>
+          <input matInput placeholder="כתובת עמוד הצלחה" formControlName="success_page_address"
+                  [errorStateMatcher]="matcher">
+                  <mat-error>
+                      <span *ngIf="!settingsForm.get('languages').valid && settingsForm.get('languages').touched">יש למלא את כתובת עמוד הצלחה.</span>
+                    </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>קוד אנליטיקס</mat-label>
+          <input matInput placeholder="קוד אנליטיקס" formControlName="code_analytics"
+                  [errorStateMatcher]="matcher">
+         
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>קישור לתקנון</mat-label>
+          <input matInput placeholder="קישור לתקנון" formControlName="terms_link"
+                  [errorStateMatcher]="matcher">
+        </mat-form-field>
+         <mat-form-field class="example-full-width">
+          <mat-label>מטבע</mat-label>
+          <input matInput placeholder="מטבע" formControlName="currency"
+                  [errorStateMatcher]="matcher">
+          <mat-error>
+            <span *ngIf="!settingsForm.get('currency').valid && settingsForm.get('currency').touched">יש למלא את מטבע.</span>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>שפות להצגה - בחירה</mat-label>
+          <input matInput placeholder="שפות להצגה - בחירה" formControlName="languages"
+                  [errorStateMatcher]="matcher">
+          <mat-error>
+            <span *ngIf="!settingsForm.get('languages').valid && settingsForm.get('languages').touched">יש למלא את שפות להצגה.</span>
+          </mat-error>
+        </mat-form-field> -->
+        
+      
+      
