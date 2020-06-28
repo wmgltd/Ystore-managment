@@ -30,6 +30,15 @@
     font: 700 20px/26px Assistant;
     letter-spacing: 0px;
     color: #072550;
+    ::ng-deep .cancel-icon{
+      cursor: pointer;
+      float: left;
+     svg .a{
+      stroke: #07244c;
+      fill:none;
+  
+     }
+   }
   }
   .mat-divider{
     margin-bottom: 10px;
@@ -48,16 +57,9 @@
     border-image-source: url("./../../../../assets/img/down-arrow.svg") !important;
     border-image-repeat: stretch !important;
   }
-  ::ng-deep .mat-select-arrow-wrapper{
-    background-image: url("./../../../../assets/img/up-arrow.svg") !important;
-    background-repeat: no-repeat;
-    background-size: 8px;
-    background-position: 5px 5px;
-    padding-top: 12px;
-  
-  }
+ 
   ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label{
-    font: 600 18px/24px Assistant;
+    font: 500 18px/24px Assistant;
     letter-spacing: 0px;
     color: #051F43;
   }
@@ -74,7 +76,7 @@
   margin-top: 30px;
 }
 ::ng-deep input.mat-input-element{
-  font: 600 16px/24px Assistant;
+  font: 500 16px/24px Assistant;
   letter-spacing: 0px;
   color: #051F43;
 

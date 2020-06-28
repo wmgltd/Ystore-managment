@@ -13,7 +13,7 @@
         <div class="preview-card">
         <mat-card class="company-card">
             <div class="img-container">
-                <div mat-card-image [ngStyle]="{'background-image':settings.main_banner?'url('+imgUrl+settings.main_banner+')':'url(./../../../../assets/img/banner-example.png/)' }"></div>
+                <div mat-card-image [ngStyle]="{'background-image':settings.main_banner?'url('+imgUrl+settings.main_banner+')':'url(./assets/img/banner-example.png/)' }"></div>
             	
             <input id="file" #fileInput hidden type='file' (change)="onSelectFile($event,'main_banner')" multiple >   
 

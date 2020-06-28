@@ -1,5 +1,8 @@
 <div class="add-coupon-modal">
-    <h2>הוסף קופון חדש</h2>
+    <h2>הוסף קופון חדש
+        <mat-icon class="cancel-icon" [inline]="false" svgIcon="cancel" (click)="dialogRef.close()"></mat-icon>
+
+    </h2>
     <div class="example-loading-shade" *ngIf="isLoadingResults">
         <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
@@ -29,7 +32,7 @@
             <mat-grid-tile>
                 <mat-form-field floatLabel="always" class="example-full-width">
                     <mat-label>סוג ההנחה</mat-label>
-                    <mat-select formControlName="discount_type">
+                    <mat-select placeholder="סוג ההנחה"  formControlName="discount_type">
                         <mat-option *ngFor="let dt of discountTypeList" [value]="dt.value">
                           {{dt.text}}
                         </mat-option>

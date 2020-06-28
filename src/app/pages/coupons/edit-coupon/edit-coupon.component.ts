@@ -4,7 +4,8 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { CouponsService } from 'src/app/services/coupons.service';
 import { Coupon } from 'src/app/models/coupon';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmDialogComponent } from 'src/app/components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -30,7 +31,8 @@ export class EditCouponComponent implements OnInit {
   
   constructor(private router: Router, private route: ActivatedRoute,  private formBuilder: FormBuilder ,private couponsService :CouponsService
     ,public dialogRef: MatDialogRef<EditCouponComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.id = this.data.id;
@@ -61,6 +63,17 @@ export class EditCouponComponent implements OnInit {
         status : coupon.status,
       });
     }); 
+  }
+  openDeleteConfirmModal(){
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+      width: '400px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe((result:boolean)=> {
+      if(result)
+        this.deleteCoupon();
+    });
   }
   deleteCoupon(){
     this.couponsService.delete(this.data.id)

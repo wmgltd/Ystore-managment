@@ -61,6 +61,7 @@ export class SideMenuComponent implements OnInit {
   }
   
   handleClick(selectedItem) {
+    if(selectedItem.link)
     this.selectedItem = selectedItem.title;
   }
 

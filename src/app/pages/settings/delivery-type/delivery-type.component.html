@@ -10,7 +10,7 @@
     <mat-grid-tile colspan="2">
         <mat-form-field floatLabel="always"   class="example-full-width">
             <mat-label>סוג המשלוח</mat-label>
-            <input matInput placeholder="סוג המשלוח" formControlName="type" [errorStateMatcher]="matcher" >
+            <input matInput placeholder="סוג המשלוח" formControlName="type" [errorStateMatcher]="matcher" (change)="onFormSubmit()">
             <mat-error>
                  <!-- <span *ngIf="!deliveryTypes.at(i).get('type').valid && deliveryTypes.at(i).get('type').touched">יש למלא את סוג המשלוח</span> -->
 
@@ -23,7 +23,7 @@
 
         <mat-form-field floatLabel="always" class="example-full-width">
             <mat-label>מחיר</mat-label>
-            <input type="number" min="0" class="price-input" min="0" matInput placeholder="מחיר" formControlName="cost" [errorStateMatcher]="matcher">
+            <input type="number" min="0" class="price-input" min="0" matInput placeholder="מחיר" formControlName="cost" [errorStateMatcher]="matcher" (change)="onFormSubmit()">
             <!-- <span class="currency-span" [ngStyle]="{'right':((item.get('cost').value.toString().length)*10+5)+'px' }" *ngIf="settingsForm.get('cost').valid">₪</span> -->
             <mat-error>
                 <!-- <span *ngIf="!item.get('cost').valid && item.get('cost').touched">יש למלא מחיר</span> -->
@@ -36,7 +36,7 @@
 
     </mat-grid-tile>
     <mat-grid-tile colspan="2">
-        <button  class="cancel-icon" type="button"  (click)="removeItem(i)" mat-icon-button >
+        <button  class="cancel-icon" type="button"  (click)="openDeleteConfirmModal(i)" mat-icon-button >
             <img   [src]="'assets/img/cancel.svg'"/>
         </button>
     </mat-grid-tile>
@@ -59,9 +59,9 @@
     <mat-grid-tile  colspan="2"></mat-grid-tile>
 </ng-container>
 </mat-grid-list>
-<div class="tabs-footer">
+<!-- <div class="tabs-footer">
     <mat-divider></mat-divider> 
     <button mat-button type="submit" [disabled]="!settingsForm.valid" class="save-item-button save-item-button-primary" >שמור שינויים     
     </button>
-  </div>
+  </div> -->
 </form>

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ShipmentsService } from 'src/app/services/shipments.service';
 import { Shipment } from 'src/app/models/shipment';
+import { MatDialog } from '@angular/material/dialog';
+import { EditShipmentComponent } from '../edit-shipment/edit-shipment.component';
+import { ViewShipmentComponent } from '../view-shipment/view-shipment.component';
 
 @Component({
   selector: 'app-shipments-list',
@@ -9,13 +12,14 @@ import { Shipment } from 'src/app/models/shipment';
 })
 export class ShipmentsListComponent implements OnInit {
   data: Shipment[] = [];
-  displayedColumns: string[] = ['catalog_number','date','time', 'sum','code_coupon','customer_details','details','delivery_type','status'];
+  displayedColumns: string[] = ['catalog_number','customer_firstname','customer_lastname','sum','datetime','delivery_type','customer_address','customer_city','status','actions'];
   isLoadingResults = true;
   statusList=[
     {key:0,text:'ממתין למשלוח',color:'#C5A91E'},
     {key:1,text:'נשלח',color:'#66C51E'}
   ];
-  constructor(private shipmentsService :ShipmentsService) { }
+  constructor(private shipmentsService :ShipmentsService
+    ,public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getShipmentsList();
@@ -49,7 +53,7 @@ export class ShipmentsListComponent implements OnInit {
   }
   deleteShipment(shipment : Shipment){
     this.isLoadingResults = true;
-    this.shipmentsService.delete(shipment)
+    this.shipmentsService.delete(shipment.id)
       .subscribe(res => {
         this.getShipmentsList();
           //this.isLoadingResults = false;
@@ -59,6 +63,35 @@ export class ShipmentsListComponent implements OnInit {
           this.isLoadingResults = false;
         }
       );
+  }
+
+
+  editShipment(id:number): void {
+    const dialogRef = this.dialog.open(EditShipmentComponent, { 
+      width: '50%',
+      minWidth:'650px',
+      data: {id:id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getShipmentsList()
+    });
+  }
+
+
+  viewShipment(id:number): void {
+    const dialogRef = this.dialog.open(ViewShipmentComponent, { 
+      width: '50%',
+      minWidth:'650px',
+      data: {id:id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+     // this.getProductsList()
+      //add coupon
+    });
   }
 
 }

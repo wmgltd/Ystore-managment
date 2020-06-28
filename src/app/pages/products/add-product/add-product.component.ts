@@ -42,14 +42,14 @@ export class AddProductComponent implements OnInit {
     this.productsForm = this.formBuilder.group({
       name : [null, Validators.required],
       //img : [null, Validators.required],
-      img: new FormControl('', [Validators.required]),
-      fileSource: new FormControl('', [Validators.required]),
-      catalog_number: new FormControl(null, [Validators.required]),
+      img: new FormControl(''),
+      fileSource: new FormControl(''),
+      catalog_number: new FormControl(null),
       category_id: new FormControl(null, [Validators.required]),
       description : [null, Validators.required],
       
-      price : [null, Validators.required],
-      sale_price : [null, Validators.required],
+      price : [null, Validators.required], 
+      sale_price : [null],
       stock_units : [null, Validators.required],
       //status : [null, Validators.required],
     });
@@ -82,7 +82,6 @@ export class AddProductComponent implements OnInit {
                 var reader = new FileReader();
 
                 reader.onload = (event:any) => {
-                  console.log(event.target.result);
                    this.urls.push(event.target.result); 
                    this.productsForm.patchValue({
                     fileSource:this.urls
@@ -102,5 +101,6 @@ export class AddProductComponent implements OnInit {
       });
     }
   }
+
 
 }

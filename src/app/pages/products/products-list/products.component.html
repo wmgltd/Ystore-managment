@@ -80,7 +80,7 @@
             <!-- products Name Column -->
             <ng-container matColumnDef="sale_price">
                 <th mat-header-cell *matHeaderCellDef>מחיר מבצע</th>
-                <td mat-cell *matCellDef="let row">{{row.sale_price}} ₪</td>
+                <td mat-cell *matCellDef="let row">{{row.sale_price}} {{row.sale_price!=null?'₪':''}}</td>
             </ng-container>
 
             <!-- products Name Column -->
@@ -106,7 +106,7 @@
                     <a (click)="editProduct(row.id)">
                         <mat-icon [inline]="false" svgIcon="edit"></mat-icon>
                     </a>
-                    <a (click)="deleteProduct(row)">
+                    <a (click)="openDeleteConfirmModal(row)">
                         <mat-icon [inline]="false" svgIcon="trash"></mat-icon>
                     </a>
                 </div>

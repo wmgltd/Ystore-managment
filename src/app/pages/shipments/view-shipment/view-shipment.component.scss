@@ -1,50 +1,10 @@
-/* Structure */
-.example-container {
-    position: relative;
-    padding: 5px;
-  }
-  
-  .example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
-  
-  .example-full-width {
-    width: 100%;
-  }
-  
-  .example-full-width:nth-last-child(0) {
-    margin-bottom: 10px;
-  }
-  
-  .button-row {
-    margin: 10px 0;
-  }
-  
-  .mat-flat-button {
-    margin: 5px;
-  }
-  ::ng-deep input.price-input::-webkit-outer-spin-button,
-  ::ng-deep input.price-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-  .add-product-modal{
+
+  .view-shipment-modal{
     
     h2{
       font: 700 20px/26px Assistant;
       letter-spacing: 0px;
       color: #072550;
-      ::ng-deep .cancel-icon{
-        cursor: pointer;
-        float: left;
-       svg .a{
-        stroke: #07244c;
-        fill:none;
-    
-       }
-     }
     }
     .mat-divider{
       margin-bottom: 10px;
@@ -58,6 +18,9 @@
       top: calc(95px)!important;
       height: calc(110px)!important;
     }
+    .mat-grid-tile{
+        padding: 0px 2px;
+    }
     .mat-datepicker-toggle{
       position: absolute;
       left: 5px;
@@ -70,7 +33,7 @@
       border-image-source: url("./../../../../assets/img/down-arrow.svg") !important;
       border-image-repeat: stretch !important;
     }
-   
+    
     ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label{
       font: 600 18px/24px Assistant;
       letter-spacing: 0px;
@@ -98,16 +61,11 @@
     background: none; 
     border: none;
   }
-  ::ng-deep input.mat-input-element, textarea.mat-input-element{
+  ::ng-deep input.mat-input-element{
     font: 500 16px/24px Assistant;
     letter-spacing: 0px;
     color: #051F43;
   
-  }
-  ::ng-deep mat-select  .mat-select-value-text{
-    font: 500 16px/24px Assistant;
-    letter-spacing: 0px;
-    color: #072550;
   }
   ::ng-deep .mat-form-field-label-wrapper{
     top: -30px;
@@ -130,29 +88,21 @@
     line-height: 15px;
   }
   
-  ::ng-deep .inc-button {
-    background-image: url("./../../../../assets/img/up-arrow.svg") !important;
-    background-repeat: no-repeat;
-    background-size: 8px;
-    background-position: 5px 5px;
-    padding-right: 5px;
-    left: 5px;
-    top: 4.5px;
-  }
-  
-  ::ng-deep .dec-button {
-    background-image: url("./../../../../assets/img/down-arrow.svg") !important;
-    background-repeat: no-repeat;
-    background-size: 8px;
-    background-position: 5px 5px;
-    padding-right: 5px;
-    left: 5px;
-    top: 15px;
-  }
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
   .currency-span{
     font: 500 16px/24px Assistant;
     letter-spacing: 0px;
-    color: #072550;
+    color: #A8A8A8;
     position: absolute;
     right:5px;
   }
@@ -171,10 +121,6 @@
     width:100px;
     height:100px;
     padding: 20px 0px;
-    &:hover{
-      background-color: #f3f4f5;
-      
-    }
     p{
       text-align: center;
       font: 600 16px/17px Assistant;
@@ -191,7 +137,14 @@
       
     }
   }
- 
+  ::ng-deep .cancel-icon{
+    cursor: pointer;
+   float: left;
+   svg .a{
+    stroke: #07244c;
+
+   }
+ }
   .product-image{
     position:relative;
 
@@ -210,43 +163,74 @@
       width: 19px;
       height: 19px;
       cursor: pointer;
-      &:hover{
-        ::ng-deep .c{
-          fill:#f3f4f5;
-        }
-      }
     }
     
     
   }
-  .category-link{
-    position: absolute;
-    top: -10px;
-    left: 0px;
-    font: 600 14px/20px Assistant;
-    letter-spacing: 0px;
-    color: #051F43;
-    z-index: 99999;
-    cursor: pointer;
-    &:hover{
-      color: #707070;
-      .add-icon .mat-icon ::ng-deep svg .a,.add-icon .mat-icon ::ng-deep svg .b{
-        stroke:#4e4c4c!important;
-      }
-    }
-    .add-icon{
-      width: 19px;
-      height: 19px;
-      top: 12px;
-      .mat-icon{
-        margin-top: -23px;
-        margin-right: -4px;
-        ::ng-deep svg .a{
-          stroke:#07244c!important;
-        }
-      }
-    }
-  }
+  .mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after{
+    color:#A8A8A8;
     
+  }
+    .order-details-grid{
+
+            font: 600 14px/24px Assistant;
+            letter-spacing: 0px;
+            color: #051F43;
+            .order-details-product{
+                border-right: none!important;
+            }
+            .order-details-cost{
+                border-left: none!important;
+                ::ng-deep span{
+                    margin-right: 2px;
+                }
+            }
+            ::ng-deep .order-details-product .mat-figure{
+                justify-content: right;
+            }
+            .header-label{
+                margin-top:35px;
+            }
+       
+            .order-details-cell{
+                border: 1px solid #E0E0E0;
+                border-right: none;
+            }
+            .mat-form-field{
+                width: 100%;
+                margin-left: 15px;
+            }
+            ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix{
+                background: #FCFDFE 0% 0% no-repeat padding-box;
+                border: 1px solid #E7E9ED;
+                border-radius: 5px;
+                height: 25px;
+                line-height: 25px;
+                padding: 5px;
+                margin-top: 30px;
+                font: 600 16px/26px Assistant;
+                color: #051D3F;
+        
+              }
+              input.mat-input-element, textarea.mat-input-element {
+                font: 600 16px/24px Assistant;
+                letter-spacing: 0px;
+                color: #051F43;
+            }
+            .currency-span{
+                font: 500 16px/24px Assistant;
+                letter-spacing: 0px;
+                color: #072550;
+                position: absolute;
+                right:5px;
+                top: 7px;
+        
+              }
+        
+        
+       
+
+
+    }
   }
   

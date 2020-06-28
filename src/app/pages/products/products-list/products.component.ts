@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddProductComponent } from '../add-product/add-product.component';
 import { ViewProductComponent } from '../view-product/view-product.component';
 import { EditProductComponent } from '../edit-product/edit-product.component';
+import { DeleteConfirmDialogComponent } from 'src/app/components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-products',
@@ -69,7 +70,7 @@ export class ProductsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-     // this.getProductsList()
+      this.getProductsList()
       //add coupon
     });
   }
@@ -93,7 +94,17 @@ export class ProductsComponent implements OnInit {
       this.isLoadingResults = false;
     });
   }
-  
+  openDeleteConfirmModal(product : Product){
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+      width: '400px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe((result:boolean)=> {
+      if(result)
+        this.deleteProduct(product);
+    });
+  }
   deleteProduct(product : Product){
     this.isLoadingResults = true;
     this.productsService.delete(product.id)

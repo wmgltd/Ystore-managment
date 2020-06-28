@@ -158,6 +158,13 @@
     ::ng-deep .mat-tab-header{
         border-bottom:  2px solid #EDEEF1;
     }
+    ::ng-deep .mat-tab-body-content{
+        height: auto;
+        min-height: 100%;
+        position: relative;
+        box-sizing: border-box;
+        padding-bottom: 120px;
+    }
     ::ng-deep .mat-tab-label .mat-tab-label-content{
         font: 500 16px/26px Assistant;
         letter-spacing: 0px;

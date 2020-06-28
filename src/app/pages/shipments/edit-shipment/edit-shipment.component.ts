@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ShipmentsService } from 'src/app/services/shipments.service';
 import { Shipment } from 'src/app/models/shipment';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { DeliveryType } from 'src/app/models/delivery-type';
+import { Settings } from 'src/app/models/settings';
+import { SettingsService } from 'src/app/services/settings.service';
+import { DeleteConfirmDialogComponent } from 'src/app/components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -19,47 +24,115 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class EditShipmentComponent implements OnInit {
 
-  shipmentsForm: FormGroup;
-  statusList = [{value:0,text:"לא פעיל"},{value:1,text:"פעיל"}];
-  isLoadingResults = false;
+  shipmentForm: FormGroup;
+  
   matcher = new MyErrorStateMatcher();
-  imageSrc: string;
+  deliveryTypes:DeliveryType[];
   id:number;
-  constructor(private router: Router, private route: ActivatedRoute,  private formBuilder: FormBuilder ,private shipmentsService :ShipmentsService) { }
+  shipment:Shipment=new Shipment();
+  statusList=[
+    {key:0,text:'ממתין למשלוח',color:'#C5A91E'},
+    {key:1,text:'נשלח',color:'#66C51E'}
+  ];
+  constructor(private shipmentsService :ShipmentsService,
+    private settingsService :SettingsService,
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<EditShipmentComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params.id;
-    this.getshipmentById(this.id);
-    this.shipmentsForm = this.formBuilder.group({
-      id : [null, Validators.required],
-      name : [null, Validators.required],
-      sum : [null, Validators.required],
-      condition : [null, Validators.required],
-      status : [null, Validators.required],
+    this.getDeliveryTypes();
+
+    this.id = this.data.id;
+    this.getShipmentById(this.id);
+    this.shipmentForm = this.formBuilder.group({
+      id : new FormControl({ value: null }, Validators.required),
+      status : new FormControl({ value: null }, Validators.required),
+      customer_firstname : new FormControl({ value: '', disabled: true }, Validators.required),
+      customer_lastname : new FormControl({ value: '', disabled: true }, Validators.required),
+      sum : new FormControl({ value: '', disabled: true }, Validators.required),
+      customer_address : new FormControl({ value: '' }, Validators.required),
+      customer_city : new FormControl({ value: '' }, Validators.required),
+      delivery_type_id : new FormControl({ value: null }, Validators.required),
+      catalog_number: new FormControl({ value: '', disabled: true }, Validators.required),
+      order_details : this.formBuilder.array([]) 
     });
   }
-  getshipmentById(id: any) {
-    this.shipmentsService.get(id).subscribe((shipment: Shipment) => {
-      this.shipmentsForm.setValue({
-        id : shipment.id,
-        name : shipment.name,
-        sum : shipment.sum,
-        condition : shipment.condition,
-        status : shipment.status,
-      });
+  getDeliveryTypes(){
+    this.settingsService.get(1).subscribe((settings: Settings) => {
+      this.deliveryTypes=settings.delivery_types;
     });
+  }
+  getShipmentById(id: any) {
+    this.shipmentsService.get(id).subscribe((shipment: Shipment) => {
+      this.shipment=shipment;
+      this.shipmentForm.setValue({
+        id : shipment.id, 
+        status:shipment.status,
+        customer_firstname : shipment.customer_firstname,
+        customer_lastname : shipment.customer_lastname,
+        sum : shipment.sum,
+        customer_address : shipment.customer_address,
+        customer_city : shipment.customer_city,
+        delivery_type_id : shipment.delivery_type_id,
+        catalog_number : shipment.catalog_number,
+        order_details : [] 
+
+
+      });
+
+      shipment.order_details.forEach((d)=>{
+        this.orderDetails.push(this.formBuilder.group({
+          id:[d.id],
+          name:[d.name],
+          quantity:[d.quantity],
+          cost:[d.cost, Validators.required]
+        }));
+
+      }); 
+  });
+}
+  get orderDetails() {
+    return this.shipmentForm.get('order_details') as FormArray;
   }
   onFormSubmit() {
-    this.isLoadingResults = true;
-    this.shipmentsService.edit(this.shipmentsForm.value)
+    this.shipmentsService.edit(this.shipmentForm.value)
       .subscribe((shipment: Shipment) => {
-          this.isLoadingResults = false;
-          this.router.navigate(['/shipments']);
+        this.dialogRef.close();
+
         }, (err: any) => {
           console.log(err);
-          this.isLoadingResults = false;
         }
       );
+  }
+
+  openDeleteConfirmModal(){
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+      width: '400px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe((result:boolean)=> {
+      if(result)
+        this.deleteShipment();
+    });
+  }
+  deleteShipment(){
+    this.shipmentsService.delete(this.data.id)
+      .subscribe(res => {
+        this.dialogRef.close();
+
+        }, (err) => {
+          console.log(err);
+        }
+      );
+  }
+  changeStatus(item){
+    item.status=+item.status?0:1;
+    this.shipmentForm.patchValue({
+      status:item.status
+    })
   }
   
 }

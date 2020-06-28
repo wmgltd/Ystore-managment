@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ProductsService } from 'src/app/services/products.service';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Product } from 'src/app/models/product';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category';
 import { environment } from 'src/environments/environment';
+import { DeleteConfirmDialogComponent } from 'src/app/components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 @Component({
   selector: 'app-view-product',
@@ -25,7 +26,7 @@ export class ViewProductComponent implements OnInit {
   constructor(private formBuilder: FormBuilder ,private productsService :ProductsService,
     private categoryService :CategoryService,
     public dialogRef: MatDialogRef<ViewProductComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -75,4 +76,27 @@ export class ViewProductComponent implements OnInit {
   this.dialogRef.close();
 
  }
+ openDeleteConfirmModal(){
+  const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+    width: '400px',
+    data: {}
+  });
+
+  dialogRef.afterClosed().subscribe((result:boolean)=> {
+    if(result)
+      this.deleteProduct();
+  });
+}
+  deleteProduct(){
+    this.productsService.delete(this.data.id)
+      .subscribe(res => {
+        this.dialogRef.close();
+          
+        }, (err) => {
+          this.dialogRef.close();
+
+        }
+      );
+  }
+
 }

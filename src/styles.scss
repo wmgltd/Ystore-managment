@@ -57,6 +57,7 @@ p{
     letter-spacing: 0px;
     color: var(--color-grey);
     opacity: 1;
+    outline: none;
 }
 .save-item-button{
     margin: 20px 30px!important;
@@ -83,9 +84,10 @@ p{
     font: 600 18px/24px Assistant;
     letter-spacing: 0px;
     color: #BC0000!important;
-    width:100px;
+    width:120px;
     margin: 10px 0px 0px !important;
     float: left;
+    
 
 }
 .save-item-button-primary{
@@ -157,6 +159,9 @@ td.mat-footer-cell:first-of-type {
     -webkit-box-shadow: 0px 3px 6px var(--color-active-box-shadow);
     -moz-box-shadow: 0px 3px 6px var(--color-active-box-shadow);
   }
+  .mat-row:hover .mat-cell{
+      background: var(--color-sugar);
+  }
   
 .mat-toolbar{
     background: var(--color-sugar) 0% 0% no-repeat padding-box;
@@ -195,6 +200,7 @@ td.mat-footer-cell:first-of-type {
   }
 .add-item-icon  svg .a{
       fill: var(--color-snow)!important;
+      stroke: var(--color-snow)!important;
   
 }
 .mat-divider{
@@ -212,6 +218,7 @@ td.mat-footer-cell:first-of-type {
 
   mat-row, mat-header-row, mat-footer-row, th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
     max-width: 300px;
+    overflow: hidden;
   }
  
   //input style
@@ -221,5 +228,32 @@ td.mat-footer-cell:first-of-type {
   textarea {
     resize: none!important;
   }
+
  
+  .mat-row:hover .actions-cell .mat-icon:hover .a{
+    stroke: #696969!important;
+    stroke-width: 0.5px;
+    stroke-opacity: 0.5;
+  }
+  .mat-button[disabled]{
+    background: #cdcdcd;
+  }
+
   
+  
+  .ng-invalid:not(form)  .mat-form-field-label::after{
+    content: ' * '; 
+    top:2px;
+    color: #051F43;
+    position: relative;
+  }
+  .spinner-button:hover{
+      
+  }
+ 
+  mat-grid-tile:not(.hidden-form-field) .mat-form-field-appearance-legacy:not(.mat-form-field-disabled) .mat-form-field-infix:hover,:not(.hidden-form-field) .mat-form-field-infix:focus-within{
+    border: 1px solid #051F43!important;
+  }
+  .mat-form-field-infix{
+    font: 500 16px/24px Assistant;
+  }

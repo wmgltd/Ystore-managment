@@ -48,6 +48,9 @@ import { ViewProductComponent } from './pages/products/view-product/view-product
 import { DeliveryTypeComponent } from './pages/settings/delivery-type/delivery-type.component';
 import { ExternalLinkComponent } from './pages/settings/external-link/external-link.component';
 import { CategoryComponent } from './pages/settings/category/category.component';
+import { ViewShipmentComponent } from './pages/shipments/view-shipment/view-shipment.component';
+import { NullDefaultValueDirectiveDirective } from './directives/null-default-value-directive.directive';
+import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 
 @NgModule({
@@ -69,7 +72,10 @@ import { CategoryComponent } from './pages/settings/category/category.component'
     ViewProductComponent,
     DeliveryTypeComponent,
     ExternalLinkComponent,
-    CategoryComponent
+    CategoryComponent,
+    ViewShipmentComponent,
+    NullDefaultValueDirectiveDirective,
+    DeleteConfirmDialogComponent
    
   ],
   imports: [

@@ -36,6 +36,15 @@
     font: 700 20px/26px Assistant;
     letter-spacing: 0px;
     color: #072550;
+    ::ng-deep .cancel-icon{
+      cursor: pointer;
+      float: left;
+     svg .a{
+      stroke: #07244c;
+      fill:none;
+  
+     }
+   }
   }
   .mat-divider{
     margin-bottom: 10px;
@@ -61,14 +70,7 @@
     border-image-source: url("./../../../../assets/img/down-arrow.svg") !important;
     border-image-repeat: stretch !important;
   }
-  ::ng-deep .mat-select-arrow-wrapper{
-    background-image: url("./../../../../assets/img/up-arrow.svg") !important;
-    background-repeat: no-repeat;
-    background-size: 8px;
-    background-position: 5px 5px;
-    padding-top: 12px;
-  
-  }
+ 
   ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label{
     font: 600 18px/24px Assistant;
     letter-spacing: 0px;
@@ -96,11 +98,16 @@
   background: none; 
   border: none;
 }
-::ng-deep input.mat-input-element{
+::ng-deep input.mat-input-element, textarea.mat-input-element{
   font: 500 16px/24px Assistant;
   letter-spacing: 0px;
   color: #051F43;
 
+}
+::ng-deep mat-select  .mat-select-value-text{
+  font: 500 16px/24px Assistant;
+  letter-spacing: 0px;
+  color: #072550;
 }
 ::ng-deep .mat-form-field-label-wrapper{
   top: -30px;
@@ -167,6 +174,10 @@
   width:100px;
   height:100px;
   padding: 20px 0px;
+  &:hover{
+    background-color: #f3f4f5;
+    
+  }
   p{
     text-align: center;
     font: 600 16px/17px Assistant;
@@ -176,6 +187,7 @@
     white-space: normal;
     width: 100px;
     margin-bottom: 0px;
+   
   }
   ::ng-deep .upload-icon svg .a{
       fill: inherit;
@@ -202,24 +214,41 @@
     width: 19px;
     height: 19px;
     cursor: pointer;
+    &:hover{
+      ::ng-deep .c{
+        fill:#f3f4f5;
+      }
+    }
   }
   
   
 }
 .category-link{
   position: absolute;
-  top: -40px;
+  top: -10px;
   left: 0px;
   font: 600 14px/20px Assistant;
   letter-spacing: 0px;
   color: #051F43;
+  z-index: 99999;
+  cursor: pointer;
+  &:hover{
+    color: #707070;
+    .add-icon .mat-icon ::ng-deep svg .a,.add-icon .mat-icon ::ng-deep svg .b{
+      stroke:#4e4c4c!important;
+    }
+  }
   .add-icon{
     width: 19px;
     height: 19px;
     top: 12px;
-    img{
+    .mat-icon{
       margin-top: -23px;
-    margin-right: -4px;
+      margin-right: -4px;
+      ::ng-deep svg .a{
+        stroke:#07244c!important;
+        fill: none;
+      }
     }
   }
 }

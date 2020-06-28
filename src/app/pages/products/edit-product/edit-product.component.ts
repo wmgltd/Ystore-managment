@@ -5,10 +5,11 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ProductsService } from 'src/app/services/products.service';
 import { Product } from 'src/app/models/product';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
 import { environment } from 'src/environments/environment';
+import { DeleteConfirmDialogComponent } from 'src/app/components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -39,26 +40,29 @@ export class EditProductComponent implements OnInit {
       private formBuilder: FormBuilder ,private productsService :ProductsService, 
       private categoryService :CategoryService,
     public dialogRef: MatDialogRef<EditProductComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialog: MatDialog) { 
+      this.productsForm = this.formBuilder.group({
+        id : [null, Validators.required],
+        name : [null, Validators.required],
+        img: new FormControl(""),
+        fileSource: new FormControl(""), 
+        description : [null, Validators.required],
+        catalog_number: new FormControl(null),
+        category_id: new FormControl(null, [Validators.required]),
+        price : [null, Validators.required],
+        sale_price : [null],
+        stock_units : [null, Validators.required],
+  
+      });
+    }
 
   ngOnInit(): void {
     this.getCategories();
 
     this.id = this.data.id;
     this.getProductById(this.id);
-    this.productsForm = this.formBuilder.group({
-      id : [null, Validators.required],
-      name : [null, Validators.required],
-      img: new FormControl(""),
-      fileSource: new FormControl(""),
-      description : [null, Validators.required],
-      catalog_number: new FormControl(null, [Validators.required]),
-      category_id: new FormControl(null, [Validators.required]),
-      price : [null, Validators.required],
-      sale_price : [null, Validators.required],
-      stock_units : [null, Validators.required],
-
-    });
+    
   }
   getProductById(id: any) {
     this.productsService.get(id).subscribe((product: Product) => {
@@ -137,6 +141,20 @@ export class EditProductComponent implements OnInit {
         fileSource:this.urls
       });
     }
+  }
+  hasImage(){
+    return this.urls.find(x=>x.is_removed==false);
+  }
+  openDeleteConfirmModal(){
+    const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+      width: '400px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe((result:boolean)=> {
+      if(result)
+        this.deleteProduct();
+    });
   }
   deleteProduct(){
     this.productsService.delete(this.data.id)

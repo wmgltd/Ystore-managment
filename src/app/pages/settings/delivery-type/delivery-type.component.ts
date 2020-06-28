@@ -5,6 +5,8 @@ import { SettingsService } from 'src/app/services/settings.service';
 import { Settings } from 'src/app/models/settings';
 import { DeliveryType } from 'src/app/models/delivery-type';
 import { throwError } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteConfirmDialogComponent } from 'src/app/components/delete-confirm-dialog/delete-confirm-dialog.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -46,7 +48,7 @@ export class DeliveryTypeComponent implements OnInit {
 
   get settings(): Settings { return this._settings; }
 
-  constructor(private formBuilder: FormBuilder,private settingsService :SettingsService){
+  constructor(private formBuilder: FormBuilder,private settingsService :SettingsService,public dialog: MatDialog){
     this.settingsForm = this.formBuilder.group({
       delivery_types : this.formBuilder.array([]) 
     });
@@ -56,19 +58,20 @@ export class DeliveryTypeComponent implements OnInit {
   }
   
   onFormSubmit() {
-    
-    this.settingsService.editDeliveryTypes({id:this.settings.id,delivery_types:this.deliveryTypes.value,removed_items:this.removedItems})
-      .subscribe((settings: Settings) => {
-          
-        this.form_submit.emit('complete');
+    if(this.settingsForm.valid){
+        this.settingsService.editDeliveryTypes({id:this.settings.id,delivery_types:this.deliveryTypes.value,removed_items:this.removedItems})
+          .subscribe((settings: Settings) => {
+              
+            this.form_submit.emit('complete');
 
-          //this.getsettingsById(this.id);
-          //this.router.navigate(['/settingss']);
-        }, (err: any) => {
-          console.log(err);
-         
-        }
-      );
+              //this.getsettingsById(this.id);
+              //this.router.navigate(['/settingss']);
+            }, (err: any) => {
+              console.log(err);
+            
+            }
+          );
+    }
   }
   get deliveryTypes() {
     return this.settingsForm.get('delivery_types') as FormArray;
@@ -80,9 +83,30 @@ export class DeliveryTypeComponent implements OnInit {
       cost:[null, Validators.required]
     }));
   }
+
+  openDeleteConfirmModal(index:number){
+    if(this.deliveryTypes.at(index).get('id').value){
+
+        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+          width: '400px',
+          data: {}
+        });
+
+        dialogRef.afterClosed().subscribe((result:boolean)=> {
+          if(result){
+            this.removedItems.push(this.deliveryTypes.at(index).get('id').value);
+            this.removeItem(index);
+            this.onFormSubmit();
+          }
+        });
+    }
+    else{
+      this.removeItem(index);
+    }
+  }
+
   removeItem(index:number){
-    if(this.deliveryTypes.at(index).get('id').value)
-        this.removedItems.push(this.deliveryTypes.at(index).get('id').value);
+    
     this.deliveryTypes.removeAt(index);
 
   }

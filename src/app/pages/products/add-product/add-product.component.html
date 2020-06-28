@@ -1,5 +1,9 @@
 <div class="add-product-modal">
-  <h2>הוספת מוצר חדש</h2>
+  <h2>הוספת מוצר חדש
+
+    <mat-icon class="cancel-icon" [inline]="false" svgIcon="cancel" (click)="dialogRef.close()"></mat-icon>
+
+  </h2>
   <!-- <div class="example-loading-shade"
     *ngIf="isLoadingResults">
   <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
@@ -11,7 +15,7 @@
       <mat-grid-list cols="4" rowHeight="80" [gutterSize]="'25px'">
        
     <mat-grid-tile colspan="2">
-      <mat-form-field floatLabel="always" class="example-full-width">
+      <mat-form-field required floatLabel="always" class="example-full-width">
         <mat-label>שם המוצר</mat-label>
         <input matInput placeholder="שם המוצר" formControlName="name" [errorStateMatcher]="matcher">
         <mat-error>
@@ -20,16 +24,18 @@
       </mat-form-field>
     </mat-grid-tile>
     <mat-grid-tile colspan="2">
+      <p class="category-link" (click)="dialogRef.close()" [routerLink]="'/settings/category'" >עריכת קטגוריות          
+        <button tabindex="-1"  class="add-icon" type="button"   mat-icon-button >
+          <mat-icon   matLine [inline]="false" svgIcon="add"></mat-icon>
+
+       </button>
+      </p>
       <mat-form-field floatLabel="always" class="example-full-width">
         
-          <p class="category-link" >הוסף קטגוריה          
-          <button (click)="dialogRef.close()" [routerLink]="'/settings/category'" class="add-icon" type="button"   mat-icon-button >
-            <img   [src]="'assets/img/add.svg'"/>
-         </button>
-        </p>
+      
         
         <mat-label>קטגוריה</mat-label>
-        <mat-select formControlName="category_id"> <!--formControlName="category"-->
+        <mat-select placeholder="קטגוריה" formControlName="category_id"> <!--formControlName="category"-->
           <mat-option *ngFor="let category of categories" [value]="category.id">
             {{category.value}}
           </mat-option>
@@ -65,8 +71,8 @@
     <mat-grid-tile >
       <mat-form-field floatLabel="always" class="example-full-width">
         <mat-label>מחיר מבצע</mat-label>
-        <input type="number" class="price-input" min="0" matInput placeholder="מחיר מבצע" formControlName="sale_price" [errorStateMatcher]="matcher">
-        <span class="currency-span" [ngStyle]="{'right':((productsForm.get('sale_price').value.toString().length)*10+5)+'px' }" *ngIf="productsForm.get('sale_price').valid">₪</span>
+        <input type="number" class="price-input" min="0" matInput placeholder="מחיר מבצע" formControlName="sale_price" [errorStateMatcher]="matcher" nullValue>
+        <span class="currency-span" [ngStyle]="{'right':((productsForm.get('sale_price').value.toString().length)*10+5)+'px' }" *ngIf="productsForm.get('sale_price').value&&productsForm.get('sale_price').value.toString().length">₪</span>
 
         <!-- <div  class="inc-button spinner-button"></div>
         <div  class="dec-button spinner-button"></div> -->
@@ -78,7 +84,7 @@
     <mat-grid-tile >
       <mat-form-field floatLabel="always" class="example-full-width">
         <mat-label>מק"ט</mat-label>
-        <input matInput placeholder='מק"ט' formControlName="catalog_number"  [errorStateMatcher]="matcher"><!--formControlName="catalog_number"-->
+        <input matInput placeholder='מק"ט' formControlName="catalog_number"  [errorStateMatcher]="matcher" nullValue><!--formControlName="catalog_number"-->
         <mat-error>
           <span *ngIf="!productsForm.get('catalog_number').valid && productsForm.get('catalog_number').touched">יש למלא מק"ט</span>
 
@@ -87,7 +93,7 @@
     </mat-grid-tile>
     <mat-grid-tile >
       <mat-form-field floatLabel="always" class="example-full-width">
-        <mat-label>כמות</mat-label>
+        <mat-label>כמות במלאי</mat-label>
         <input type="number" min="0" matInput placeholder="כמות" formControlName="stock_units" [errorStateMatcher]="matcher">
         <div  class="inc-button spinner-button"></div>
         <div  class="dec-button spinner-button"></div>

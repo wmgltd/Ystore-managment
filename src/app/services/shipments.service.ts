@@ -31,8 +31,8 @@ export class ShipmentsService {
     return this.http.post(environment.baseUrl+"shipment/status?id="+id,{status:status});
   }
 
-  public delete(shipment:Shipment){
-    return this.http.delete(environment.baseUrl+"shipment/delete?id="+shipment.id,{
+  public delete(id:number){
+    return this.http.delete(environment.baseUrl+"shipment/delete?id="+id,{
       headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
       observe: 'response'

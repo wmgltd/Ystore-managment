@@ -53,7 +53,7 @@
         <mat-form-field floatLabel="always" class="example-full-width">
           <mat-label>מחיר</mat-label>
           <input  type="number" class="price-input" min="0" matInput placeholder="מחיר" formControlName="price"  >
-          <span class="currency-span" [ngStyle]="{'right':((productsForm.get('price').value.toString().length)*10+5)+'px' }" *ngIf="productsForm.get('price').valid">₪</span>
+          <span class="currency-span" [ngStyle]="{'right':((productsForm.get('price').value.toString().length)*10+5)+'px' }" *ngIf="productsForm.get('price').value">₪</span>
           <!-- <div  class="inc-button spinner-button"></div>
           <div  class="dec-button spinner-button"></div> -->
           <mat-error>
@@ -65,7 +65,7 @@
         <mat-form-field floatLabel="always" class="example-full-width">
           <mat-label>מחיר מבצע</mat-label>
           <input  type="number" class="price-input" min="0" matInput placeholder="מחיר מבצע" formControlName="sale_price"  >
-          <span class="currency-span" [ngStyle]="{'right':((productsForm.get('sale_price').value.toString().length)*10+5)+'px' }" *ngIf="productsForm.get('sale_price').valid">₪</span>
+          <span class="currency-span" [ngStyle]="{'right':((productsForm.get('sale_price').value.toString().length)*10+5)+'px' }" *ngIf="productsForm.get('sale_price').value">₪</span>
   
           <!-- <div  class="inc-button spinner-button"></div>
           <div  class="dec-button spinner-button"></div> -->
@@ -118,7 +118,10 @@
         <span *ngIf="!productsForm.get('img').valid && productsForm.get('img').touched">יש למלא מחיר</span>
       </mat-error>
   
-  
+      <mat-divider class="mat-divider-bottom"></mat-divider> 
+      <button tabindex="-1" mat-button type="button" (click)="openDeleteConfirmModal()" class="save-item-button remove-item-button " >
+        הסר מוצר  
+      </button>
   </form>
   </mat-dialog-content>
   
