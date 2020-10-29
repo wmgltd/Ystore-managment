@@ -9,31 +9,29 @@ import { Observable } from 'rxjs';
 })
 export class ProductsService {
 
-  
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  public getList(store_id:number = 1):Observable<Product[]>{
-    return this.http.get<Product[]>(environment.baseUrl+"products?store_id=" + store_id);
+  public getList(): Observable<Product[]>{
+    return this.http.get<Product[]>(environment.baseUrl + 'products');
   }
-  
-  public get(id:number):Observable<Product>{
-    return this.http.get<Product>(environment.baseUrl+"product?id="+id);
+  public get(id: number): Observable<Product>{
+    return this.http.get<Product>(environment.baseUrl + 'product?id=' + id);
   }
 
-  public add(product:Product){
-    return this.http.post(environment.baseUrl+"product/create",product);
+  public add(product: Product){
+    return this.http.post(environment.baseUrl + 'product/create', product);
   }
 
-  public changeStatus(id:number,status:number){
-    return this.http.post(environment.baseUrl+"product/status?id="+id,{status:status});
+  public changeStatus(id: number, status: number){
+    return this.http.post(environment.baseUrl + 'product/status?id=' + id, {status});
   }
 
-  public edit(product:Product){
-    return this.http.post(environment.baseUrl+"product/update?id="+product.id,product);
+  public edit(product: Product){
+    return this.http.post(environment.baseUrl + 'product/update?id=' + product.id, product);
   }
 
-  public delete(id:number){
-    return this.http.delete(environment.baseUrl+"product/delete?id="+id,{
+  public delete(id: number){
+    return this.http.delete(environment.baseUrl + 'product/delete?id=' + id, {
       headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
       observe: 'response'

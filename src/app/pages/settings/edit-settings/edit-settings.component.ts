@@ -23,20 +23,20 @@ export class EditSettingsComponent implements OnInit {
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
   imageSrc: string;
-  id:number = 1;
-
-  private _settings :Settings;
   @Output()
-  form_submit = new EventEmitter<string>();
+  formSubmit = new EventEmitter<string>();
+  // tslint:disable-next-line: variable-name
+  private _settings: Settings;
   @Input()
   set settings(settings: Settings) {
-    this._settings=settings;
-    if(!settings||!settings.id)
+    this._settings = settings;
+    if (!settings || !settings.id) {
       return;
+    }
     this.settingsForm.setValue(
       {
-         id : settings.id, 
-         store_id : settings.store_id,
+         id : settings.id,
+         store_id : settings.id,
          company_name : settings.company_name,
          company_email : settings.company_email,
          company_phone : settings.company_phone,
@@ -48,7 +48,8 @@ export class EditSettingsComponent implements OnInit {
 
   get settings(): Settings { return this._settings; }
 
-  constructor(private router: Router, private route: ActivatedRoute,  private formBuilder: FormBuilder ,private settingsService :SettingsService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,  private formBuilder: FormBuilder , private settingsService: SettingsService) {
     this.settingsForm = this.formBuilder.group({
       id : [null, Validators.required],
       store_id : [null, Validators.required],
@@ -61,25 +62,25 @@ export class EditSettingsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    //this.id = this.route.snapshot.params.id;
-    
-    
+    // this.id = this.route.snapshot.params.id;
+
+
   }
- 
+
   onFormSubmit() {
     this.isLoadingResults = true;
     this.settingsService.edit(this.settingsForm.value)
       .subscribe((settings: Settings) => {
           this.isLoadingResults = false;
-          this.form_submit.emit('complete');
+          this.formSubmit.emit('complete');
 
-          //this.getsettingsById(this.id);
-          //this.router.navigate(['/settingss']);
+          // this.getsettingsById(this.id);
+          // this.router.navigate(['/settingss']);
         }, (err: any) => {
           console.log(err);
           this.isLoadingResults = false;
         }
       );
   }
-  
+
 }

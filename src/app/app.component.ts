@@ -10,27 +10,40 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit{
 
-  title = 'yStore-management'; 
-  icons=['plus','view','edit','trash','img','picture','cloud_upload','facebook','instagram','cancel','add','phone','location']
+  title = 'yStore-management';
+    icons = [
+      'plus',
+      'view',
+      'edit',
+      'trash',
+      'img',
+      'picture',
+      'cloud_upload',
+      'upload_file',
+      'facebook',
+      'instagram',
+      'cancel',
+      'add',
+      'phone',
+      'location' ];
 
-  constructor( 
+  constructor(
+    public router: Router,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
     ) {
     this.icons.forEach(element => {
       this.matIconRegistry.addSvgIcon(
         element,
-        this.domSanitizer.bypassSecurityTrustResourceUrl("./assets/img/"+element+".svg")
+        this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/img/' + element + '.svg')
       );
     });
   }
 
-    
+
   ngOnInit(): void {
-    
+
 
   }
 
-  
-  
 }

@@ -20,16 +20,17 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./add-shipment.component.scss']
 })
 export class AddShipmentComponent implements OnInit {
-
- 
   shipmentsForm: FormGroup;
-  shipment : Shipment;
+  shipment: Shipment;
   statusList = ['Positive', 'Dead', 'Recovered'];
   genderList = ['Male', 'Female'];
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private shipmentsService :ShipmentsService,private http: HttpClient) { }
+  constructor(private router: Router,
+              private formBuilder: FormBuilder,
+              private shipmentsService: ShipmentsService,
+              private http: HttpClient) { }
 
   ngOnInit(): void {
     this.shipmentsForm = this.formBuilder.group({
@@ -39,20 +40,17 @@ export class AddShipmentComponent implements OnInit {
       status : [null, Validators.required],
     });
   }
-  
+
   onFormSubmit() {
     this.isLoadingResults = true;
     this.shipmentsService.add(this.shipmentsForm.value)
       .subscribe((res: any) => {
           this.isLoadingResults = false;
-          this.router.navigate(['/shipments']);
+          this.router.navigate(['/shipments'], { queryParamsHandling: 'preserve' });
         }, (err: any) => {
           console.log(err);
           this.isLoadingResults = false;
         });
   }
-  
-    
-   
 }
-   
+

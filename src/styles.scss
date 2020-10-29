@@ -1,21 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-:root 
-{
---color-snow: #FFFFFF;
---color-dark: #051D3F;
---color-blue: #0B3269;
---color-warm: #FBB637;
---color-peach: #FA6169;
---color-pink: #EE0789;
---color-background: #F6F7FB;
---color-sugar: #FDFEFF;
---color-grey: #696969;
---color-button-box-shadow: #0000001A;
---color-light-grey: #F7F7F7;
---color-toggle-blue: #163567;
---color-img-blue: #051F44;
---color-active-box-shadow: #00000017;
-}
+@import 'assets/style/colors.scss';
+@import 'assets/style/material.scss';
+
  
 html,
 body {
@@ -30,7 +16,7 @@ body {
 
 @import '~@angular/material/theming';
 $custom-typography: mat-typography-config(
-  $font-family: 'Assistant' 
+  $font-family: 'Assistant'  
 );
 @include mat-core($custom-typography);
 
@@ -241,19 +227,23 @@ td.mat-footer-cell:first-of-type {
 
   
   
-  .ng-invalid:not(form)  .mat-form-field-label::after{
+  mat-grid-tile:not(.signup-form-field) .ng-invalid:not(form)  .mat-form-field-label::after{
     content: ' * '; 
     top:2px;
     color: #051F43;
     position: relative;
   }
-  .spinner-button:hover{
-      
-  }
+  
  
-  mat-grid-tile:not(.hidden-form-field) .mat-form-field-appearance-legacy:not(.mat-form-field-disabled) .mat-form-field-infix:hover,:not(.hidden-form-field) .mat-form-field-infix:focus-within{
+  mat-grid-tile:not(.hidden-form-field):not(.signup-form-field) .mat-form-field-appearance-legacy:not(.mat-form-field-disabled) .mat-form-field-infix:hover,
+  mat-grid-tile:not(.hidden-form-field):not(.signup-form-field) .mat-form-field-infix:focus-within{
     border: 1px solid #051F43!important;
   }
   .mat-form-field-infix{
     font: 500 16px/24px Assistant;
   }
+  .spacer {
+    flex: 1 1 auto;
+  }
+
+

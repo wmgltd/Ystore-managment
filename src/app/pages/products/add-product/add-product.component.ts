@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-//import { ApiService } from '../api.service';
+// import { ApiService } from '../api.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {ProductsService} from '../../../services/products.service';
@@ -11,7 +11,7 @@ import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
 
 /** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {     
+export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
@@ -24,18 +24,20 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class AddProductComponent implements OnInit {
 
+  constructor(private router: Router,
+              private formBuilder: FormBuilder,
+              private productsService: ProductsService,
+              private categoryService: CategoryService,
+              private http: HttpClient,
+              public dialogRef: MatDialogRef<AddProductComponent>) { }
+
   productsForm: FormGroup;
-  product : Product;
-  categories:Category[];
-  
+  product: Product;
+  categories: Category[];
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private router: Router, private formBuilder: FormBuilder, 
-    private productsService :ProductsService,
-    private categoryService :CategoryService,
-    private http: HttpClient,
-    public dialogRef: MatDialogRef<AddProductComponent>) { }
+  urls = [];
 
   ngOnInit(): void {
     this.getCategories();
@@ -73,20 +75,19 @@ export class AddProductComponent implements OnInit {
           this.isLoadingResults = false;
         });
   }
-
-  urls = [];
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
-        var filesAmount = event.target.files.length;
+        const filesAmount = event.target.files.length;
         for (let i = 0; i < filesAmount; i++) {
-                var reader = new FileReader();
+                const reader = new FileReader();
 
-                reader.onload = (event:any) => {
-                   this.urls.push(event.target.result); 
+                // tslint:disable-next-line: no-shadowed-variable
+                reader.onload = (event: any) => {
+                   this.urls.push(event.target.result);
                    this.productsForm.patchValue({
-                    fileSource:this.urls
+                    fileSource: this.urls
                   });
-                }
+                };
 
                 reader.readAsDataURL(event.target.files[i]);
         }
@@ -97,7 +98,7 @@ export class AddProductComponent implements OnInit {
     if (index > -1) {
       this.urls.splice(index, 1);
       this.productsForm.patchValue({
-        fileSource:this.urls
+        fileSource: this.urls
       });
     }
   }

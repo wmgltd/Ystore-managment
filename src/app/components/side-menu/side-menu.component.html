@@ -4,6 +4,7 @@
       <a 
         [routerLink]="'/'"  
         routerLinkActive="active" 
+        queryParamsHandling="preserve"
         matLine>
       <img  src="assets/img/logo.png"/>
         
@@ -14,6 +15,7 @@
         <a 
           [routerLink]="item.link"  
           routerLinkActive="active" 
+          queryParamsHandling="preserve"
           matLine>
           <mat-icon   matLine [inline]="false" svgIcon="{{item.icon}}"></mat-icon>
 
@@ -31,6 +33,7 @@
     *ngIf="item.link"
     [routerLink]="item.link"  
     routerLinkActive="active" 
+    queryParamsHandling="preserve"
     matLine>
     <mat-icon   matLine [inline]="false" svgIcon="{{item.icon}}"></mat-icon>
 
@@ -39,7 +42,7 @@
 
   <a 
     *ngIf="item.externalLink"
-    [href]="item.externalLink"  
+    [href]="'http://'+subdomain+'.'+item.externalLink"  
     target="_blank"
     matLine>
     <mat-icon   matLine [inline]="false" svgIcon="{{item.icon}}"></mat-icon>

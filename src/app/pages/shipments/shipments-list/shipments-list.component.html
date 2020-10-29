@@ -26,20 +26,14 @@
           <th mat-header-cell *matHeaderCellDef>הזמנה</th>
           <td mat-cell *matCellDef="let row">{{row.catalog_number}}</td>
         </ng-container>
-        <ng-container matColumnDef="customer_firstname">
-          <th mat-header-cell *matHeaderCellDef>שם פרטי</th>
+        <ng-container matColumnDef="customer_name">
+          <th mat-header-cell *matHeaderCellDef>שם הלקוח</th>
           <td mat-cell *matCellDef="let row">
-            {{row.customer_firstname}}
+            {{row.customer_name}}
          
           </td>
         </ng-container>
-        <ng-container matColumnDef="customer_lastname">
-          <th mat-header-cell *matHeaderCellDef>שם משפחה</th>
-          <td mat-cell *matCellDef="let row">
-            {{row.customer_lastname}}
-         
-          </td>
-        </ng-container>
+       
         <ng-container matColumnDef="sum">
           <th mat-header-cell *matHeaderCellDef>סכום</th>
           <td mat-cell *matCellDef="let row">{{row.sum}} ₪</td>
@@ -59,6 +53,21 @@
           <td mat-cell *matCellDef="let row">
             {{row.customer_address}}
             
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="customer_house_number">
+          <th mat-header-cell *matHeaderCellDef>מספר בית</th>
+          <td mat-cell *matCellDef="let row">
+            {{row.customer_apartment&& row.customer_apartment!='0'?row.customer_apartment+' /':''}}
+            {{row.customer_house_number}}  {{row.customer_entrance?'כניסה '+row.customer_entrance:''}}
+         
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="customer_lastname">
+          <th mat-header-cell *matHeaderCellDef>שם משפחה</th>
+          <td mat-cell *matCellDef="let row">
+            {{row.customer_lastname}}
+         
           </td>
         </ng-container>
         <ng-container matColumnDef="customer_city">

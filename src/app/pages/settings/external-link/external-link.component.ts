@@ -17,32 +17,34 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class ExternalLinkComponent implements OnInit {
   settingsForm: FormGroup;
-  isLoadingResults = false; 
+  isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
   @Output()
-  form_submit = new EventEmitter<string>();
-  private _settings :Settings;
+  formSubmit = new EventEmitter<string>();
+  // tslint:disable-next-line: variable-name
+  private _settings: Settings;
 
   @Input()
   set settings(settings: Settings) {
-    this._settings=settings;
-    if(!settings||!settings.id)
+    this._settings = settings;
+    if (!settings || !settings.id) {
       return;
+    }
     this.settingsForm.setValue(
       {
          id : settings.id,
-         store_id : settings.store_id,
+         store_id : settings.id,
          external_facebook_page : settings.external_facebook_page,
          external_instagram_page	 : settings.external_instagram_page	,
          external_facebook_pixel	 : settings.external_facebook_pixel	,
-         external_google_analytics	 : settings.external_google_analytics	
+         external_google_analytics	 : settings.external_google_analytics
       }
     );
   }
 
   get settings(): Settings { return this._settings; }
 
-  constructor(private formBuilder: FormBuilder ,private settingsService :SettingsService) { 
+  constructor(private formBuilder: FormBuilder , private settingsService: SettingsService) {
     this.settingsForm = this.formBuilder.group({
       id : [null, Validators.required],
       store_id : [null, Validators.required],
@@ -54,18 +56,18 @@ export class ExternalLinkComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.id = this.route.snapshot.params.id;
-    
+    // this.id = this.route.snapshot.params.id;
+
   }
   onFormSubmit() {
     this.isLoadingResults = true;
     this.settingsService.editExternal(this.settingsForm.value)
       .subscribe((settings: Settings) => {
           this.isLoadingResults = false;
-          this.form_submit.emit('complete');
+          this.formSubmit.emit('complete');
 
-          //this.getsettingsById(this.id);
-          //this.router.navigate(['/settingss']);
+          // this.getsettingsById(this.id);
+          // this.router.navigate(['/settingss']);
         }, (err: any) => {
           console.log(err);
           this.isLoadingResults = false;

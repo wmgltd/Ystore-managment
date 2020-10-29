@@ -1,0 +1,58 @@
+<div class="store-container"> 
+    <div class="wizard-form">
+    <form [formGroup]="regForm" (ngSubmit)="onFormSubmit()">
+        <h2>החנות שלך מתחילה כאן</h2>
+        <p> וסטיבו אאוגו וסטיבולום סוליסי טידום בעליק. קונדימנטום קורוס בליקרה, נוטום, לפריקך תצטריק לרטי.</p>
+        <mat-grid-list formGroupName="storeForm" class="wizard-grid-list" cols="1" rowHeight="65px" gutterSize="10px">
+            <mat-grid-tile class="signup-form-field">
+                <mat-form-field >
+                    <mat-label>שם החנות</mat-label>
+                    <input matInput  formControlName="company_name" >
+                    <mat-error>
+                        <p *ngIf="!regForm.get('storeForm').get('company_name').valid && regForm.get('storeForm').get('company_name').touched"><img src="assets/img/error.svg"/>שם החנות לא תקין</p>
+                    </mat-error>
+                    <mat-hint>
+                        <p *ngIf="regForm.get('storeForm').get('company_name').valid && regForm.get('storeForm').get('company_name').touched"><img src="assets/img/valid.svg"/>שם החנות תקין</p>
+                    </mat-hint>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile class="signup-form-field">
+                <mat-form-field class="has-prefix">
+                    <mat-label>בחר כתובת ייחודית לחנות</mat-label>
+                    <span matPrefix>Ystore.co.il.</span>
+
+                    <input matInput class="left-input"  formControlName="company_subdomain" >
+
+                    <mat-error>
+                        <p *ngIf="!regForm.get('storeForm').get('company_subdomain').valid && regForm.get('storeForm').get('company_subdomain').touched"><img src="assets/img/error.svg"/>כתובת תפוסה</p>
+                    </mat-error>
+                    <mat-hint>
+                        <p *ngIf="regForm.get('storeForm').get('company_subdomain').valid && regForm.get('storeForm').get('company_subdomain').touched"><img src="assets/img/valid.svg"/>השם שלך פנוי</p>
+                    </mat-hint>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile class="mat-right-grid-tile">
+                <input id="file" #fileInput hidden type='file' formControlName="logo_name"  (change)="onFileChanged($event)">   
+                <button class="company-img"  (click)="fileInput.click()" mat-stroked-button    >
+                    העלת לוגו
+                    <mat-icon svgIcon="upload_file"></mat-icon>
+                </button>
+                <div class="upload-guidelines">
+                    <p>סיומות מותרות: jpg jpeg png gif</p>
+                    <p>גודל מומלץ: 500*500</p>
+                </div>
+                <span class="spacer"></span>
+                <img class="logo-img" *ngIf="url" [src]="url"/>
+            </mat-grid-tile>
+
+            <mat-grid-tile class="mat-right-grid-tile" >
+                
+                    <button [disabled]="!regForm.get('storeForm').valid" class="stepper-button" matStepperNext mat-stroked-button>מהמם! בוא נמשיך</button>
+                 
+        </mat-grid-tile>
+        </mat-grid-list>
+        
+        </form>
+        </div>
+    <img class="wizard-img" src="assets/img/wizard_store_build.svg">
+</div>

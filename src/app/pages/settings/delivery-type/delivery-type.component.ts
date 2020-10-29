@@ -22,53 +22,59 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class DeliveryTypeComponent implements OnInit {
   settingsForm: FormGroup;
-  removedItems:any[]=[];
+  removedItems: any[] = [];
   matcher = new MyErrorStateMatcher();
   @Output()
-  form_submit = new EventEmitter<string>();
+  formSubmit = new EventEmitter<string>();
+  // tslint:disable-next-line: variable-name
   private _settings;
   @Input()
   set settings(settings: Settings) {
-    this._settings=settings;
-    if(!settings||!settings.id)
+    this._settings = settings;
+    if (!settings || !settings.id) {
       return;
-      this.deliveryTypes.clear();
+    }
+    this.deliveryTypes.clear();
 
-      this.settings.delivery_types.forEach((d)=>{
+    this.settings.delivery_types.forEach((d) => {
         this.deliveryTypes.push(this.formBuilder.group({
-          id:[d.id],
-          type:[d.type, Validators.required],
-          cost:[d.cost, Validators.required]
+          id: [d.id],
+          type: [d.type, Validators.required],
+          cost: [d.cost, Validators.required]
         }));
 
-      }); 
-    
-    
+      });
+
+
   }
 
   get settings(): Settings { return this._settings; }
 
-  constructor(private formBuilder: FormBuilder,private settingsService :SettingsService,public dialog: MatDialog){
+  constructor(private formBuilder: FormBuilder, private settingsService: SettingsService, public dialog: MatDialog){
     this.settingsForm = this.formBuilder.group({
-      delivery_types : this.formBuilder.array([]) 
+      delivery_types : this.formBuilder.array([])
     });
   }
   ngOnInit(){
-    
-  }
-  
-  onFormSubmit() {
-    if(this.settingsForm.valid){
-        this.settingsService.editDeliveryTypes({id:this.settings.id,delivery_types:this.deliveryTypes.value,removed_items:this.removedItems})
-          .subscribe((settings: Settings) => {
-              
-            this.form_submit.emit('complete');
 
-              //this.getsettingsById(this.id);
-              //this.router.navigate(['/settingss']);
+  }
+
+  onFormSubmit() {
+    if (this.settingsForm.valid){
+        this.settingsService.editDeliveryTypes({
+          id: this.settings.id,
+          delivery_types: this.deliveryTypes.value,
+          removed_items: this.removedItems
+        })
+          .subscribe((settings: Settings) => {
+
+            this.formSubmit.emit('complete');
+
+              // this.getsettingsById(this.id);
+              // this.router.navigate(['/settingss']);
             }, (err: any) => {
               console.log(err);
-            
+
             }
           );
     }
@@ -78,22 +84,22 @@ export class DeliveryTypeComponent implements OnInit {
   }
   addItem(){
     this.deliveryTypes.push(this.formBuilder.group({
-      id:[null],
-      type:[null, Validators.required],
-      cost:[null, Validators.required]
+      id: [null],
+      type: [null, Validators.required],
+      cost: [null, Validators.required]
     }));
   }
 
-  openDeleteConfirmModal(index:number){
-    if(this.deliveryTypes.at(index).get('id').value){
+  openDeleteConfirmModal(index: number){
+    if (this.deliveryTypes.at(index).get('id').value){
 
         const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
           width: '400px',
           data: {}
         });
 
-        dialogRef.afterClosed().subscribe((result:boolean)=> {
-          if(result){
+        dialogRef.afterClosed().subscribe((result: boolean) => {
+          if (result){
             this.removedItems.push(this.deliveryTypes.at(index).get('id').value);
             this.removeItem(index);
             this.onFormSubmit();
@@ -105,8 +111,8 @@ export class DeliveryTypeComponent implements OnInit {
     }
   }
 
-  removeItem(index:number){
-    
+  removeItem(index: number){
+
     this.deliveryTypes.removeAt(index);
 
   }

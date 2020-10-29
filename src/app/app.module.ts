@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,6 +29,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProductComponent } from './pages/products/add-product/add-product.component';
@@ -51,6 +53,13 @@ import { CategoryComponent } from './pages/settings/category/category.component'
 import { ViewShipmentComponent } from './pages/shipments/view-shipment/view-shipment.component';
 import { NullDefaultValueDirectiveDirective } from './directives/null-default-value-directive.directive';
 import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog/delete-confirm-dialog.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
+import { WelcomeComponent } from './pages/auth/signup/welcome/welcome.component';
+import { AcquaintanceComponent } from './pages/auth/signup/acquaintance/acquaintance.component';
+import { StoreComponent } from './pages/auth/signup/store/store.component';
+import { DetailsComponent } from './pages/auth/signup/details/details.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 
 @NgModule({
@@ -75,8 +84,12 @@ import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog
     CategoryComponent,
     ViewShipmentComponent,
     NullDefaultValueDirectiveDirective,
-    DeleteConfirmDialogComponent
-   
+    DeleteConfirmDialogComponent,
+    SignupComponent,
+    WelcomeComponent,
+    AcquaintanceComponent,
+    StoreComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -105,15 +118,25 @@ import { DeleteConfirmDialogComponent } from './components/delete-confirm-dialog
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatStepperModule,
+    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({
-      showUnits:false,
-      showSubtitle:false,
+      showUnits: false,
+      showSubtitle: false,
 
     })
   ],
-  providers: [],
+  providers: [{
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },{
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

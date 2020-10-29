@@ -2,35 +2,44 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Settings } from 'src/app/models/settings';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingsService {
 
-  
-  constructor(private http:HttpClient) { }
-  
-  public get(id:number):Observable<Settings>{
-    return this.http.get<Settings>(environment.baseUrl+"settings?id="+id);
+  constructor(private http: HttpClient) { }
+  // tslint:disable-next-line: variable-name
+  protected  _settings: Settings;
+
+  public get(): Observable<Settings>{
+    return this.http.get<Settings>(environment.baseUrl + 'settings');
+  }
+  public getSettings(refresh?: boolean): Observable<Settings>{
+    if (!refresh && this._settings) {
+      return of(this._settings);
+    }
+    return this.get();
+  }
+  public signUp(data: Settings){
+    return this.http.post(environment.baseUrl + 'signup', data);
   }
 
-  // public add(product:Product){
-  //   return this.http.post(environment.baseUrl+"product/create",product);
-  // }
-
-  public edit(settings:Settings){
-    return this.http.post(environment.baseUrl+"settings/update?id="+settings.id,settings);
+  public validateSubdomain(subdomain: string){
+      return this.http.post(environment.baseUrl + 'subdomain/validate', {subdomain});
   }
-  public editExternal(settings:Settings){
-    return this.http.post(environment.baseUrl+"settings/update/external?id="+settings.id,settings);
+  public edit(data: Settings){
+    return this.http.post(environment.baseUrl + 'settings/update?id=' + data.id, data);
   }
-  public editDeliveryTypes(data:any){
-    return this.http.post(environment.baseUrl+"settings/update/delivery_types?id="+data.id,data);
+  public editExternal(data: Settings){
+    return this.http.post(environment.baseUrl + 'settings/update/external?id=' + data.id, data);
   }
-  public uploadImage(id,data,attr:string,saved_img){
-    return this.http.post(environment.baseUrl+"settings/upload?id="+id,{attr:attr,saved_img:saved_img,data:data});
+  public editDeliveryTypes(data: any){
+    return this.http.post(environment.baseUrl + 'settings/update/delivery_types?id=' + data.id, data);
+  }
+  public uploadImage(id, data, attr: string, savedImg){
+    return this.http.post(environment.baseUrl + 'settings/upload?id=' + id, {attr, savedImg, data});
   }
 
 }

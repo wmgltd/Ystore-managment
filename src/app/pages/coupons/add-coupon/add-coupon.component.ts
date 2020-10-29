@@ -22,17 +22,19 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class AddCouponComponent implements OnInit {
 
- 
   couponsForm: FormGroup;
-  coupon : Coupon;
-  statusList = [{value:0,text:"לא פעיל"},{value:1,text:"פעיל"}];
-  discountTypeList = [{value:1,text:"אחוז"},{value:2,text:"סכום"}];
+  coupon: Coupon;
+  statusList = [{value: 0 , text: 'לא פעיל' }, {value: 1, text: 'פעיל'}];
+  discountTypeList = [{value: 1, text: 'אחוז'}, {value: 2, text: 'סכום'}];
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private router: Router,
-     private formBuilder: FormBuilder, private couponsService :CouponsService,private http: HttpClient,
-     public dialogRef: MatDialogRef<AddCouponComponent>) { }
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private couponsService: CouponsService,
+    private http: HttpClient,
+    public dialogRef: MatDialogRef<AddCouponComponent>) { }
 
   ngOnInit(): void {
     this.couponsForm = this.formBuilder.group({
@@ -43,9 +45,9 @@ export class AddCouponComponent implements OnInit {
       quantity : [null, Validators.required],
       expiry_date : [null, Validators.required]    });
   }
-  
+
   onFormSubmit() {
-    //this.isLoadingResults = true;
+    // this.isLoadingResults = true;
     this.couponsService.add(this.couponsForm.value)
       .subscribe((res: any) => {
           this.isLoadingResults = false;
@@ -56,8 +58,6 @@ export class AddCouponComponent implements OnInit {
           this.isLoadingResults = false;
         });
   }
-  
-    
-   
+
 }
-   
+

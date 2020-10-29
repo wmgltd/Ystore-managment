@@ -17,19 +17,19 @@
          
       <mat-grid-tile colspan="1">
         <mat-form-field floatLabel="always" class="example-full-width">
-          <mat-label>שם פרטי</mat-label> 
-          <input  matInput placeholder="שם פרטי" formControlName="customer_firstname"  >
+          <mat-label>שם מלא</mat-label> 
+          <input  matInput placeholder="שם מלא" formControlName="customer_name"  >
           <mat-error>
-            <span *ngIf="!shipmentForm.get('customer_firstname').valid && shipmentForm.get('customer_firstname').touched">יש למלא שם פרטי</span>
+            <span *ngIf="!shipmentForm.get('customer_name').valid && shipmentForm.get('customer_name').touched">יש למלא שם</span>
           </mat-error>
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile colspan="1">
         <mat-form-field floatLabel="always" class="example-full-width">
-            <mat-label>שם משפחה</mat-label> 
-            <input  matInput placeholder="שם משפחה" formControlName="customer_lastname"  >
+            <mat-label>אימייל</mat-label> 
+            <input  matInput placeholder="אימייל" formControlName="customer_email"  email>
             <mat-error>
-              <span *ngIf="!shipmentForm.get('customer_lastname').valid && shipmentForm.get('customer_lastname').touched">יש למלא שם משפחה</span>
+              <span *ngIf="!shipmentForm.get('customer_email').valid && shipmentForm.get('customer_email').touched">יש למלא אימייל</span>
             </mat-error>
           </mat-form-field>
       </mat-grid-tile> 

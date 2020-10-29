@@ -1,0 +1,65 @@
+<div class="acquaintance-container"> 
+    <div class="wizard-form">
+    <div [formGroup]="regForm" (ngSubmit)="onFormSubmit()">
+        <h2>אנחנו רוצים להכיר אותך יותר</h2>
+        <p> וסטיבו אאוגו וסטיבולום סוליסי טידום בעליק. קונדימנטום קורוס בליקרה, נוטום, לפריקך תצטריק לרטי.</p>
+        <mat-grid-list formGroupName="ownerDetailsForm" class="wizard-grid-list" cols="2" rowHeight="65px" gutterSize="10px">
+            <mat-grid-tile class="signup-form-field">
+                <mat-form-field >
+                    <mat-label>מספר ח.פ.</mat-label>
+                    <input matInput  formControlName="private_company" >
+                    <mat-error>
+                        <p *ngIf="!regForm.get('ownerDetailsForm').get('private_company').valid && regForm.get('ownerDetailsForm').get('private_company').touched"><img src="assets/img/error.svg"/>מספר ח.פ. לא תקין</p>
+                    </mat-error>
+                    <mat-hint>
+                        <p *ngIf="regForm.get('ownerDetailsForm').get('private_company').valid && regForm.get('ownerDetailsForm').get('private_company').touched"><img src="assets/img/valid.svg"/>מספר ח.פ. תקין</p>
+                    </mat-hint>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile class="signup-form-field">
+                <mat-form-field>
+                    <mat-label>שם מלא</mat-label>
+                    <input matInput  formControlName="owner_name" >
+                    <mat-error>
+                        <p *ngIf="!regForm.get('ownerDetailsForm').get('owner_name').valid && regForm.get('ownerDetailsForm').get('owner_name').touched"><img src="assets/img/error.svg"/>שם לא תקין</p>
+                    </mat-error>
+                    <mat-hint>
+                        <p *ngIf="regForm.get('ownerDetailsForm').get('owner_name').valid && regForm.get('ownerDetailsForm').get('owner_name').touched"><img src="assets/img/valid.svg"/> תקין</p>
+                    </mat-hint>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" class="signup-form-field">
+                <mat-form-field>
+                    <mat-label>טלפון</mat-label>
+                    <input matInput  formControlName="owner_phone" >
+                    <mat-error>
+                        <p *ngIf="!regForm.get('ownerDetailsForm').get('owner_phone').valid && regForm.get('ownerDetailsForm').get('owner_phone').touched"><img src="assets/img/error.svg"/>טלפון לא תקין</p>
+                    </mat-error>
+                    <mat-hint>
+                        <p *ngIf="regForm.get('ownerDetailsForm').get('owner_phone').valid && regForm.get('ownerDetailsForm').get('owner_phone').touched"><img src="assets/img/valid.svg"/>טלפון תקין</p>
+                    </mat-hint>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile  colspan="2" class="signup-form-field">
+                <mat-form-field class="example-full-width">
+                    <mat-label>דואר אלקטרוני</mat-label>
+                    <input matInput  formControlName="owner_email" email>
+                    <mat-error>
+                        <p *ngIf="!regForm.get('ownerDetailsForm').get('owner_email').valid && regForm.get('ownerDetailsForm').get('owner_email').touched"><img src="assets/img/error.svg"/>דואר אלקטרוני לא תקין</p>
+                    </mat-error>
+                    <mat-hint>
+                        <p *ngIf="regForm.get('ownerDetailsForm').get('owner_email').valid && regForm.get('ownerDetailsForm').get('owner_email').touched"><img src="assets/img/valid.svg"/>דואר אלקטרוני תקין</p>
+                    </mat-hint>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile class="mat-right-grid-tile" colspan="2">
+                
+                    <button [disabled]="!regForm.get('ownerDetailsForm').valid" class="stepper-button" matStepperNext mat-stroked-button>נעים להכיר, <strong>בוא נתקדם</strong></button>
+                 
+        </mat-grid-tile>
+        </mat-grid-list>
+        
+    </div>
+        </div>
+    <img class="wizard-img" src="assets/img/wizard_welcome.svg">
+</div>

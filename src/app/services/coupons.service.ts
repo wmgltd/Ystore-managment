@@ -9,29 +9,29 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 })
 export class CouponsService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  public getList(store_id:number = 1):Observable<Coupon[]>{
-    return this.http.get<Coupon[]>(environment.baseUrl+"coupons?store_id=" + store_id);
-  }
-  
-  public get(id:number):Observable<Coupon>{
-    return this.http.get<Coupon>(environment.baseUrl+"coupon?id="+id);
+  public getList(): Observable<Coupon[]>{
+    return this.http.get<Coupon[]>(environment.baseUrl + 'coupons');
   }
 
-  public add(coupon:Coupon){
-    return this.http.post(environment.baseUrl+"coupon/create",coupon);
-  }
-  public changeStatus(id:number,status:number){
-    return this.http.post(environment.baseUrl+"coupon/status?id="+id,{status:status});
+  public get(id: number): Observable<Coupon>{
+    return this.http.get<Coupon>(environment.baseUrl + 'coupon?id=' + id);
   }
 
-  public edit(coupon:Coupon){
-    return this.http.post(environment.baseUrl+"coupon/update?id="+coupon.id,coupon);
+  public add(coupon: Coupon){
+    return this.http.post(environment.baseUrl + 'coupon/create', coupon);
+  }
+  public changeStatus(id: number, status: number){
+    return this.http.post(environment.baseUrl + 'coupon/status?id=' + id, {status});
   }
 
-  public delete(id:number){
-    return this.http.delete(environment.baseUrl+"coupon/delete?id="+id,{
+  public edit(coupon: Coupon){
+    return this.http.post(environment.baseUrl + 'coupon/update?id=' + coupon.id, coupon);
+  }
+
+  public delete(id: number){
+    return this.http.delete(environment.baseUrl + 'coupon/delete?id=' + id, {
       headers: new HttpHeaders()
           .set('Content-Type', 'application/json'),
       observe: 'response'
