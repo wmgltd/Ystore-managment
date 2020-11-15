@@ -1,0 +1,33 @@
+.details-container {
+  height: 100%;
+  position: relative;
+}
+
+.details-container .wizard-form {
+  width: 60%;
+  height: calc(65vh - 100px);
+  min-height: calc(450px - 80px);
+  overflow: hidden;
+}
+
+.details-container .wizard-form h2 {
+  font: 400 20px/23px Heebo;
+  letter-spacing: -1.4px;
+  color: var(--color-sky);
+  margin-bottom: 5px;
+}
+
+.details-container .wizard-form p {
+  font: 300 14px/18px Heebo;
+  letter-spacing: 0px;
+  color: var(--color-sky);
+  margin-bottom: 5px;
+}
+
+.details-container .wizard-img {
+  position: absolute;
+  bottom: 0px;
+  left: -95px;
+  height: calc(100% - 50px);
+}
+/*# sourceMappingURL=details.component.css.map */

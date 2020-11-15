@@ -1,0 +1,28 @@
+.dialog-confirm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 20px 0px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.dialog-confirm .primary-button {
+  color: #072550 !important;
+  margin-right: 10px !important;
+}
+
+.dialog-confirm h5 {
+  text-align: right;
+  font: 700 20px/26px Assistant;
+  letter-spacing: 0px;
+  color: #072550;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+/*# sourceMappingURL=delete-confirm-dialog.component.css.map */

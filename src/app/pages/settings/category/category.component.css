@@ -1,0 +1,97 @@
+.categories-grid {
+  margin: 15px 30px;
+  font: 600 14px/24px Assistant;
+  letter-spacing: 0px;
+  color: #051F43;
+}
+
+.categories-grid ::ng-deep .mat-grid-tile .mat-figure {
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+}
+
+.categories-grid .header-label {
+  margin-top: 35px;
+}
+
+.categories-grid .cancel-icon {
+  width: 20px;
+  height: 20px;
+  line-height: 19px;
+  margin-top: 13px;
+  margin-right: 15px;
+}
+
+.categories-grid .cancel-icon img {
+  width: 20px;
+}
+
+.categories-grid .add-icon {
+  width: 26px;
+  height: 26px;
+  line-height: 25px;
+  margin-top: 13px;
+  margin-right: 15px;
+}
+
+.categories-grid .add-icon img {
+  width: 26px;
+}
+
+.categories-grid .add-category {
+  height: calc(80px) !important;
+}
+
+.categories-grid .add-category ::ng-deep .mat-figure {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.categories-grid .add-category .mat-divider {
+  width: 100%;
+}
+
+.categories-grid .add-category .mat-divider:first-child {
+  margin-top: 20px;
+}
+
+.categories-grid .add-category .mat-divider:last-child {
+  margin-top: 10px;
+}
+
+.categories-grid .add-category mat-label {
+  width: 100%;
+}
+
+.categories-grid .mat-form-field {
+  width: 100%;
+  margin-left: 15px;
+}
+
+.categories-grid ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+  background: #FCFDFE 0% 0% no-repeat padding-box;
+  border: 1px solid #E7E9ED;
+  border-radius: 5px;
+  height: 25px;
+  line-height: 25px;
+  padding: 5px;
+  margin-top: 30px;
+  font: 600 16px/26px Assistant;
+  color: #051D3F;
+}
+
+.categories-grid input.mat-input-element, .categories-grid textarea.mat-input-element {
+  font: 600 16px/24px Assistant;
+  letter-spacing: 0px;
+  color: #051F43;
+}
+
+.tabs-footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+/*# sourceMappingURL=category.component.css.map */

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,eAAe;AACf,AAAA,kBAAkB,CAAC;EACf,QAAQ,EAAE,QAAQ;EAClB,OAAO,EAAE,GAAG;CACb;;AAED,AAAA,aAAa,CAAC;EACZ,SAAS,EAAE,KAAK;EAChB,SAAS,EAAE,KAAK;EAChB,KAAK,EAAE,IAAI;CACZ;;AAED,AAAA,mBAAmB,CAAC;EAClB,KAAK,EAAE,IAAI;CACZ;;AAED,AAAA,mBAAmB,AAAA,eAAgB,CAAA,CAAC,EAAE;EACpC,aAAa,EAAE,IAAI;CACpB;;AAED,AAAA,WAAW,CAAC;EACV,MAAM,EAAE,MAAM;CACf;;AAED,AAAA,gBAAgB,CAAC;EACf,MAAM,EAAE,GAAG;CACZ",
+    "sources": [
+        "add-shipment.component.scss"
+    ],
+    "names": [],
+    "file": "add-shipment.component.css"
+}

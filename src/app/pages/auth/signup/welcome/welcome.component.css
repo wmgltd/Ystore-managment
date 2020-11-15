@@ -1,0 +1,34 @@
+.welcome-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 0px 100px;
+  height: 100%;
+}
+
+.welcome-container h1 {
+  font: 400 24px/23px Heebo;
+  letter-spacing: -1.6px;
+  color: var(--color-sky);
+}
+
+.welcome-container h1 strong {
+  font: 500 24px/23px Heebo;
+}
+
+.welcome-container p {
+  font: 300 14px/24px Heebo;
+  letter-spacing: 0px;
+  color: var(--color-sky);
+}
+/*# sourceMappingURL=welcome.component.css.map */

@@ -1,4 +1,5 @@
-.signup-container{
+//out: false
+.signup-container {
     width: 100%;
     height: 100vh;
     background-image: url("./../../../../assets/img/wizard_background.svg") !important;
@@ -6,14 +7,13 @@
     background-size: cover;
     font-family: 'Heebo, sans-serif';
 
-    .mat-toolbar{
+    .mat-toolbar {
         background: transparent;
-        padding:25px 40px;
-        height: 100px;  
+        padding: 25px 40px;
+        height: 100px;
     }
-    
-   
-    button{
+
+    button {
         height: 45px;
         border: 1px solid var(--color-clear);
         border-radius: 10px;
@@ -21,5 +21,15 @@
         padding: 0 20px;
         font: normal normal normal 16px/14px Heebo;
     }
-    
+
+    .main-loader-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        h2 {
+            margin-top: 20px;
+        }
+    }
 }

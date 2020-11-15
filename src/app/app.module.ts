@@ -1,3 +1,4 @@
+import { SettingsService } from 'src/app/services/settings.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -21,16 +22,16 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProductComponent } from './pages/products/add-product/add-product.component';
@@ -61,7 +62,6 @@ import { DetailsComponent } from './pages/auth/signup/details/details.component'
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,7 +89,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     WelcomeComponent,
     AcquaintanceComponent,
     StoreComponent,
-    DetailsComponent
+    DetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -125,18 +125,21 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     NgCircleProgressModule.forRoot({
       showUnits: false,
       showSubtitle: false,
-
-    })
+    }),
   ],
-  providers: [{
+  providers: [
+    [SettingsService],
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
-    },{
+      multi: true,
+    },
+    {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
-      multi: true
-    }],
-  bootstrap: [AppComponent]
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

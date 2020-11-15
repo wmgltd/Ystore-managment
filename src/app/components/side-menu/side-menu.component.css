@@ -1,0 +1,46 @@
+.mat-nav-list a {
+  letter-spacing: 0px;
+  color: var(--color-snow);
+  opacity: 1;
+  text-align: center;
+  padding: 5px 0px;
+}
+
+.bottom-list {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
+
+.mat-list-item .mat-icon {
+  width: 100%;
+  margin: 5px 0px;
+}
+
+.mat-list-base .mat-list-item.mat-2-line {
+  opacity: 0.5;
+}
+
+.mat-list-base .mat-list-item.mat-2-line.list-item-active,
+.mat-list-base .mat-list-item.mat-2-line:hover {
+  opacity: 1;
+}
+
+::ng-deep .list-item-active .a,
+::ng-deep .mat-list-item:hover .a {
+  fill: var(--color-warm) !important;
+  stroke: none;
+}
+
+::ng-deep .mat-list-item .a {
+  fill: #fff;
+}
+
+.logo-img {
+  height: 80px !important;
+}
+
+.logo-img img {
+  width: 50px;
+}
+/*# sourceMappingURL=side-menu.component.css.map */

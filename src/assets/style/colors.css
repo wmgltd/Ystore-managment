@@ -1,0 +1,27 @@
+:root {
+  --color-transparent-snow: rgb(255, 255, 255, 0.1);
+  --color-transparent-dirty-snow: rgb(240, 240, 240, 0.1);
+  --color-snow: #FFFFFF;
+  --color-sugar: #FDFEFF;
+  --color-background: #F6F7FB;
+  --color-clear: #D6D6D6;
+  --color-cloud: #CCCCCC;
+  --color-light-grey: #F7F7F7;
+  --color-underline: #B4B4B4;
+  --color-upload:#EEEEEE;
+  --color-grey: #696969;
+  --color-sky: #1F558C;
+  --color-done:#289CDE;
+  --color-toggle-blue: #163567;
+  --color-blue: #0B3269;
+  --color-img-blue: #051F44;
+  --color-dark: #051D3F;
+  --color-sea-depths:#07254F;
+  --color-warm: #FBB637;
+  --color-peach: #FA6169;
+  --color-pink: #EE0789;
+  --color-button-box-shadow: #0000001A;
+  --color-active-box-shadow: #00000017;
+  --color-rainbow-box-shadow:#00000022;
+}
+/*# sourceMappingURL=colors.css.map */

@@ -1,37 +1,74 @@
 <div class="signup-container">
-    <mat-toolbar class="">
-        <img src="assets/img/ystore_logo.png"/>
+    <mat-toolbar class>
+        <img src="assets/img/ystore_logo.png">
         <span class="spacer"></span>
         <button mat-stroked-button>חזרה ליעד סריג</button>
     </mat-toolbar>
     <form [formGroup]="registrationForm">
-        <mat-horizontal-stepper [@.disabled]="true" [selectedIndex]="stepperIndex" [disableRipple]="true" labelPosition="bottom" [linear]="true" #stepper>
+        <mat-horizontal-stepper
+            [@.disabled]="true"
+            [selectedIndex]="stepperIndex"
+            [disableRipple]="true"
+            labelPosition="bottom"
+            [linear]="true"
+            #stepper
+        >
             <!-- change default 'edit' icon -->
-        <ng-template matStepperIcon="edit"  let-index="index">
-        <span> 0{{index+1}}</span>
-        </ng-template>
-        <ng-template matStepperIcon="done"  let-index="index">
-            <span>0{{index+1}}</span>
-        </ng-template>
-        <ng-template matStepperIcon="step" let-index="index">
-            <span> 0{{index+1}} </span> 
+            <ng-template
+                matStepperIcon="edit"
+                let-index="index"
+            >
+                <span>0{{index+1}}</span>
             </ng-template>
-            <mat-step   label="ברוך הבא" state="step">
-                <app-welcome></app-welcome>
+            <ng-template
+                matStepperIcon="done"
+                let-index="index"
+            >
+                <span>0{{index+1}}</span>
+            </ng-template>
+            <ng-template
+                matStepperIcon="step"
+                let-index="index"
+            >
+                <span>0{{index+1}}</span>
+            </ng-template>
+            <mat-step
+                label="ברוך הבא"
+                state="step"
+            >
+                <div
+                    class="main-loader-wrapper"
+                    *ngIf="isInitializing"
+                >
+                    <mat-spinner></mat-spinner>
+                    <h2>בודק נתונים</h2>
+                </div>
+                <app-welcome *ngIf="! isInitializing"></app-welcome>
             </mat-step>
-            
-            <mat-step formGroupName="ownerDetailsForm" [stepControl]="registrationForm.get('ownerDetailsForm')"  label="מכירים אותך" state="step">
+            <mat-step
+                formGroupName="ownerDetailsForm"
+                [stepControl]="registrationForm.get('ownerDetailsForm')"
+                label="מכירים אותך"
+                state="step"
+            >
                 <app-acquaintance [regForm]="registrationForm"></app-acquaintance>
             </mat-step>
-            
-            <mat-step formGroupName="storeForm" [stepControl]="registrationForm.get('storeForm')" label="החנות שלך" state="step">
+            <mat-step
+                formGroupName="storeForm"
+                [stepControl]="registrationForm.get('storeForm')"
+                label="החנות שלך"
+                state="step"
+            >
                 <app-store [regForm]="registrationForm"></app-store>
             </mat-step>
-        
-            <mat-step formGroupName="detailsForm" [stepControl]="registrationForm.get('detailsForm')" label="מתחילים" state="step">
+            <mat-step
+                formGroupName="detailsForm"
+                [stepControl]="registrationForm.get('detailsForm')"
+                label="מתחילים"
+                state="step"
+            >
                 <app-details [regForm]="registrationForm"></app-details>
             </mat-step>
-    
         </mat-horizontal-stepper>
     </form>
 </div>

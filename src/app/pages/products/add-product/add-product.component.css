@@ -1,0 +1,265 @@
+/* Structure */
+.example-container {
+  position: relative;
+  padding: 5px;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-full-width:nth-last-child(0) {
+  margin-bottom: 10px;
+}
+
+.button-row {
+  margin: 10px 0;
+}
+
+.mat-flat-button {
+  margin: 5px;
+}
+
+::ng-deep input.price-input::-webkit-outer-spin-button,
+::ng-deep input.price-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.add-product-modal h2 {
+  font: 700 20px/26px Assistant;
+  letter-spacing: 0px;
+  color: #072550;
+}
+
+.add-product-modal h2 ::ng-deep .cancel-icon {
+  cursor: pointer;
+  float: left;
+}
+
+.add-product-modal h2 ::ng-deep .cancel-icon svg .a {
+  stroke: #07244c;
+  fill: none;
+}
+
+.add-product-modal .mat-divider {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.add-product-modal .mat-divider-bottom {
+  margin-top: 25px;
+}
+
+.add-product-modal .textarea-form-field {
+  top: calc(95px) !important;
+  height: calc(110px) !important;
+}
+
+.add-product-modal .mat-datepicker-toggle {
+  position: absolute;
+  left: 5px;
+  top: -15px;
+}
+
+.add-product-modal ::ng-deep .mat-select-arrow {
+  border-left: 10px solid transparent !important;
+  border-right: none;
+  border-image-source: url("./../../../../assets/img/down-arrow.svg") !important;
+  border-image-repeat: stretch !important;
+}
+
+.add-product-modal ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+  font: 600 18px/24px Assistant;
+  letter-spacing: 0px;
+  color: #051F43;
+}
+
+.add-product-modal ::ng-deep .mat-input-underline {
+  display: none;
+}
+
+.add-product-modal ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+  background: #FCFDFE 0% 0% no-repeat padding-box;
+  border: 1px solid #E7E9ED;
+  border-radius: 5px;
+  height: 25px;
+  line-height: 25px;
+  padding: 5px;
+  margin-top: 30px;
+}
+
+.add-product-modal ::ng-deep .textarea-form-field .mat-form-field-appearance-legacy .mat-form-field-infix {
+  height: 50px;
+}
+
+.add-product-modal ::ng-deep .hidden-form-field .mat-form-field-appearance-legacy .mat-form-field-infix {
+  background: none;
+  border: none;
+}
+
+.add-product-modal ::ng-deep input.mat-input-element, .add-product-modal textarea.mat-input-element {
+  font: 500 16px/24px Assistant;
+  letter-spacing: 0px;
+  color: #051F43;
+}
+
+.add-product-modal ::ng-deep mat-select .mat-select-value-text {
+  font: 500 16px/24px Assistant;
+  letter-spacing: 0px;
+  color: #072550;
+}
+
+.add-product-modal ::ng-deep .mat-form-field-label-wrapper {
+  top: -30px;
+}
+
+.add-product-modal ::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.add-product-modal ::ng-deep .spinner-button {
+  position: absolute;
+  cursor: default;
+  z-index: 2;
+  background-color: #fcfdfe;
+  width: 14.5px;
+  text-align: center;
+  margin: 0px;
+  pointer-events: none;
+  height: 15px;
+  line-height: 15px;
+}
+
+.add-product-modal ::ng-deep .inc-button {
+  background-image: url("./../../../../assets/img/up-arrow.svg") !important;
+  background-repeat: no-repeat;
+  background-size: 8px;
+  background-position: 5px 5px;
+  padding-right: 5px;
+  left: 5px;
+  top: 4.5px;
+}
+
+.add-product-modal ::ng-deep .dec-button {
+  background-image: url("./../../../../assets/img/down-arrow.svg") !important;
+  background-repeat: no-repeat;
+  background-size: 8px;
+  background-position: 5px 5px;
+  padding-right: 5px;
+  left: 5px;
+  top: 15px;
+}
+
+.add-product-modal .currency-span {
+  font: 500 16px/24px Assistant;
+  letter-spacing: 0px;
+  color: #072550;
+  position: absolute;
+  right: 5px;
+}
+
+.add-product-modal .upload-img-container {
+  margin-top: -40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-flow: wrap;
+      flex-flow: wrap;
+}
+
+.add-product-modal .file-upload-button {
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #707070;
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  padding: 20px 0px;
+}
+
+.add-product-modal .file-upload-button:hover {
+  background-color: #f3f4f5;
+}
+
+.add-product-modal .file-upload-button p {
+  text-align: center;
+  font: 600 16px/17px Assistant;
+  letter-spacing: 0px;
+  color: #051F43;
+  word-wrap: break-word;
+  white-space: normal;
+  width: 100px;
+  margin-bottom: 0px;
+}
+
+.add-product-modal .file-upload-button ::ng-deep .upload-icon svg .a {
+  fill: inherit;
+  stroke: inherit;
+}
+
+.add-product-modal .product-image {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 5px 0px 5px 5px;
+}
+
+.add-product-modal .product-image img {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+}
+
+.add-product-modal .product-image .cancel-icon {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 19px;
+  height: 19px;
+  cursor: pointer;
+}
+
+.add-product-modal .product-image .cancel-icon:hover ::ng-deep .c {
+  fill: #f3f4f5;
+}
+
+.add-product-modal .category-link {
+  position: absolute;
+  top: -10px;
+  left: 0px;
+  font: 600 14px/20px Assistant;
+  letter-spacing: 0px;
+  color: #051F43;
+  z-index: 99999;
+  cursor: pointer;
+}
+
+.add-product-modal .category-link:hover {
+  color: #707070;
+}
+
+.add-product-modal .category-link:hover .add-icon .mat-icon ::ng-deep svg .a, .add-product-modal .category-link:hover .add-icon .mat-icon ::ng-deep svg .b {
+  stroke: #4e4c4c !important;
+}
+
+.add-product-modal .category-link .add-icon {
+  width: 19px;
+  height: 19px;
+  top: 12px;
+}
+
+.add-product-modal .category-link .add-icon .mat-icon {
+  margin-top: -23px;
+  margin-right: -4px;
+}
+
+.add-product-modal .category-link .add-icon .mat-icon ::ng-deep svg .a {
+  stroke: #07244c !important;
+}
+/*# sourceMappingURL=add-product.component.css.map */

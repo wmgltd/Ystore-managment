@@ -1,0 +1,127 @@
+/* Structure */
+.example-container {
+  position: relative;
+  padding: 5px;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-full-width:nth-last-child(0) {
+  margin-bottom: 10px;
+}
+
+.button-row {
+  margin: 10px 0;
+}
+
+.mat-flat-button {
+  margin: 5px;
+}
+
+.edit-coupon-modal h2 {
+  font: 700 20px/26px Assistant;
+  letter-spacing: 0px;
+  color: #072550;
+}
+
+.edit-coupon-modal h2 ::ng-deep .cancel-icon {
+  cursor: pointer;
+  float: left;
+}
+
+.edit-coupon-modal h2 ::ng-deep .cancel-icon svg .a {
+  stroke: #07244c;
+  fill: none;
+}
+
+.edit-coupon-modal .mat-divider {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.edit-coupon-modal .mat-datepicker-toggle {
+  position: absolute;
+  left: 5px;
+  top: -15px;
+}
+
+.edit-coupon-modal ::ng-deep .mat-select-arrow {
+  border-left: 10px solid transparent !important;
+  border-right: none;
+  border-image-source: url("./../../../../assets/img/down-arrow.svg") !important;
+  border-image-repeat: stretch !important;
+}
+
+.edit-coupon-modal ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-label {
+  font: 500 18px/24px Assistant;
+  letter-spacing: 0px;
+  color: #051F43;
+}
+
+.edit-coupon-modal ::ng-deep .mat-input-underline {
+  display: none;
+}
+
+.edit-coupon-modal ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+  background: #FCFDFE 0% 0% no-repeat padding-box;
+  border: 1px solid #E7E9ED;
+  border-radius: 5px;
+  height: 25px;
+  line-height: 25px;
+  padding: 5px;
+  margin-top: 30px;
+}
+
+.edit-coupon-modal ::ng-deep input.mat-input-element {
+  font: 500 16px/24px Assistant;
+  letter-spacing: 0px;
+  color: #051F43;
+}
+
+.edit-coupon-modal ::ng-deep .mat-form-field-label-wrapper {
+  top: -30px;
+}
+
+.edit-coupon-modal ::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+.edit-coupon-modal ::ng-deep .spinner-button {
+  position: absolute;
+  cursor: default;
+  z-index: 2;
+  background-color: #fcfdfe;
+  width: 14.5px;
+  text-align: center;
+  margin: 0px;
+  pointer-events: none;
+  height: 15px;
+  line-height: 15px;
+}
+
+.edit-coupon-modal ::ng-deep .inc-button {
+  background-image: url("./../../../../assets/img/up-arrow.svg") !important;
+  background-repeat: no-repeat;
+  background-size: 8px;
+  background-position: 5px 5px;
+  left: 5px;
+  top: 4.5px;
+}
+
+.edit-coupon-modal ::ng-deep .dec-button {
+  background-image: url("./../../../../assets/img/down-arrow.svg") !important;
+  background-repeat: no-repeat;
+  background-size: 8px;
+  background-position: 5px 5px;
+  left: 5px;
+  top: 17px;
+}
+/*# sourceMappingURL=edit-coupon.component.css.map */

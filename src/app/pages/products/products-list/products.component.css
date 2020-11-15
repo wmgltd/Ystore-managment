@@ -1,0 +1,88 @@
+/* Structure */
+.example-container {
+  position: relative;
+}
+
+.example-table-container {
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+}
+
+table {
+  width: 100%;
+}
+
+.example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.example-rate-limit-reached {
+  color: #980000;
+  max-width: 360px;
+  text-align: center;
+}
+
+/* Column Widths */
+.mat-column-number,
+.mat-column-state {
+  max-width: 64px;
+}
+
+.mat-column-created {
+  max-width: 124px;
+}
+
+.mat-flat-button {
+  margin: 5px;
+}
+
+td img {
+  max-width: 60px;
+}
+
+.actions-cell {
+  text-align: center;
+}
+
+.actions-cell .mat-icon {
+  cursor: pointer;
+  margin: 5px;
+}
+
+.actions-cell .mat-icon ::ng-deep .a {
+  stroke: transparent;
+  fill: transparent;
+}
+
+::ng-deep .mat-row:hover .actions-cell .mat-icon .a {
+  fill: #051f43;
+}
+
+::ng-deep .img-icon svg .a {
+  fill: #051f43 !important;
+}
+
+::ng-deep .mat-icon svg .a {
+  stroke: inherit;
+}
+
+::ng-deep .mat-button .mat-icon svg .a {
+  stroke: #fff;
+}
+/*# sourceMappingURL=products.component.css.map */

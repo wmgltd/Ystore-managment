@@ -1,0 +1,33 @@
+.acquaintance-container {
+  height: 100%;
+  position: relative;
+}
+
+.acquaintance-container .wizard-form {
+  width: 60%;
+  height: calc(65vh - 100px);
+  min-height: calc(450px - 80px);
+  overflow: hidden;
+}
+
+.acquaintance-container .wizard-form h2 {
+  font: 400 20px/23px Heebo;
+  letter-spacing: -1.4px;
+  color: var(--color-sky);
+  margin-bottom: 5px;
+}
+
+.acquaintance-container .wizard-form p {
+  font: 300 14px/18px Heebo;
+  letter-spacing: 0px;
+  color: var(--color-sky);
+  margin-bottom: 5px;
+}
+
+.acquaintance-container .wizard-img {
+  position: absolute;
+  bottom: 0px;
+  left: -60px;
+  height: calc(100% - 50px);
+}
+/*# sourceMappingURL=acquaintance.component.css.map */

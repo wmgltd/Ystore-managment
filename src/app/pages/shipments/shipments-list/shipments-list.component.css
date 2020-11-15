@@ -1,0 +1,157 @@
+.orders-component {
+  /* Structure */
+  /* Column Widths */
+}
+
+.orders-component .example-container {
+  position: relative;
+}
+
+.orders-component .example-table-container {
+  position: relative;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.orders-component table {
+  width: 100%;
+}
+
+.orders-component .example-loading-shade {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.orders-component .example-rate-limit-reached {
+  color: #980000;
+  max-width: 360px;
+  text-align: center;
+}
+
+.orders-component .mat-column-number,
+.orders-component .mat-column-state {
+  max-width: 64px;
+}
+
+.orders-component .mat-column-created {
+  max-width: 124px;
+}
+
+.orders-component .mat-flat-button {
+  margin: 5px;
+}
+
+.orders-component td img {
+  max-width: 60px;
+}
+
+.orders-component .actions-cell {
+  text-align: center;
+}
+
+.orders-component .actions-cell .mat-icon {
+  cursor: pointer;
+  margin: 5px;
+}
+
+.orders-component .actions-cell .mat-icon ::ng-deep .a {
+  stroke: transparent;
+  fill: transparent;
+}
+
+.orders-component ::ng-deep .mat-row:hover .actions-cell .mat-icon .a {
+  fill: #051f43;
+}
+
+.orders-component ::ng-deep .img-icon svg .a {
+  fill: #051f43 !important;
+}
+
+.orders-component ::ng-deep .mat-icon svg .a {
+  stroke: inherit;
+}
+
+.orders-component ::ng-deep .mat-button .mat-icon svg .a {
+  stroke: #fff;
+}
+
+.orders-component .status-button {
+  margin: 20px 0px !important;
+  padding: 0px 30px;
+  border: 1px solid var(--color-dark);
+  border-radius: 100px !important;
+  opacity: 1;
+  height: 40px;
+  line-height: 40px !important;
+  font: 600 18px/24px Assistant;
+  letter-spacing: 0px;
+  color: #072550 !important;
+}
+
+.orders-component .bullet-point {
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: var(--color-dark);
+  position: absolute;
+  top: 2px;
+  bottom: 0px;
+  right: 15px;
+  margin: auto;
+}
+
+.orders-component ::ng-deep .spinner-button {
+  position: absolute;
+  cursor: default;
+  z-index: 2;
+  background-color: #fcfdfe;
+  width: 14.5px;
+  text-align: center;
+  margin: 0px;
+  pointer-events: none;
+  height: 15px;
+  line-height: 15px;
+}
+
+.orders-component ::ng-deep .inc-button {
+  background-image: url("./../../../../assets/img/up-arrow.svg") !important;
+  background-repeat: no-repeat;
+  background-size: 7px;
+  background-position: 5px 5px;
+  background-color: transparent;
+  left: 10px;
+  top: 8px;
+}
+
+.orders-component ::ng-deep .dec-button {
+  background-image: url("./../../../../assets/img/down-arrow.svg") !important;
+  background-repeat: no-repeat;
+  background-size: 7px;
+  background-position: 5px 5px;
+  background-color: transparent;
+  left: 10px;
+  top: 18px;
+}
+
+.orders-component .status-cell {
+  min-width: 165px;
+}
+
+.orders-component th.mat-header-cell, .orders-component td.mat-cell, .orders-component td.mat-footer-cell {
+  padding: 0px 10px;
+}
+/*# sourceMappingURL=shipments-list.component.css.map */
