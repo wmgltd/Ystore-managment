@@ -4,11 +4,10 @@
 
 export const environment = {
   production: false,
- // baseUrl: 'http://localhost:88/Ystore-server/api/',
   baseUrl: 'api/',
-  imgUrl: 'http://ystore.co.il/Ystore-server/'
+  imgUrl: 'http://ystore.co.il/Ystore-server/',
+  baseHref: '/',
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

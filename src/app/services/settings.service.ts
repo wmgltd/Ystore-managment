@@ -22,6 +22,8 @@ export class SettingsService {
   }
 
   public get(): Observable<Settings> {
+    console.log(environment.baseUrl + 'settings');
+    console.log('********************');
     return this.http.get<Settings>(environment.baseUrl + 'settings');
   }
 
