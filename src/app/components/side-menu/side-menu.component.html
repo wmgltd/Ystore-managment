@@ -1,13 +1,11 @@
 <mat-nav-list>
     <mat-list-item class="logo-img" (click)="selectedItem='מוצרים'">
-
       <a 
         [routerLink]="'/'"  
         routerLinkActive="active" 
         queryParamsHandling="preserve"
         matLine>
-      <img  src="assets/img/logo.png"/>
-        
+      <img  src="assets/img/logo.png"/>  
       </a>
   </mat-list-item>
     <mat-list-item class="icon" *ngFor="let item of listItems" (click)="handleClick(item)"  [ngClass]="{'list-item-active': item.title==selectedItem}">
@@ -17,8 +15,7 @@
           routerLinkActive="active" 
           queryParamsHandling="preserve"
           matLine>
-          <mat-icon   matLine [inline]="false" svgIcon="{{item.icon}}"></mat-icon>
-
+          <mat-icon  matLine [inline]="false" svgIcon="{{item.icon}}"></mat-icon>
           {{item.title}} 
         </a>
     </mat-list-item>

@@ -1,0 +1,27 @@
+<form [formGroup]="clearingForm" (ngSubmit)="onFormSubmit()">
+    <mat-grid-list  cols="3" rowHeight="80px" [gutterSize]="'25px'" class="credit-card-details">
+      <ng-container >
+          <mat-grid-tile class="order-details-product" colspan="1">              
+              <mat-form-field class="example-full-width">
+                <mat-label>מסוף יעד שריג</mat-label> 
+                <input matInput placeholder="תשלומים" formControlName="masof_yaad"/>
+              </mat-form-field>
+            </mat-grid-tile>
+          <mat-grid-tile class="order-details-product" colspan="1"> 
+                <mat-form-field >
+                    <mat-label>מקסימום תשלומים</mat-label>
+                    <mat-select formControlName="payments_field">
+                        <mat-option *ngFor="let payment of payments" [value]="payment">{{payment}}</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+            </mat-grid-tile>
+          <mat-grid-tile class="order-details-product" colspan="1" >              
+                <mat-checkbox class="example-margin" formControlName="module_hesh">מודול חשבוניות</mat-checkbox>
+            </mat-grid-tile>
+          </ng-container>
+      </mat-grid-list>
+      <mat-divider class="mat-divider-bottom"></mat-divider> 
+      <button mat-button type="submit" [disabled]="!clearingForm.valid" class="save-item-button save-item-button-primary edit-item-button" >
+        שמור
+      </button>
+    </form>

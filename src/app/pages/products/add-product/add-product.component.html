@@ -1,4 +1,4 @@
-<div class="add-product-modal">
+<div class="add-product-modal" *ngIf="data.canAddProduct">
   <h2>הוספת מוצר חדש
 
     <mat-icon class="cancel-icon" [inline]="false" svgIcon="cancel" (click)="dialogRef.close()"></mat-icon>
@@ -134,12 +134,19 @@
 
 <mat-divider class="mat-divider-bottom"></mat-divider> 
 <button mat-button type="submit" [disabled]="!productsForm.valid" class="save-item-button save-item-button-right" >
-    הוסף מוצר
-    <mat-icon class="add-item-icon" [inline]="false" svgIcon="plus"></mat-icon>
-
+  שמירה
+  <mat-icon class="add-item-icon" [inline]="false" svgIcon="plus"></mat-icon>
 </button>
 </form>
 </mat-dialog-content>
 
 </div>
-
+<div *ngIf="!data.canAddProduct" class="cantAddProduct">
+  צריך להכניס קטגוריות לפני הוספת מוצר חדש
+  <br/>
+  <p class="category-link" (click)="dialogRef.close()" [routerLink]="'/settings/category'" queryParamsHandling="preserve" >לעריכת קטגוריות          
+  <button tabindex="-1"  class="add-icon" type="button"   mat-icon-button >
+    <mat-icon   matLine [inline]="false" svgIcon="add"></mat-icon>
+  </button>
+  </p>
+</div>

@@ -1,7 +1,7 @@
 import { AuthService } from './../../../services/auth.service';
 import { ServerResponse } from './../../../models/server-response.model';
 import { StoreService } from 'src/app/services/init-store.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {
@@ -30,7 +30,7 @@ export class SignupComponent implements OnInit {
   stepperIndex = 0;
   registrationForm: FormGroup;
   isInitializing = true;
-
+  error: boolean = false
   constructor(
     private formBuilder: FormBuilder,
     private settingsService: SettingsService,
@@ -40,27 +40,35 @@ export class SignupComponent implements OnInit {
     private router: Router
   ) {
     // Get the q parameter recived from yaad sarig.
-    this.route.queryParams.subscribe((params) => {
-      const q = params.q;
-
-      storeService.initStore(q).subscribe((response: ServerResponse) => {
-        if (parseInt(response.data.store_active, 10) && response.data.token) {
-          this.auth.setToken(response.data.token);
-          this.router.navigate(['products'], {
-            queryParamsHandling: 'preserve',
-          });
-        } else {
-          if (response.data.client_id) {
-            this.settingsService.setClientId(response.data.client_id);
-          }
-
-          this.isInitializing = false;
-        }
-      });
-    });
+    // this.route.queryParams.subscribe((params) => {
+    //   console.log("dini-dini");
+    //   const q = params.q;
+    //   console.log(q);
+    //   storeService.initStore(q).subscribe((response: ServerResponse) => {
+    //     console.log(response);
+    //     if (parseInt(response.data.store_active, 10) && response.data.token) {
+    //       console.log("i am active");
+    //       this.auth.setToken(response.data.token);
+    //       this.router.navigate(['products'], {
+    //         queryParamsHandling: 'preserve',
+    //       });
+    //     } else {
+    //       if (response.response == "error") {
+    //         this.error = true;
+    //         console.log(this.error);
+    //       }
+    //       else if (response.data.client_id) {
+    //         this.settingsService.setClientId(response.data.client_id);
+    //       }
+    //       this.isInitializing = false;
+    //     }
+    //   });
+    // });
   }
 
   ngOnInit(): void {
+    console.log(this.settingsService.getClientId());
+    this.isInitializing = false;
     this.registrationForm = new FormGroup({
       ownerDetailsForm: new FormGroup({
         owner_name: new FormControl(null, Validators.required),
@@ -87,7 +95,7 @@ export class SignupComponent implements OnInit {
       detailsForm: new FormGroup({
         company_address: new FormControl(null, Validators.required),
         company_city: new FormControl(null, Validators.required),
-        password: new FormControl(null, Validators.required),
+        password: new FormControl(123, Validators.required),
         is_policy_approved: new FormControl(null, Validators.required),
       }),
     });
@@ -99,12 +107,12 @@ export class SignupComponent implements OnInit {
       const subdomain = ctrl.value;
       return subdomain // async validators return an Observable or Promise
         ? this.settingsService
-            .validateSubdomain(subdomain)
-            .pipe(
-              map((isUnique) =>
-                isUnique ? null : { subdomainNotUnique: true }
-              )
-            ) // validators return null if they're valid, otherwise some object
+          .validateSubdomain(subdomain)
+          .pipe(
+            map((isUnique) =>
+              isUnique ? null : { subdomainNotUnique: true }
+            )
+          ) // validators return null if they're valid, otherwise some object
         : of(null); // don't bother checking if no value
     };
   }

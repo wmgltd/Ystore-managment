@@ -1,10 +1,10 @@
 {
-    "/api": {
-      "target": "http://ystore.co.il/Ystore-server/api/",
-      "secure": true,
-      "pathRewrite": {
+  "/api": {
+    "target": "http://ystore.co.il/Ystore-server/api/",
+    "secure": true,
+    "pathRewrite": {
       "^/api": ""
     },
-      "changeOrigin": true
-    }
+    "changeOrigin": true
   }
+}

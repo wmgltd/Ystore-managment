@@ -245,5 +245,9 @@ td.mat-footer-cell:first-of-type {
   .spacer {
     flex: 1 1 auto;
   }
-
+  .mat-list-base.bottom-list .mat-list-item .mat-line{
+      white-space: pre-wrap!important;
+      overflow: hidden!important;
+      text-overflow: unset!important;
+  }
 

@@ -24,6 +24,8 @@ export class DeliveryTypeComponent implements OnInit {
   settingsForm: FormGroup;
   removedItems: any[] = [];
   matcher = new MyErrorStateMatcher();
+  deliverySelected: DeliveryType;
+  showAdressForm: boolean = true;
   @Output()
   formSubmit = new EventEmitter<string>();
   // tslint:disable-next-line: variable-name
@@ -37,52 +39,52 @@ export class DeliveryTypeComponent implements OnInit {
     this.deliveryTypes.clear();
 
     this.settings.delivery_types.forEach((d) => {
-        this.deliveryTypes.push(this.formBuilder.group({
-          id: [d.id],
-          type: [d.type, Validators.required],
-          cost: [d.cost, Validators.required]
-        }));
+      this.deliveryTypes.push(this.formBuilder.group({
+        id: [d.id],
+        type: [d.type, Validators.required],
+        cost: [d.cost, Validators.required]
+      }));
 
-      });
+    });
 
 
   }
 
   get settings(): Settings { return this._settings; }
 
-  constructor(private formBuilder: FormBuilder, private settingsService: SettingsService, public dialog: MatDialog){
+  constructor(private formBuilder: FormBuilder, private settingsService: SettingsService, public dialog: MatDialog) {
     this.settingsForm = this.formBuilder.group({
-      delivery_types : this.formBuilder.array([])
+      delivery_types: this.formBuilder.array([])
     });
   }
-  ngOnInit(){
+  ngOnInit() {
 
   }
 
   onFormSubmit() {
-    if (this.settingsForm.valid){
-        this.settingsService.editDeliveryTypes({
-          id: this.settings.id,
-          delivery_types: this.deliveryTypes.value,
-          removed_items: this.removedItems
-        })
-          .subscribe((settings: Settings) => {
+    if (this.settingsForm.valid) {
+      this.settingsService.editDeliveryTypes({
+        id: this.settings.id,
+        delivery_types: this.deliveryTypes.value,
+        removed_items: this.removedItems
+      })
+        .subscribe((settings: Settings) => {
 
-            this.formSubmit.emit('complete');
+          this.formSubmit.emit('complete');
 
-              // this.getsettingsById(this.id);
-              // this.router.navigate(['/settingss']);
-            }, (err: any) => {
-              console.log(err);
+          // this.getsettingsById(this.id);
+          // this.router.navigate(['/settingss']);
+        }, (err: any) => {
+          console.log(err);
 
-            }
-          );
+        }
+        );
     }
   }
   get deliveryTypes() {
     return this.settingsForm.get('delivery_types') as FormArray;
   }
-  addItem(){
+  addItem() {
     this.deliveryTypes.push(this.formBuilder.group({
       id: [null],
       type: [null, Validators.required],
@@ -90,30 +92,35 @@ export class DeliveryTypeComponent implements OnInit {
     }));
   }
 
-  openDeleteConfirmModal(index: number){
-    if (this.deliveryTypes.at(index).get('id').value){
+  openDeleteConfirmModal(index: number) {
+    if (this.deliveryTypes.at(index).get('id').value) {
 
-        const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
-          width: '400px',
-          data: {}
-        });
+      const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
+        width: '400px',
+        data: { canDeleted: true }
+      });
 
-        dialogRef.afterClosed().subscribe((result: boolean) => {
-          if (result){
-            this.removedItems.push(this.deliveryTypes.at(index).get('id').value);
-            this.removeItem(index);
-            this.onFormSubmit();
-          }
-        });
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+          this.removedItems.push(this.deliveryTypes.at(index).get('id').value);
+          this.removeItem(index);
+          this.onFormSubmit();
+        }
+      });
     }
-    else{
+    else {
       this.removeItem(index);
     }
   }
 
-  removeItem(index: number){
+  removeItem(index: number) {
 
     this.deliveryTypes.removeAt(index);
 
+  }
+  onCangeShowAdress() {
+    this.settingsService.EditShowAdressForm(this.showAdressForm).subscribe((res) => {
+      console.log(res);
+    })
   }
 }

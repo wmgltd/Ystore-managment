@@ -29,4 +29,6 @@ export class Settings {
     logo: string;
     // tslint:disable-next-line: variable-name
     delivery_types: DeliveryType[];
+    yaad_masof;
+    yaad_clearing: any;
 }

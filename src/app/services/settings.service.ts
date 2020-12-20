@@ -8,19 +8,24 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class SettingsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   // tslint:disable-next-line: variable-name
   protected _settings: Settings;
   protected clientId: number;
-
+  protected masof: string;
+  public settings: Settings;
   public setClientId(clientId: number) {
     this.clientId = clientId;
   }
-
   public getClientId() {
     return this.clientId;
   }
-
+  public setMasof(masof: string) {
+    this.masof = masof;
+  }
+  public getMasof() {
+    return this.masof;
+  }
   public get(): Observable<Settings> {
     console.log(environment.baseUrl + 'settings');
     console.log('********************');
@@ -35,9 +40,11 @@ export class SettingsService {
   }
 
   public signUp(data: Settings) {
-    return this.http.post(environment.baseUrl + 'signup', data);
+    return this.http.post(environment.baseUrl + 'signup', data, { responseType: 'text' });
   }
-
+  public iktuv() {
+    return this.http.get(environment.baseUrl + 'iktuv');
+  }
   public validateSubdomain(subdomain: string) {
     return this.http.post(environment.baseUrl + 'subdomain/validate', {
       subdomain,
@@ -57,7 +64,17 @@ export class SettingsService {
       data
     );
   }
-
+  public editClearing(data: Settings) {
+    return this.http.post(
+      environment.baseUrl + 'settings/update/clearing',
+      data
+    );
+  }
+  public EditShowAdressForm(data: boolean) {
+    return this.http.get(
+      environment.baseUrl + 'settings/update/show_adress_form?show=' + data,
+    );
+  }
   public editDeliveryTypes(data: any) {
     return this.http.post(
       environment.baseUrl + 'settings/update/delivery_types?id=' + data.id,

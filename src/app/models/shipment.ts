@@ -21,12 +21,21 @@ export class Shipment {
     customer_zip: string;
     // tslint:disable-next-line: variable-name
     customer_phone: string;
+    customer_company: string;
+    customer_note: string;
     // tslint:disable-next-line: variable-name
     delivery_type_id: number;
     // tslint:disable-next-line: variable-name
     delivery_type: string;
+    delivery_cost: number;
     condition: string;
     status: number;
     // tslint:disable-next-line: variable-name
     order_details: any[];
+    hesh: string;
+    reference: string;
+    digit4: string;
+    payments: string;
+    payment_id: string;
+
 }

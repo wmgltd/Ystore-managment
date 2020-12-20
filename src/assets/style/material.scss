@@ -183,3 +183,9 @@ mat-grid-tile.signup-form-field{
     margin-top: 2px!important;
 }
 }
+//clearing
+.credit-card-details{
+    .mat-grid-tile .mat-figure{
+        justify-content: flex-start;
+    }
+}

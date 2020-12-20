@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'api/',
-  imgUrl: 'http://ystore.co.il/Ystore-server/',
+  baseUrl: 'http://www.ystore.co.il/Ystore-server/api/',
+  imgUrl: 'http://www.ystore.co.il/Ystore-server/',
   baseHref: '/',
 };
 /*

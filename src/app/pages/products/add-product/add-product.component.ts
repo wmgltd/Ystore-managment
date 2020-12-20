@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 // import { ApiService } from '../api.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import {ProductsService} from '../../../services/products.service';
-import {Product} from '../../../models/product';
+import { ProductsService } from '../../../services/products.service';
+import { Product } from '../../../models/product';
 import { HttpClient } from '@angular/common/http';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -25,75 +25,69 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class AddProductComponent implements OnInit {
 
   constructor(private router: Router,
-              private formBuilder: FormBuilder,
-              private productsService: ProductsService,
-              private categoryService: CategoryService,
-              private http: HttpClient,
-              public dialogRef: MatDialogRef<AddProductComponent>) { }
+    private formBuilder: FormBuilder,
+    private productsService: ProductsService,
+    private http: HttpClient,
+    public dialogRef: MatDialogRef<AddProductComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { categories: Category[], canAddProduct: boolean }) { }
 
   productsForm: FormGroup;
   product: Product;
+  @Input()
   categories: Category[];
   isLoadingResults = false;
   matcher = new MyErrorStateMatcher();
-
+  @Input()
+  canAddProduct: boolean;
   urls = [];
 
   ngOnInit(): void {
-    this.getCategories();
+    this.categories = this.data.categories;
     this.productsForm = this.formBuilder.group({
-      name : [null, Validators.required],
+      name: [null, Validators.required],
       //img : [null, Validators.required],
       img: new FormControl(''),
       fileSource: new FormControl(''),
       catalog_number: new FormControl(null),
       category_id: new FormControl(null, [Validators.required]),
-      description : [null, Validators.required],
-      
-      price : [null, Validators.required], 
-      sale_price : [null],
-      stock_units : [null, Validators.required],
+      description: [null, Validators.required],
+
+      price: [null, Validators.required],
+      sale_price: [null],
+      stock_units: [null, Validators.required],
       //status : [null, Validators.required],
-    });
-  }
-  getCategories(){
-    this.categoryService.getList()
-    .subscribe((res: Category[]) => {
-      this.categories = res;
-    }, err => {
-      console.error(err);
     });
   }
   onFormSubmit() {
     this.isLoadingResults = true;
     this.productsService.add(this.productsForm.value)
       .subscribe((res: any) => {
-          this.isLoadingResults = false;
-          this.dialogRef.close();
-        }, (err: any) => {
-          console.log(err);
-          this.isLoadingResults = false;
-        });
+        this.isLoadingResults = false;
+        this.dialogRef.close();
+      }, (err: any) => {
+        console.log(err);
+        this.isLoadingResults = false;
+      });
   }
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
-        const filesAmount = event.target.files.length;
-        for (let i = 0; i < filesAmount; i++) {
-                const reader = new FileReader();
+      const filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        const reader = new FileReader();
 
-                // tslint:disable-next-line: no-shadowed-variable
-                reader.onload = (event: any) => {
-                   this.urls.push(event.target.result);
-                   this.productsForm.patchValue({
-                    fileSource: this.urls
-                  });
-                };
+        // tslint:disable-next-line: no-shadowed-variable
+        reader.onload = (event: any) => {
+          this.urls.push(event.target.result);
+          this.productsForm.patchValue({
+            fileSource: this.urls
+          });
+        };
 
-                reader.readAsDataURL(event.target.files[i]);
-        }
+        reader.readAsDataURL(event.target.files[i]);
+      }
     }
   }
-  removeImage(url){
+  removeImage(url) {
     const index = this.urls.indexOf(url);
     if (index > -1) {
       this.urls.splice(index, 1);

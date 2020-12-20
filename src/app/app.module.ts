@@ -61,6 +61,8 @@ import { StoreComponent } from './pages/auth/signup/store/store.component';
 import { DetailsComponent } from './pages/auth/signup/details/details.component';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { ErrorComponent } from './pages/error/error.component';
+import { ClearingComponent } from './pages/settings/clearing/clearing.component';
 
 @NgModule({
   declarations: [
@@ -90,6 +92,8 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     AcquaintanceComponent,
     StoreComponent,
     DetailsComponent,
+    ErrorComponent,
+    ClearingComponent,
   ],
   imports: [
     BrowserModule,

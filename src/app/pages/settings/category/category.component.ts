@@ -20,84 +20,86 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class CategoryComponent implements OnInit {
   categoriesForm: FormGroup;
-  removedItems:any[]=[];
+  removedItems: any[] = [];
   matcher = new MyErrorStateMatcher();
-  
-  constructor(private formBuilder: FormBuilder,private categoryService :CategoryService,public dialog: MatDialog) {
+
+  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService, public dialog: MatDialog) {
 
     this.categoriesForm = this.formBuilder.group({
-      categories : this.formBuilder.array([]) 
+      categories: this.formBuilder.array([])
     });
-   }
+  }
 
   ngOnInit(): void {
     this.getCategories();
   }
-  getCategories(){
+  getCategories() {
     this.categoryService.getList()
-    .subscribe((res: Category[]) => {
-      this.categories.clear();
-     res.forEach((category)=>{
-        this.categories.push(this.formBuilder.group({
-          id:[category.id],
-          value:[category.value, Validators.required]
-        }));
-    }, err => {
-      console.error(err);
-    });
-  
-});
-}
+      .subscribe((res: Category[]) => {
+        this.categories.clear();
+        res.forEach((category) => {
+          this.categories.push(this.formBuilder.group({
+            id: [category.id],
+            value: [category.value, Validators.required]
+          }));
+        }, err => {
+          console.error(err);
+        });
+
+      });
+  }
 
 
   onFormSubmit() {
-    if(this.categoriesForm.valid){
-      this.categoryService.editCategories({categories:this.categories.value,removed_items:this.removedItems})
+    if (this.categoriesForm.valid) {
+      this.categoryService.editCategories({ categories: this.categories.value, removed_items: this.removedItems })
         .subscribe((data: any) => {
-            
 
-            this.getCategories();
-          }, (err: any) => {
-            console.log(err);
-          
-          }
+
+          this.getCategories();
+        }, (err: any) => {
+          console.log(err);
+
+        }
         );
     }
   }
   get categories() {
     return this.categoriesForm.get('categories') as FormArray;
   }
-  addItem(){
+  addItem() {
     this.categories.push(this.formBuilder.group({
-      id:[null],
-      value:[null, Validators.required]
+      id: [null],
+      value: [null, Validators.required]
     }));
   }
-  openDeleteConfirmModal(index:number){
-    if(this.categories.at(index).get('id').value){
-
+  openDeleteConfirmModal(index: number) {
+    if (this.categories.at(index).get('id').value) {
+      console.log(this.categories.at(index).get('id').value);
+      this.categoryService.validateDeleteCategory(this.categories.at(index).get('id').value).subscribe((res) => {
+        console.log(res);
         const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
           width: '400px',
-          data: {}
+          data: { canDeleted: res }
         });
 
-        dialogRef.afterClosed().subscribe((result:boolean)=> {
-          if(result){
+        dialogRef.afterClosed().subscribe((result: boolean) => {
+          if (result) {
             this.removedItems.push(this.categories.at(index).get('id').value);
             this.removeItem(index);
             this.onFormSubmit();
 
           }
         });
+      });
     }
-    else{
+    else {
       this.removeItem(index);
     }
   }
-  removeItem(index:number){
-   
+  removeItem(index: number) {
+    console.log("aaaa");
     this.categories.removeAt(index);
-
   }
 
 

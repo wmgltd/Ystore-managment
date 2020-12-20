@@ -32,7 +32,7 @@ export class SideMenuComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private router: Router,
     private settingsService: SettingsService
-    ) {
+  ) {
     this.listItems.forEach(element => {
       this.matIconRegistry.addSvgIcon(
         element.icon,
@@ -49,7 +49,7 @@ export class SideMenuComponent implements OnInit {
     router.events.subscribe((val) => {
       // console.log(this.router.url);
       this.listItems.concat(this.bottomItems).forEach(element => {
-        if (this.router.url.indexOf(element.link) !== -1){
+        if (this.router.url.indexOf(element.link) !== -1) {
           this.selectedItem = element.title;
         }
       });
@@ -57,12 +57,14 @@ export class SideMenuComponent implements OnInit {
 
     });
 
-   }
+  }
 
   ngOnInit(): void {
-        this.settingsService.getSettings().subscribe((settings: Settings) => {
-          this.subdomain = settings.company_subdomain;
-        });
+    console.log("test");
+    this.settingsService.getSettings().subscribe((settings: any) => {
+      console.log(settings);
+      this.subdomain = settings.data.company_subdomain;
+    });
   }
 
   handleClick(selectedItem) {

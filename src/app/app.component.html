@@ -1,10 +1,8 @@
-<mat-sidenav-container [ngClass]="{'page-container': router.url!='/auth/signup'}" >
-  <mat-sidenav *ngIf="router.url!='/auth/signup'" mode="side" opened  class="side-menu">
-
+<mat-sidenav-container [ngClass]="{'page-container': showMenu}" >
+  <mat-sidenav *ngIf="showMenu" mode="side" opened  class="side-menu">
    <app-side-menu></app-side-menu>
   </mat-sidenav>
   <mat-sidenav-content class="page-content">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
-
 </mat-sidenav-container>

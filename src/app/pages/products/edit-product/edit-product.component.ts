@@ -27,28 +27,28 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 export class EditProductComponent implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute,
-              private formBuilder: FormBuilder , private productsService: ProductsService,
-              private categoryService: CategoryService,
-              public dialogRef: MatDialogRef<EditProductComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              public dialog: MatDialog) {
-      this.productsForm = this.formBuilder.group({
-        id : [null, Validators.required],
-        name : [null, Validators.required],
-        img: new FormControl(''),
-        fileSource: new FormControl(''),
-        description : [null, Validators.required],
-        catalog_number: new FormControl(null),
-        category_id: new FormControl(null, [Validators.required]),
-        price : [null, Validators.required],
-        sale_price : [null],
-        stock_units : [null, Validators.required],
+    private formBuilder: FormBuilder, private productsService: ProductsService,
+    private categoryService: CategoryService,
+    public dialogRef: MatDialogRef<EditProductComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialog: MatDialog) {
+    this.productsForm = this.formBuilder.group({
+      id: [null, Validators.required],
+      name: [null, Validators.required],
+      img: new FormControl(''),
+      fileSource: new FormControl(''),
+      description: [null, Validators.required],
+      catalog_number: new FormControl(null),
+      category_id: new FormControl(null, [Validators.required]),
+      price: [null, Validators.required],
+      sale_price: [null],
+      stock_units: [null, Validators.required],
 
-      });
-    }
+    });
+  }
 
   productsForm: FormGroup;
-  statusList = [{value: 0, text: 'לא פעיל'}, {value: 1, text: 'פעיל'}];
+  statusList = [{ value: 0, text: 'לא פעיל' }, { value: 1, text: 'פעיל' }];
   isLoadingResults = false;
   categories: Category[];
 
@@ -63,94 +63,94 @@ export class EditProductComponent implements OnInit {
 
     this.id = this.data.id;
     this.getProductById(this.id);
-
+    console.log(this.urls);
   }
   getProductById(id: any) {
     this.productsService.get(id).subscribe((product: Product) => {
       this.urls = product.files.map(f => {
-          return{
-            id: f.id,
-            path: f.path,
-            is_removed: false
-          };
-        });
+        return {
+          id: f.id,
+          path: f.path,
+          is_removed: false
+        };
+      });
       this.productsForm.patchValue({
         fileSource: this.urls
       });
       this.productsForm.setValue({
-        id : product.id,
-        name : product.name,
+        id: product.id,
+        name: product.name,
         img: '',
         fileSource: '',
-        description : product.description,
-        price : product.price,
-        catalog_number : product.catalog_number,
-        category_id : product.category_id,
-        sale_price : product.sale_price,
-        stock_units : product.stock_units,
+        description: product.description,
+        price: product.price,
+        catalog_number: product.catalog_number,
+        category_id: product.category_id,
+        sale_price: product.sale_price,
+        stock_units: product.stock_units,
       });
     });
   }
-  getCategories(){
+  getCategories() {
     this.categoryService.getList()
-    .subscribe((res: Category[]) => {
-      this.categories = res;
-    }, err => {
-      console.error(err);
-    });
+      .subscribe((res: Category[]) => {
+        this.categories = res;
+      }, err => {
+        console.error(err);
+      });
   }
   onFormSubmit() {
     this.productsService.edit(this.productsForm.value)
       .subscribe((product: Product) => {
-          this.dialogRef.close();
+        this.dialogRef.close();
 
-        }, (err: any) => {
-          console.log(err);
-          this.dialogRef.close();
-        }
+      }, (err: any) => {
+        console.log(err);
+        this.dialogRef.close();
+      }
       );
   }
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
-        const filesAmount = event.target.files.length;
-        for (let i = 0; i < filesAmount; i++) {
-                const reader = new FileReader();
+      const filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        const reader = new FileReader();
 
-                // tslint:disable-next-line: no-shadowed-variable
-                reader.onload = (event: any) => {
-                  console.log(event.target.result);
-                  this.urls.push({
-                    id: null,
-                    path: event.target.result,
-                    is_removed: false
-                  });
-                  this.productsForm.patchValue({
-                    fileSource: this.urls
-                  });
-                };
+        // tslint:disable-next-line: no-shadowed-variable
+        reader.onload = (event: any) => {
+          console.log(event.target.result);
+          this.urls.push({
+            id: null,
+            path: event.target.result,
+            is_removed: false
+          });
+          this.productsForm.patchValue({
+            fileSource: this.urls
+          });
+        };
 
-                reader.readAsDataURL(event.target.files[i]);
-        }
+        reader.readAsDataURL(event.target.files[i]);
+      }
     }
   }
-  removeImage(index){
+  removeImage(index) {
     if (index > -1) {
       if (this.urls[index].id) {
-         this.urls[index].is_removed = true;
+        this.urls[index].is_removed = true;
       }
-      else {  this.urls.splice(index, 1); }
+      else { this.urls.splice(index, 1); }
       this.productsForm.patchValue({
         fileSource: this.urls
       });
     }
   }
-  hasImage(){
+  hasImage() {
     return this.urls.find(x => x.is_removed === false);
   }
-  openDeleteConfirmModal(){
+  openDeleteConfirmModal() {
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
       width: '400px',
-      data: {}
+      data: { canDeleted: true }
     });
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
@@ -159,15 +159,15 @@ export class EditProductComponent implements OnInit {
       }
     });
   }
-  deleteProduct(){
+  deleteProduct() {
     this.productsService.delete(this.data.id)
       .subscribe(res => {
         this.dialogRef.close();
 
-        }, (err) => {
-          this.dialogRef.close();
+      }, (err) => {
+        this.dialogRef.close();
 
-        }
+      }
       );
   }
 

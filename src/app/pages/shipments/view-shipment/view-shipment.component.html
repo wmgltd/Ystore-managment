@@ -33,20 +33,22 @@
             </mat-error>
           </mat-form-field>
       </mat-grid-tile> 
-      
-      <mat-grid-tile >
-        <mat-form-field floatLabel="always" class="example-full-width">
-          <mat-label>סכום</mat-label>
-          <input  type="number" class="price-input" min="0" matInput placeholder="סכום" formControlName="sum"  >
-          <span class="currency-span" [ngStyle]="{'right':((shipmentForm.get('sum').value.toString().length)*10+5)+'px' }" *ngIf="shipmentForm.get('sum').value" >₪</span>
-          <!-- <div  class="inc-button spinner-button"></div>
-          <div  class="dec-button spinner-button"></div> -->
-          <mat-error>
-            <span *ngIf="!shipmentForm.get('sum').valid && shipmentForm.get('sum').touched">יש למלא סכום</span>
-          </mat-error>
-        </mat-form-field>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+        <mat-grid-tile colspan="1">
+            <mat-form-field floatLabel="always" class="example-full-width">
+                <mat-label>טלפון</mat-label> 
+                <input  matInput placeholder="טלפון" formControlName="customer_phone"  >
+                <mat-error>
+                  <span *ngIf="!shipmentForm.get('customer_email').valid && shipmentForm.get('customer_email').touched">יש למלא אימייל</span>
+                </mat-error>
+            </mat-form-field>
+        </mat-grid-tile> 
+        <mat-grid-tile colspan="1" *ngIf="shipment&&shipment.customer_company">
+            <mat-form-field floatLabel="always" class="example-full-width">
+                <mat-label>שם החברה</mat-label> 
+                <input  matInput placeholder="טלפון" formControlName="customer_company"  >
+              </mat-form-field>
+        </mat-grid-tile>  
+        <mat-grid-tile colspan="1">
         <mat-form-field floatLabel="always" class="example-full-width">
           <mat-label>כתובת למשלוח</mat-label> 
           <input  matInput placeholder="כתובת למשלוח" formControlName="customer_address"  >
@@ -64,7 +66,7 @@
           </mat-error>
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1">
+      <mat-grid-tile colspan="1" *ngIf="shipment.delivery_type_id!=0">
         <mat-form-field floatLabel="always" class="example-full-width">
           <mat-label>סוג המשלוח</mat-label> 
           <input  matInput placeholder="סוג המשלוח" formControlName="delivery_type"  >
@@ -73,9 +75,12 @@
           </mat-error>
         </mat-form-field>
       </mat-grid-tile>
-    
-  
-   
+     <mat-grid-tile colspan="1" *ngIf="shipment.customer_note">
+        <mat-form-field floatLabel="always" class="example-full-width">
+          <mat-label>הערה להזמנה</mat-label> 
+          <input  matInput placeholder="כתובת למשלוח" formControlName="customer_note"  >
+        </mat-form-field>
+      </mat-grid-tile>
   </mat-grid-list>
   
   
@@ -84,8 +89,8 @@
        <mat-grid-tile class="order-details-product" colspan="5">פירוט ההזמנה</mat-grid-tile>
        <mat-grid-tile  colspan="1">כמות</mat-grid-tile>
        <mat-grid-tile colspan="2" >סה"כ</mat-grid-tile>
-   </ng-container>
-   <ng-container  formArrayName="order_details">
+    </ng-container>
+    <ng-container  formArrayName="order_details">
        <ng-container *ngFor="let item of orderDetails.controls; let i = index" [formGroupName]="i">
        <mat-grid-tile class="order-details-product order-details-cell" colspan="5">
          
@@ -94,7 +99,7 @@
    
        </mat-grid-tile>
        <mat-grid-tile class="order-details-cell" colspan="1">
-   {{orderDetails.at(i).get('quantity').value.toString()}}
+      {{orderDetails.at(i).get('quantity').value.toString()}}
       
    
        </mat-grid-tile>
@@ -108,11 +113,68 @@
     </mat-grid-tile>
        
    </ng-container>
-   </ng-container>
+   <ng-container *ngIf="shipment.delivery_type_id!=0" >
+      <mat-grid-tile class="order-details-product order-details-cell" colspan="5">
+             משלוח: {{shipment.delivery_type}}
+      </mat-grid-tile>
+      <mat-grid-tile class="order-details-cell" colspan="1">
+        1
+      </mat-grid-tile>
+      <mat-grid-tile class="order-details-cost order-details-cell" colspan="2">
+          {{shipment.delivery_cost}}
+          <span>₪</span>
+      </mat-grid-tile>
+    </ng-container>
+  </ng-container>
    
    
  
    </mat-grid-list>
+   <mat-grid-list  cols="3" rowHeight="80px" [gutterSize]="'25px'" class="credit-card-details">
+      <ng-container >
+          <mat-grid-tile class="order-details-product" colspan="1">              
+              <mat-form-field class="example-full-width">
+                <mat-label>אסמכתא</mat-label> 
+                <input matInput disabled="true" [value]="shipment.reference"/>
+              </mat-form-field>
+            </mat-grid-tile>
+          <mat-grid-tile class="order-details-product" colspan="1"> 
+                <mat-form-field class="example-full-width">
+                    <mat-label>מס' אישור חברת אשראי</mat-label> 
+                  <input matInput disabled="true" [value]="shipment.payment_id"/>
+                  </mat-form-field>
+            </mat-grid-tile>
+          <mat-grid-tile class="order-details-product" colspan="1" >              
+              <mat-form-field class="example-full-width">
+                <mat-label>4 ספרות אחרונות של הכרטיס</mat-label> 
+                <input matInput disabled="true" [value]="shipment.digit4"/>
+              </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile >
+                <mat-form-field floatLabel="always" class="example-full-width">
+                  <mat-label>סכום</mat-label>
+                  <input  type="number" class="price-input" min="0" matInput placeholder="סכום" formControlName="sum"  >
+                  <span class="currency-span" [ngStyle]="{'right':((shipmentForm.get('sum').value.toString().length)*10+5)+'px' }" *ngIf="shipmentForm.get('sum').value" >₪</span>
+                  <!-- <div  class="inc-button spinner-button"></div>
+                  <div  class="dec-button spinner-button"></div> -->
+                  <mat-error>
+                    <span *ngIf="!shipmentForm.get('sum').valid && shipmentForm.get('sum').touched">יש למלא סכום</span>
+                  </mat-error>
+                </mat-form-field>
+              </mat-grid-tile>            <mat-grid-tile class="order-details-product" colspan="1" >              
+              <mat-form-field class="example-full-width">
+                  <mat-label>מס' תשלומים</mat-label> 
+                <input matInput disabled="true" [value]="shipment.payments"/>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile  class="order-details-product" colspan="1" >              
+              <mat-form-field class="example-full-width">
+                  <mat-label>מס' חשבונית</mat-label> 
+                <input matInput disabled="true" [value]="shipment.hesh"/>
+                </mat-form-field>
+            </mat-grid-tile>
+          </ng-container>
+      </mat-grid-list>
 </form>
 
   </mat-dialog-content>

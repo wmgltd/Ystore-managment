@@ -31,7 +31,7 @@
     <ng-container >
         <mat-grid-tile class="add-category"  colspan="2">
             <mat-divider class=""></mat-divider>
-            <mat-label>הוסף עוד קטגוריה 
+            <mat-label>הוסף <span *ngIf="categories.length">עוד</span> קטגוריה 
                 <button  class="add-icon" type="button" (click)="addItem()"  mat-icon-button >
                     <img   [src]="'assets/img/add.svg'"/>
                 </button>

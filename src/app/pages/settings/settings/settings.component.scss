@@ -114,15 +114,24 @@
         position: absolute;
         top: 10px;
         left: 25px;
-        background: #FFFFFF 0% 0% no-repeat padding-box;
-        width: 32px;
+        // background: #FFFFFF 0% 0% no-repeat padding-box;
+        width: 100%;
         height: 32px;
+        .add-image{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .add-image-description{
+            line-height: 1;
+            margin-left: 10px;
+        }
     }
     
     .company-img .mat-icon{
         width: 32px;
         height: 32px;
-        margin-top: -12px;
+        // margin-top: -12px;
         ::ng-deep svg .a{
             fill: #fff;
         }

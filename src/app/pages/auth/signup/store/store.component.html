@@ -1,8 +1,8 @@
 <div class="store-container"> 
     <div class="wizard-form">
     <form [formGroup]="regForm" (ngSubmit)="onFormSubmit()">
-        <h2>החנות שלך מתחילה כאן</h2>
-        <p> וסטיבו אאוגו וסטיבולום סוליסי טידום בעליק. קונדימנטום קורוס בליקרה, נוטום, לפריקך תצטריק לרטי.</p>
+        <h2>פותחים חנות!</h2>
+        <p> תנו לחנות שלכם שם, ובחרו עבורה כתובת (מילה אחת באנגלית)- זו תהיה הכתובת החדשה שלכם</p>
         <mat-grid-list formGroupName="storeForm" class="wizard-grid-list" cols="1" rowHeight="65px" gutterSize="10px">
             <mat-grid-tile class="signup-form-field">
                 <mat-form-field >
@@ -18,7 +18,7 @@
             </mat-grid-tile>
             <mat-grid-tile class="signup-form-field">
                 <mat-form-field class="has-prefix">
-                    <mat-label>בחר כתובת ייחודית לחנות</mat-label>
+                    <mat-label>בחרו כתובת ייחודית לחנות</mat-label>
                     <span matPrefix>Ystore.co.il.</span>
 
                     <input matInput class="left-input"  formControlName="company_subdomain" >
@@ -47,7 +47,7 @@
 
             <mat-grid-tile class="mat-right-grid-tile" >
                 
-                    <button [disabled]="!regForm.get('storeForm').valid" class="stepper-button" matStepperNext mat-stroked-button>מהמם! בוא נמשיך</button>
+                    <button [disabled]="!regForm.get('storeForm').valid" class="stepper-button" matStepperNext mat-stroked-button>מהמם! בואו נמשיך</button>
                  
         </mat-grid-tile>
         </mat-grid-list>

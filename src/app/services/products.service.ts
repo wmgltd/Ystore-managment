@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public getList(): Observable<Product[]> {
     return this.http.get<Product[]>(environment.baseUrl + 'products');

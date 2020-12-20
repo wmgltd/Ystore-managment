@@ -1,7 +1,7 @@
 <mat-toolbar>
     <mat-toolbar-row> 
         <h1>הגדרות</h1>
-
+        <!-- <button (click)="iktuv()" *ngIf="settings.yaad_active">התחברות למסוף</button> -->
     </mat-toolbar-row>
     
  
@@ -18,7 +18,13 @@
             <input id="file" #fileInput hidden type='file' (change)="onSelectFile($event,'main_banner')" multiple >   
 
             <button class="company-img"  (click)="fileInput.click()"   mat-icon-button >
-                <mat-icon svgIcon="picture"></mat-icon>
+                <div class="add-image">
+                    <div class="add-image-description" *ngIf="!settings.main_banner">
+                        לחצו להוספת תמונת באנר
+                        <br/> *רצוי בגודל 1520*225 
+                    </div>
+                    <mat-icon svgIcon="picture"></mat-icon>
+                </div>
             </button>
         </div>
         
@@ -38,10 +44,14 @@
            
             <h3 >{{settings.company_name}}</h3>
            <div class="contact-details">
-            <mat-grid-list  cols="2" rowHeight="40">
-                <mat-grid-tile class="company-details"><mat-icon svgIcon="location"></mat-icon> כתובת : {{settings.company_address}}, {{settings.company_city}}</mat-grid-tile>
+            <mat-grid-list  [cols]="2" rowHeight="40">
+                <mat-grid-tile *ngIf="settings.company_address || settings.company_city" class="company-details" [colspan]="settings.company_address.length+settings.company_city.length>10?2:1">
+                    <mat-icon svgIcon="location"></mat-icon>
+                     כתובת : {{settings.company_address}} 
+                     <span *ngIf="settings.company_address&&settings.company_city">,&nbsp;</span>
+                     {{settings.company_city}}</mat-grid-tile>
                 <!-- <mat-grid-tile><mat-icon>mail_outline</mat-icon>:אימייל Info@gmail.com</mat-grid-tile> -->
-                <mat-grid-tile class="company-details"><mat-icon svgIcon="phone"></mat-icon> טלפון : {{settings.company_phone}}</mat-grid-tile>
+                <mat-grid-tile class="company-details" [colspan]="!settings.company_address&&!settings.company_city||settings.company_address.length+settings.company_city.length>10?2:1"><mat-icon svgIcon="phone"></mat-icon> טלפון : {{settings.company_phone}}</mat-grid-tile>
                 <!-- <mat-grid-tile><mat-icon>location_on</mat-icon>:פקס 03-8541587</mat-grid-tile> -->
 
             </mat-grid-list>
@@ -52,7 +62,8 @@
     </mat-grid-tile>
     <mat-grid-tile colspan="2">
         <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="navigateTab($event)" class="edit-settings-tabs" animationDuration="0ms">
-            <mat-tab label="הגדרות חברה"> <app-edit-settings (form_submit)="initialSettings()" [settings]="settings"></app-edit-settings> </mat-tab>
+            <mat-tab label="הגדרות חברה"> <app-edit-settings (formSubmit)="initialSettings()" [settings]="settings"></app-edit-settings> </mat-tab>
+            <mat-tab label="הגדרות סליקה"> <app-clearing></app-clearing> </mat-tab>
             <mat-tab label="סוגי משלוח"> <app-delivery-type (form_submit)="initialSettings()" [settings]="settings"></app-delivery-type> </mat-tab>
             <mat-tab label="קישורים חיצוניים"><app-external-link (form_submit)="initialSettings()" [settings]="settings"></app-external-link>  </mat-tab>
             <mat-tab label="קטגוריות"> <app-category></app-category> </mat-tab>

@@ -2,7 +2,7 @@
     <div class="wizard-form">
     <div [formGroup]="regForm" >
         <h2>כמה פרטים טכניים וסיימנו</h2>
-        <p> וסטיבו אאוגו וסטיבולום סוליסי טידום בעליק. קונדימנטום קורוס בליקרה, נוטום, לפריקך תצטריק לרטי.</p>
+        <p> מלאו את הפרטים הפיזיים שלכם או של העסק שלכם, אשרו את התקנון והחנות שלכם הוקמה!</p>
         <mat-grid-list formGroupName="detailsForm" class="wizard-grid-list" cols="1" rowHeight="65px" gutterSize="10px">
             <mat-grid-tile class="signup-form-field">
                 <mat-form-field >
@@ -28,7 +28,7 @@
                     </mat-hint>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile class="signup-form-field">
+            <!-- <mat-grid-tile class="signup-form-field">
                 <mat-form-field >
                     <mat-label>סיסמה להתחברות</mat-label>
                     <input type="password" matInput  formControlName="password" >
@@ -39,13 +39,13 @@
                         <p *ngIf="regForm.get('detailsForm').get('password').valid && regForm.get('detailsForm').get('password').touched"><img src="assets/img/valid.svg"/>סיסמה תקינה</p>
                     </mat-hint>
                 </mat-form-field>
-            </mat-grid-tile>
+            </mat-grid-tile> -->
             <mat-grid-tile class="mat-right-grid-tile column-flex-direction" colspan="1">
                     <mat-checkbox color="primary" formControlName="is_policy_approved" >אני מאשר/ת את התקנון החנות</mat-checkbox>
                     <mat-error>
                         <p *ngIf="!regForm.get('detailsForm').get('is_policy_approved').valid && regForm.get('detailsForm').get('is_policy_approved').touched"><img src="assets/img/error.svg"/>חובה לאשר את תקנון החנות</p>
                     </mat-error>
-                    <button (click)="signUp()" [disabled]="!regForm.get('detailsForm').valid" class="stepper-button" matStepperNext mat-stroked-button>סיימנו איזה כיף! עוברים לחנות</button>
+                    <button (click)="signUp()" [disabled]="!regForm.get('detailsForm').valid" class="stepper-button" matStepperNext mat-stroked-button>סיימנו! יאללה לשים מוצרים בחנות</button>
 
                
             </mat-grid-tile>

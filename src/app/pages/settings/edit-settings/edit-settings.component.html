@@ -17,7 +17,7 @@
         <mat-grid-tile >
           <mat-form-field floatLabel="always" class="example-full-width">
             <mat-label>דואר אלקטרוני</mat-label>
-            <input type="email" matInput placeholder="דואר אלקטרוני" formControlName="company_email"
+            <input type="email" matInput placeholder="דואר אלקטרוני" formControlName="company_email" email
                     [errorStateMatcher]="matcher">
             <mat-error>
               <span *ngIf="!settingsForm.get('company_email').valid && settingsForm.get('company_email').touched">יש למלא דואר אלקטרוני.</span>
@@ -38,16 +38,6 @@
         <mat-grid-tile ></mat-grid-tile>
         <mat-grid-tile >
           <mat-form-field floatLabel="always" class="example-full-width">
-            <mat-label>עיר/ישוב</mat-label>
-            <input matInput placeholder="עיר/ישוב" formControlName="company_city"
-                    [errorStateMatcher]="matcher">
-            <mat-error>
-              <span *ngIf="!settingsForm.get('company_city').valid && settingsForm.get('company_city').touched">יש למלא את באנר ראשי.</span>
-            </mat-error>
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile >
-          <mat-form-field floatLabel="always" class="example-full-width">
             <mat-label>רחוב</mat-label>
             <input matInput placeholder="רחוב" formControlName="company_address"
                     [errorStateMatcher]="matcher">
@@ -56,7 +46,16 @@
             </mat-error>
           </mat-form-field>
         </mat-grid-tile>
-      
+              <mat-grid-tile >
+          <mat-form-field floatLabel="always" class="example-full-width">
+            <mat-label>עיר/ישוב</mat-label>
+            <input matInput placeholder="עיר/ישוב" formControlName="company_city"
+                    [errorStateMatcher]="matcher">
+            <mat-error>
+              <span *ngIf="!settingsForm.get('company_city').valid && settingsForm.get('company_city').touched">יש למלא את באנר ראשי.</span>
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
     
       </mat-grid-list>
 

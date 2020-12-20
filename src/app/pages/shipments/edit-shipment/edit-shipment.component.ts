@@ -31,15 +31,15 @@ export class EditShipmentComponent implements OnInit {
   id: number;
   shipment: Shipment = new Shipment();
   statusList = [
-    {key: 0, text: 'ממתין למשלוח', color: '#C5A91E'},
-    {key: 1, text: 'נשלח', color: '#66C51E'}
+    { key: 0, text: 'ממתין למשלוח', color: '#C5A91E' },
+    { key: 1, text: 'נשלח', color: '#66C51E' }
   ];
   constructor(private shipmentsService: ShipmentsService,
-              private settingsService: SettingsService,
-              private formBuilder: FormBuilder,
-              public dialogRef: MatDialogRef<EditShipmentComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              public dialog: MatDialog) { }
+    private settingsService: SettingsService,
+    private formBuilder: FormBuilder,
+    public dialogRef: MatDialogRef<EditShipmentComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getDeliveryTypes();
@@ -47,39 +47,46 @@ export class EditShipmentComponent implements OnInit {
     this.id = this.data.id;
     this.getShipmentById(this.id);
     this.shipmentForm = this.formBuilder.group({
-      id : new FormControl({ value: null }, Validators.required),
-      status : new FormControl({ value: null }, Validators.required),
-      customer_name : new FormControl({ value: '', disabled: true }, Validators.required),
-      customer_email : new FormControl({ value: '', disabled: true }),
-      sum : new FormControl({ value: '', disabled: true }, Validators.required),
-      customer_address : new FormControl({ value: '' }, Validators.required),
-      customer_city : new FormControl({ value: '' }, Validators.required),
-      delivery_type_id : new FormControl({ value: null }, Validators.required),
+      id: new FormControl({ value: null }, Validators.required),
+      status: new FormControl({ value: null }, Validators.required),
+      customer_name: new FormControl({ value: '' }, Validators.required),
+      customer_email: new FormControl({ value: '' }),
+      customer_phone: new FormControl({ value: '' }),
+      customer_company: new FormControl({ value: '' }),
+      customer_note: new FormControl({ value: '' }),
+      sum: new FormControl({ value: 0, disabled: true }, Validators.required),
+      customer_address: new FormControl({ value: '' }, Validators.required),
+      customer_city: new FormControl({ value: '' }, Validators.required),
+      delivery_type_id: new FormControl({ value: null }, Validators.required),
       catalog_number: new FormControl({ value: '', disabled: true }, Validators.required),
-      order_details : this.formBuilder.array([])
+      order_details: this.formBuilder.array([])
     });
   }
-  getDeliveryTypes(){
-    this.settingsService.get().subscribe((settings: Settings) => {
-      this.deliveryTypes = settings.delivery_types;
+  getDeliveryTypes() {
+    this.settingsService.get().subscribe((settings: any) => {
+      this.deliveryTypes = settings.data.delivery_types;
     });
   }
   getShipmentById(id: any) {
     this.shipmentsService.get(id).subscribe((shipment: Shipment) => {
       this.shipment = shipment;
+      console.log(this.shipment);
+      var sum = this.shipment.delivery_cost;
+      sum = +this.shipment.sum * 1 + sum * 1;
       this.shipmentForm.setValue({
-        id : shipment.id,
+        id: shipment.id,
         status: shipment.status,
-        customer_name : shipment.customer_name,
-        customer_email : shipment.customer_email,
-        sum : shipment.sum,
-        customer_address : shipment.customer_address,
-        customer_city : shipment.customer_city,
-        delivery_type_id : shipment.delivery_type_id,
-        catalog_number : shipment.catalog_number,
-        order_details : []
-
-
+        customer_name: shipment.customer_name,
+        customer_email: shipment.customer_email,
+        customer_phone: shipment.customer_phone,
+        customer_company: shipment.customer_company,
+        customer_note: shipment.customer_note,
+        sum: sum,
+        customer_address: shipment.customer_address,
+        customer_city: shipment.customer_city,
+        delivery_type_id: shipment.delivery_type_id,
+        catalog_number: shipment.catalog_number,
+        order_details: []
       });
 
       shipment.order_details.forEach((d) => {
@@ -91,8 +98,8 @@ export class EditShipmentComponent implements OnInit {
         }));
 
       });
-  });
-}
+    });
+  }
   get orderDetails() {
     return this.shipmentForm.get('order_details') as FormArray;
   }
@@ -101,13 +108,13 @@ export class EditShipmentComponent implements OnInit {
       .subscribe((shipment: Shipment) => {
         this.dialogRef.close();
 
-        }, (err: any) => {
-          console.log(err);
-        }
+      }, (err: any) => {
+        console.log(err);
+      }
       );
   }
 
-  openDeleteConfirmModal(){
+  openDeleteConfirmModal() {
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
       width: '400px',
       data: {}
@@ -119,17 +126,17 @@ export class EditShipmentComponent implements OnInit {
       }
     });
   }
-  deleteShipment(){
+  deleteShipment() {
     this.shipmentsService.delete(this.data.id)
       .subscribe(res => {
         this.dialogRef.close();
 
-        }, (err) => {
-          console.log(err);
-        }
+      }, (err) => {
+        console.log(err);
+      }
       );
   }
-  changeStatus(item){
+  changeStatus(item) {
     item.status = +item.status ? 0 : 1;
     this.shipmentForm.patchValue({
       status: item.status

@@ -16,6 +16,7 @@ import { ExternalLinkComponent } from './pages/settings/external-link/external-l
 import { CategoryComponent } from './pages/settings/category/category.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { AuthGuardService } from './guards/auth-guard.service';
+import { ErrorComponent } from './pages/error/error.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
     data: {
       expectedAuth: false
     }
+  },
+  {
+    path: 'error',
+    component: ErrorComponent,
   },
   {
     path: '',
@@ -88,9 +93,9 @@ const routes: Routes = [
         component: SettingsComponent,
         data: { title: 'List of settings' },
         children: [{
-            path: '',
-            pathMatch: 'full',
-            redirectTo: 'company-details'
+          path: '',
+          pathMatch: 'full',
+          redirectTo: 'company-details'
         },
         {
           path: 'company-details',

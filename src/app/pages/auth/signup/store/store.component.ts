@@ -22,15 +22,20 @@ export class StoreComponent implements OnInit {
   }
 
   onFileChanged(event) {
+    console.log(this.regForm.get('storeForm'));
+    console.log(this.imagePath)
     const files = event.target.files;
+    console.log("aaaa");
+    console.log(files);
     if (files.length === 0) {
-        return;
+      console.log("bbbbb");
+      return;
     }
 
     const mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
-        // this.message = "Only images are supported.";
-        return;
+      // this.message = "Only images are supported.";
+      return;
     }
 
     const reader = new FileReader();
@@ -38,12 +43,11 @@ export class StoreComponent implements OnInit {
     reader.readAsDataURL(files[0]);
     // tslint:disable-next-line: no-shadowed-variable
     reader.onload = (event: any) => {
-        this.regForm.get('storeForm').patchValue({logo: event.target.result});
-        this.url = reader.result;
+      this.regForm.get('storeForm').patchValue({ logo: event.target.result });
+      this.url = reader.result;
     };
-}
-  onFormSubmit(){
-
+  }
+  onFormSubmit() {
   }
 
 }

@@ -6,7 +6,7 @@
         </mat-toolbar-row>
         <mat-toolbar-row>           
              <h5>סה״כ מוצרים: <b>{{data.length}} מוצרים</b></h5>
-             <button mat-button class="add-item-button" (click)="addProduct()">הוסף מוצר     
+             <button mat-button class="add-item-button" (click)="addProduct()">הוספת מוצר     
                 <mat-icon class="add-item-icon"  [inline]="false" svgIcon="plus"></mat-icon>
             </button>
         </mat-toolbar-row>   
@@ -117,4 +117,11 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
     </div>
+        <div *ngIf="noProduct" class="no-product text-center">
+        <strong>   
+            עדיין אין מוצרים בחנות שלך, כשיהיו - הם יופיעו פה.
+            <br/>
+            כדי להוסיף מוצר צריך ללחוץ על כפתור "הוספת מוצר" המופיע משמאל למעלה
+        </strong>
+    </div> 
 </div>

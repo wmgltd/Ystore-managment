@@ -11,10 +11,15 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  public getList(): Observable<Category[]>{
+  public getList(): Observable<Category[]> {
     return this.http.get<Category[]>(environment.baseUrl + 'categories');
   }
-  public editCategories(data: any){
+  public editCategories(data: any) {
     return this.http.post(environment.baseUrl + 'categories/update', data);
+  }
+  public validateDeleteCategory(category: number) {
+    return this.http.post(environment.baseUrl + 'deleteCategory/validate', {
+      category,
+    });
   }
 }
