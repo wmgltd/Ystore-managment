@@ -44,7 +44,7 @@ export class ProductsComponent implements OnInit {
   addProduct(): void {
     console.log(this.categories.length > 0);
     const dialogRef = this.dialog.open(AddProductComponent, {
-      width: '50%',
+      width: '75%',
       minWidth: '650px',
       data: { categories: this.categories, canAddProduct: this.categories.length > 0 }
     });
@@ -56,7 +56,7 @@ export class ProductsComponent implements OnInit {
   }
   editProduct(id: number): void {
     const dialogRef = this.dialog.open(EditProductComponent, {
-      width: '50%',
+      width: '75%',
       minWidth: '650px',
       data: { id: id }
     });
@@ -70,7 +70,7 @@ export class ProductsComponent implements OnInit {
 
   viewProduct(id: number): void {
     const dialogRef = this.dialog.open(ViewProductComponent, {
-      width: '50%',
+      width: '75%',
       minWidth: '650px',
       data: { id: id }
     });

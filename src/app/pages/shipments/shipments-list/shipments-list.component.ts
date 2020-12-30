@@ -14,8 +14,11 @@ export class ShipmentsListComponent implements OnInit {
   data: Shipment[] = [];
   displayedColumns: string[] = ['catalog_number', 'customer_name', 'sum', 'datetime',
     'delivery_type', 'customer_address',
-    'customer_house_number', 'customer_city', 'reference', 'credit_company_approval', 'digit4', 'payments', 'hesh', 'status', 'actions'];
+    'customer_city', 'status', 'actions'];
   isLoadingResults = true;
+  filterArray: any[];
+  filterArrayBySearch: any[];
+  filterBy: string[] = ["customer_name", "catalog_number"];
   statusList = [
     { key: 0, text: 'ממתין למשלוח', color: '#C5A91E' },
     { key: 1, text: 'נשלח', color: '#66C51E' }
@@ -39,12 +42,14 @@ export class ShipmentsListComponent implements OnInit {
           if (b.status > a.status) {
             return -1;
           }
-          if (+a.id > +b.id) {
+          if (+a.id < +b.id) {
             return 1;
           }
           return -1;
         });
         console.log(this.data);
+        this.filterArray = this.data;
+        this.filterArrayBySearch = this.data;
         this.isLoadingResults = false;
       }, err => {
         console.log(err);
@@ -74,7 +79,7 @@ export class ShipmentsListComponent implements OnInit {
 
   editShipment(id: number): void {
     const dialogRef = this.dialog.open(EditShipmentComponent, {
-      width: '70%',
+      width: '50%',
       minWidth: '650px',
       data: { id }
     });
@@ -99,5 +104,17 @@ export class ShipmentsListComponent implements OnInit {
       // add coupon
     });
   }
-
+  onChangeSearch(event) {
+    this.filterArray = event;
+    this.filterArrayBySearch = this.filterArray;
+  }
+  changeTab(event) {
+    console.log(event.index - 1);
+    if (event.index > 0) {
+      this.filterArray = this.filterArrayBySearch.filter((shipment) => shipment.status == this.statusList[event.index - 1].key);
+    }
+    else {
+      this.filterArray = this.filterArrayBySearch;
+    }
+  }
 }

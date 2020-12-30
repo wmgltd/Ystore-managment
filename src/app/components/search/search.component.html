@@ -1,0 +1,10 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width hidden-form-field">
+    <mat-label>חיפוש</mat-label>
+    <input type="text"
+            matInput
+           placeholder="חיפוש"
+           (input)="onChangeSearch($event.target.value)">
+            <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</form>

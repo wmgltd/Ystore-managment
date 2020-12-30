@@ -15,8 +15,10 @@ export class SettingsComponent implements OnInit {
   settings: Settings = new Settings();
   imgUrl = environment.imgUrl;
   selectedIndex = 0;
+  showAdressForm: boolean = false;
   navLinks = [
     { label: 'הגדרות חברה', path: '/settings/company-details' },
+    { label: 'הגדרות סליקה', path: '/settings/credit-clearing' },
     { label: 'סוגי משלוח', path: '/settings/delivery-type' },
     { label: 'קישורים חיצוניים', path: '/settings/external-link' },
     { label: 'קטגוריות', path: '/settings/category' }
@@ -32,15 +34,14 @@ export class SettingsComponent implements OnInit {
       }
     });
   }
-
-
-
   initialSettings() {
     console.log();
     this.settingsService.get().subscribe((settings: any) => {
       this.settings = settings.data;
-      this.settingsService
-      console.log(this.settings);
+      this.settingsService;
+      console.log(settings.data);
+      this.showAdressForm = Boolean(Number(settings.data.show_adress_form));
+      console.log(this.showAdressForm);
     });
   }
 
@@ -71,9 +72,9 @@ export class SettingsComponent implements OnInit {
       }
     }
   }
-  public iktuv() {
-    this.settingsService.iktuv().subscribe((res) => {
-      console.log(res);
-    })
-  }
+  // public iktuv() {
+  //   this.settingsService.iktuv().subscribe((res) => {
+  //     console.log(res);
+  //   })
+  // }
 }

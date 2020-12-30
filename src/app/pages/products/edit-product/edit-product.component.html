@@ -115,7 +115,7 @@
 
 
 <div class="upload-img-container">
-  <div class="product-image">
+  <div class="product-image add">
     <button class="file-upload-button" type="button" mat-raised-button (click)="fileInput.click()">
       <p>לחץ לבחירת תמונה</p> 
        <mat-icon class="upload-icon" svgIcon="cloud_upload"></mat-icon>
@@ -124,8 +124,9 @@
     </div>
     <ng-container *ngFor="let url of urls; let i = index" >
      <div  class="product-image" *ngIf="!url.is_removed">
-      <img class=""  [src]="url.id?(imgUrl+url.path):url.path" >           
-      <mat-icon class="cancel-icon" svgIcon="cancel" (click)="removeImage(i)"></mat-icon>
+      <img class=""  [src]="url.id?(imgUrl+url.path):url.path" > 
+       <mat-icon class="edit-icon" *ngIf="!url.id" (click)="editImage(url)">edit</mat-icon>          
+      <mat-icon  class="cancel-icon" svgIcon="cancel" (click)="removeImage(i)"></mat-icon>
      </div>
     </ng-container>
     </div>
@@ -134,12 +135,13 @@
     </mat-error>
 
 <mat-divider class="mat-divider-bottom"></mat-divider>  
-<button mat-button type="submit" [disabled]="!productsForm.valid" class="save-item-button edit-item-button" >
-שמירה
-
-</button> 
+ 
 <button mat-button type="button" (click)="openDeleteConfirmModal()" class="save-item-button remove-item-button " >
   הסרת מוצר
+
+</button>
+<button mat-button type="submit" [disabled]="!productsForm.valid" class="save-item-button edit-item-button" >
+שמירה
 
 </button>
 </form>

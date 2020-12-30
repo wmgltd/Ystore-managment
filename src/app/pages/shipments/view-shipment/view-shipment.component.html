@@ -40,15 +40,16 @@
                 <mat-error>
                   <span *ngIf="!shipmentForm.get('customer_email').valid && shipmentForm.get('customer_email').touched">יש למלא אימייל</span>
                 </mat-error>
-            </mat-form-field>
-        </mat-grid-tile> 
-        <mat-grid-tile colspan="1" *ngIf="shipment&&shipment.customer_company">
+              </mat-form-field>
+          </mat-grid-tile> 
+       <mat-grid-tile colspan="1" *ngIf="shipment.customer_company">
             <mat-form-field floatLabel="always" class="example-full-width">
                 <mat-label>שם החברה</mat-label> 
                 <input  matInput placeholder="טלפון" formControlName="customer_company"  >
               </mat-form-field>
-        </mat-grid-tile>  
-        <mat-grid-tile colspan="1">
+      </mat-grid-tile> 
+      <mat-grid-tile colspan="1"></mat-grid-tile>
+      <mat-grid-tile colspan="1">
         <mat-form-field floatLabel="always" class="example-full-width">
           <mat-label>כתובת למשלוח</mat-label> 
           <input  matInput placeholder="כתובת למשלוח" formControlName="customer_address"  >
@@ -66,7 +67,7 @@
           </mat-error>
         </mat-form-field>
       </mat-grid-tile>
-      <mat-grid-tile colspan="1" *ngIf="shipment.delivery_type_id!=0">
+      <mat-grid-tile colspan="1">
         <mat-form-field floatLabel="always" class="example-full-width">
           <mat-label>סוג המשלוח</mat-label> 
           <input  matInput placeholder="סוג המשלוח" formControlName="delivery_type"  >
@@ -75,11 +76,11 @@
           </mat-error>
         </mat-form-field>
       </mat-grid-tile>
-     <mat-grid-tile colspan="1" *ngIf="shipment.customer_note">
-        <mat-form-field floatLabel="always" class="example-full-width">
-          <mat-label>הערה להזמנה</mat-label> 
-          <input  matInput placeholder="כתובת למשלוח" formControlName="customer_note"  >
-        </mat-form-field>
+     <mat-grid-tile colspan="3" *ngIf="shipment.customer_note">
+            <mat-form-field floatLabel="always" class="example-full-width">
+              <mat-label>הערה להזמנה</mat-label> 
+              <input  matInput placeholder="הערה להזמנה" formControlName="customer_note"  >
+            </mat-form-field>
       </mat-grid-tile>
   </mat-grid-list>
   
@@ -89,8 +90,8 @@
        <mat-grid-tile class="order-details-product" colspan="5">פירוט ההזמנה</mat-grid-tile>
        <mat-grid-tile  colspan="1">כמות</mat-grid-tile>
        <mat-grid-tile colspan="2" >סה"כ</mat-grid-tile>
-    </ng-container>
-    <ng-container  formArrayName="order_details">
+   </ng-container>
+   <ng-container  formArrayName="order_details">
        <ng-container *ngFor="let item of orderDetails.controls; let i = index" [formGroupName]="i">
        <mat-grid-tile class="order-details-product order-details-cell" colspan="5">
          
@@ -99,33 +100,44 @@
    
        </mat-grid-tile>
        <mat-grid-tile class="order-details-cell" colspan="1">
-      {{orderDetails.at(i).get('quantity').value.toString()}}
+   {{orderDetails.at(i).get('quantity').value.toString()}}
       
    
        </mat-grid-tile>
 
 
        <mat-grid-tile class="order-details-cost order-details-cell" colspan="2">
-   {{orderDetails.at(i).get('cost').value.toString()}}
+    {{(orderDetails.at(i).get('cost').value*orderDetails.at(i).get('quantity').value).toString()}}
    <span  *ngIf="orderDetails.at(i).get('cost').value">₪</span>
        
 
     </mat-grid-tile>
-       
+   
+   </ng-container> 
+    <ng-container *ngIf="shipment.delivery_type_id">
+                <mat-grid-tile class="order-details-product order-details-cell" colspan="5">
+                      {{shipment.coupon.name}}
+                </mat-grid-tile>
+                <mat-grid-tile class="order-details-cell" colspan="1">
+                  1
+                </mat-grid-tile>
+                <mat-grid-tile class="order-details-cost order-details-cell" colspan="2">
+                    -{{shipment.coupon.discount}} {{discoutTypeList[shipment.coupon.discount_type-1].text}}
+                </mat-grid-tile>
+            </ng-container>
+      <ng-container *ngIf="shipment.delivery_type_id!=0">
+              <mat-grid-tile class="order-details-product order-details-cell" colspan="5">
+                     משלוח: {{shipment.delivery_type}}
+              </mat-grid-tile>
+              <mat-grid-tile class="order-details-cell" colspan="1">
+                1
+              </mat-grid-tile>
+              <mat-grid-tile class="order-details-cost order-details-cell" colspan="2">
+                  {{shipment.delivery_cost}}
+                  <span>₪</span>
+              </mat-grid-tile>
+      </ng-container>
    </ng-container>
-   <ng-container *ngIf="shipment.delivery_type_id!=0" >
-      <mat-grid-tile class="order-details-product order-details-cell" colspan="5">
-             משלוח: {{shipment.delivery_type}}
-      </mat-grid-tile>
-      <mat-grid-tile class="order-details-cell" colspan="1">
-        1
-      </mat-grid-tile>
-      <mat-grid-tile class="order-details-cost order-details-cell" colspan="2">
-          {{shipment.delivery_cost}}
-          <span>₪</span>
-      </mat-grid-tile>
-    </ng-container>
-  </ng-container>
    
    
  

@@ -1,13 +1,13 @@
 <div class="store-container"> 
     <div class="wizard-form">
     <form [formGroup]="regForm" (ngSubmit)="onFormSubmit()">
-        <h2>פותחים חנות!</h2>
-        <p> תנו לחנות שלכם שם, ובחרו עבורה כתובת (מילה אחת באנגלית)- זו תהיה הכתובת החדשה שלכם</p>
+        <h2>פותחים חנות און ליין</h2>
+        <p> דבר ראשון, אנחנו צריכים כמה פרטים על החנות שלכם: השם שלה, הכתובת שתרצו שתהיה לה באינטרנט והלוגו שלכם</p>
         <mat-grid-list formGroupName="storeForm" class="wizard-grid-list" cols="1" rowHeight="65px" gutterSize="10px">
             <mat-grid-tile class="signup-form-field">
                 <mat-form-field >
                     <mat-label>שם החנות</mat-label>
-                    <input matInput  formControlName="company_name" >
+                    <input matInput  formControlName="company_name" placeholder="שם החנות" >
                     <mat-error>
                         <p *ngIf="!regForm.get('storeForm').get('company_name').valid && regForm.get('storeForm').get('company_name').touched"><img src="assets/img/error.svg"/>שם החנות לא תקין</p>
                     </mat-error>
@@ -18,10 +18,10 @@
             </mat-grid-tile>
             <mat-grid-tile class="signup-form-field">
                 <mat-form-field class="has-prefix">
-                    <mat-label>בחרו כתובת ייחודית לחנות</mat-label>
+                    <mat-label>הקלידו מילה באנגלית שתהיה הכתובת הוירטואלית החדשה שלכם</mat-label>
                     <span matPrefix>Ystore.co.il.</span>
 
-                    <input matInput class="left-input"  formControlName="company_subdomain" >
+                    <input matInput class="left-input"  formControlName="company_subdomain">
 
                     <mat-error>
                         <p *ngIf="!regForm.get('storeForm').get('company_subdomain').valid && regForm.get('storeForm').get('company_subdomain').touched"><img src="assets/img/error.svg"/>כתובת תפוסה</p>
@@ -34,7 +34,7 @@
             <mat-grid-tile class="mat-right-grid-tile">
                 <input id="file" #fileInput hidden type='file' formControlName="logo_name"  (change)="onFileChanged($event)">   
                 <button class="company-img"  (click)="fileInput.click()" mat-stroked-button    >
-                    העלת לוגו
+                    העלאת לוגו
                     <mat-icon svgIcon="upload_file"></mat-icon>
                 </button>
                 <div class="upload-guidelines">
@@ -46,9 +46,7 @@
             </mat-grid-tile>
 
             <mat-grid-tile class="mat-right-grid-tile" >
-                
-                    <button [disabled]="!regForm.get('storeForm').valid" class="stepper-button" matStepperNext mat-stroked-button>מהמם! בואו נמשיך</button>
-                 
+                <button [disabled]="!regForm.get('storeForm').valid" class="stepper-button" matStepperNext mat-stroked-button>ממשיכים</button>
         </mat-grid-tile>
         </mat-grid-list>
         

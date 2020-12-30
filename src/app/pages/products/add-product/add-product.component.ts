@@ -6,9 +6,11 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { ProductsService } from '../../../services/products.service';
 import { Product } from '../../../models/product';
 import { HttpClient } from '@angular/common/http';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { CroperComponent } from 'src/app/components/croper/croper.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -28,6 +30,7 @@ export class AddProductComponent implements OnInit {
     private formBuilder: FormBuilder,
     private productsService: ProductsService,
     private http: HttpClient,
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<AddProductComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { categories: Category[], canAddProduct: boolean }) { }
 
@@ -40,7 +43,9 @@ export class AddProductComponent implements OnInit {
   @Input()
   canAddProduct: boolean;
   urls = [];
-
+  cropedFile: any = '';
+  imageChangedEvent: any = '';
+  urlsAndEvent: urlsAndEvent[] = [];
   ngOnInit(): void {
     this.categories = this.data.categories;
     this.productsForm = this.formBuilder.group({
@@ -70,19 +75,25 @@ export class AddProductComponent implements OnInit {
       });
   }
   onSelectFile(event) {
+    this.imageChangedEvent = event;
+    var urlandevent = new urlsAndEvent();
+    urlandevent.event = event;
+    console.log(this.imageChangedEvent);
     if (event.target.files && event.target.files[0]) {
       const filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
         const reader = new FileReader();
 
         // tslint:disable-next-line: no-shadowed-variable
-        reader.onload = (event: any) => {
-          this.urls.push(event.target.result);
+        reader.onload = (eve: any) => {
+          this.urls.push(eve.target.result);
           this.productsForm.patchValue({
             fileSource: this.urls
           });
+          urlandevent.url = eve.target.result;
+          urlandevent.event = event.target.files[i];
+          this.urlsAndEvent.push(urlandevent);
         };
-
         reader.readAsDataURL(event.target.files[i]);
       }
     }
@@ -96,6 +107,37 @@ export class AddProductComponent implements OnInit {
       });
     }
   }
+  editImage(url): void {
+    const urlAndEvent = this.urlsAndEvent.find((x) => x.url == url);
+    console.log(urlAndEvent.event);
+    console.log(this.urls);
+    console.log(url);
+    const dialogRef = this.dialog.open(CroperComponent, {
+      width: '75%',
+      minWidth: '650px',
+      data: { image: urlAndEvent.event }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      if (result) {
+        const index = this.urls.indexOf(url);
+        if (index > -1) {
+          this.urls.splice(index, 1);
+          this.urls.push(result);
+          this.urlsAndEvent.forEach(element => {
+            element.url == url ? element.url = result : element.url;
+          });
+          this.productsForm.patchValue({
+            fileSource: this.urls
+          });
+        }
+      }
 
+    });
+  }
+}
+export class urlsAndEvent {
+  url: any;
+  event: any;
 }

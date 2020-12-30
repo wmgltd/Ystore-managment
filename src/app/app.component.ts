@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
         else {
           url = e.url;
         }
-        if (url != "/auth/signup" && url != "/error") {
+        if (url != "/auth/signup" && url != "/error" && url != "/lead") {
           console.log(e.url.substr(0, e.url.indexOf("?")));
           this.showMenu = true;
         }

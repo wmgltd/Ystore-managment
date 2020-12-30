@@ -25,7 +25,7 @@
                         <mat-label>קוד קופון</mat-label>
                         <input matInput placeholder="קוד קופון" formControlName="code" [errorStateMatcher]="matcher">
                         <mat-error>
-                            <span *ngIf="!couponsForm.get('code').valid && couponsForm.get('code').touched">יש למלא את קוד הקופון</span>
+                            <span *ngIf="!couponsForm.get('code').valid && couponsForm.get('code').touched">קוד קופון קיים</span>
                         </mat-error>
                     </mat-form-field>
                 </mat-grid-tile>
@@ -82,7 +82,15 @@
 
             </mat-grid-tile>
 
+            <mat-grid-tile>
+                <mat-form-field floatLabel="always" class="example-full-width">
+                    <mat-label>מינימום סכום קנייה</mat-label>
+                    <input type="number" matInput min="0" placeholder="כמות קופונים" formControlName="purchase_amount" [errorStateMatcher]="matcher">
+                    <div  class="inc-button spinner-button"></div>
+                    <div  class="dec-button spinner-button"></div>
+                </mat-form-field>
 
+            </mat-grid-tile>
             </mat-grid-list>
           
 

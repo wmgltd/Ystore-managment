@@ -13,110 +13,105 @@
 
     <form [formGroup]="productsForm" (ngSubmit)="onFormSubmit()">
       <mat-grid-list cols="4" rowHeight="80" [gutterSize]="'25px'">
-       
-    <mat-grid-tile colspan="2">
-      <mat-form-field required floatLabel="always" class="example-full-width">
-        <mat-label>שם המוצר</mat-label>
-        <input matInput placeholder="שם המוצר" formControlName="name" [errorStateMatcher]="matcher">
-        <mat-error>
-          <span *ngIf="!productsForm.get('name').valid && productsForm.get('name').touched">יש למלא את שם המוצר</span>
-        </mat-error>
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="2">
-      <p class="category-link" (click)="dialogRef.close()" [routerLink]="'/settings/category'" queryParamsHandling="preserve" >עריכת קטגוריות          
-        <button tabindex="-1"  class="add-icon" type="button"   mat-icon-button >
-          <mat-icon   matLine [inline]="false" svgIcon="add"></mat-icon>
+        <mat-grid-tile colspan="2">
+          <mat-form-field required floatLabel="always" class="example-full-width">
+            <mat-label>שם המוצר</mat-label>
+            <input matInput placeholder="שם המוצר" formControlName="name" [errorStateMatcher]="matcher">
+            <mat-error>
+              <span *ngIf="!productsForm.get('name').valid && productsForm.get('name').touched">יש למלא את שם המוצר</span>
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+          <p class="category-link" (click)="dialogRef.close()" [routerLink]="'/settings/category'" queryParamsHandling="preserve" >עריכת קטגוריות          
+            <button tabindex="-1"  class="add-icon" type="button"   mat-icon-button >
+              <mat-icon   matLine [inline]="false" svgIcon="add"></mat-icon>
 
-       </button>
-      </p>
-      <mat-form-field floatLabel="always" class="example-full-width">
-        
-      
-        
-        <mat-label>קטגוריה</mat-label>
-        <mat-select placeholder="קטגוריה" formControlName="category_id"> <!--formControlName="category"-->
-          <mat-option *ngFor="let category of categories" [value]="category.id">
-            {{category.value}}
-          </mat-option>
-        </mat-select>            
-        <mat-error>
-          <span *ngIf="!productsForm.get('category_id').valid && productsForm.get('category_id').touched">יש למלא קטגוריה</span>
+          </button>
+          </p>
+          <mat-form-field floatLabel="always" class="example-full-width">
+            <mat-label>קטגוריה</mat-label>
+            <mat-select placeholder="קטגוריה" formControlName="category_id"> <!--formControlName="category"-->
+              <mat-option *ngFor="let category of categories" [value]="category.id">
+                {{category.value}}
+              </mat-option>
+            </mat-select>            
+            <mat-error>
+              <span *ngIf="!productsForm.get('category_id').valid && productsForm.get('category_id').touched">יש למלא קטגוריה</span>
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile> 
+        <mat-grid-tile colspan="4" class="textarea-form-field">
+          <mat-form-field floatLabel="always" class=" example-full-width">
+            <mat-label>תיאור המוצר</mat-label>
+            <textarea matInput placeholder="תיאור המוצר" formControlName="description" [errorStateMatcher]="matcher">
+            </textarea>
+              <mat-error>
+              <span *ngIf="!productsForm.get('description').valid && productsForm.get('description').touched">יש למלא את תיאור המוצר</span>
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field floatLabel="always" class="example-full-width">
+            <mat-label>מחיר</mat-label>
+            <input type="number" class="price-input" min="0" matInput placeholder="מחיר" formControlName="price" [errorStateMatcher]="matcher">
+            <span class="currency-span" [ngStyle]="{'right':((productsForm.get('price').value.toString().length)*10+5)+'px' }" *ngIf="productsForm.get('price').valid">₪</span>
+            <!-- <div  class="inc-button spinner-button"></div>
+            <div  class="dec-button spinner-button"></div> -->
+            <mat-error>
+              <span *ngIf="!productsForm.get('price').valid && productsForm.get('price').touched">יש למלא מחיר</span>
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field floatLabel="always" class="example-full-width">
+            <mat-label>מחיר מבצע</mat-label>
+            <input type="number" class="price-input" min="0" matInput placeholder="מחיר מבצע" formControlName="sale_price" [errorStateMatcher]="matcher" nullValue>
+            <span class="currency-span" [ngStyle]="{'right':((productsForm.get('sale_price').value.toString().length)*10+5)+'px' }" *ngIf="productsForm.get('sale_price').value&&productsForm.get('sale_price').value.toString().length">₪</span>
 
-        </mat-error>
-      </mat-form-field>
-    </mat-grid-tile> 
-    <mat-grid-tile colspan="4" class="textarea-form-field">
-      <mat-form-field floatLabel="always" class=" example-full-width">
-        <mat-label>תיאור המוצר</mat-label>
-        <textarea matInput placeholder="תיאור המוצר" formControlName="description" [errorStateMatcher]="matcher">
-        </textarea>
-          <mat-error>
-          <span *ngIf="!productsForm.get('description').valid && productsForm.get('description').touched">יש למלא את תיאור המוצר</span>
-        </mat-error>
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile >
-      <mat-form-field floatLabel="always" class="example-full-width">
-        <mat-label>מחיר</mat-label>
-        <input type="number" class="price-input" min="0" matInput placeholder="מחיר" formControlName="price" [errorStateMatcher]="matcher">
-        <span class="currency-span" [ngStyle]="{'right':((productsForm.get('price').value.toString().length)*10+5)+'px' }" *ngIf="productsForm.get('price').valid">₪</span>
-        <!-- <div  class="inc-button spinner-button"></div>
-        <div  class="dec-button spinner-button"></div> -->
-        <mat-error>
-          <span *ngIf="!productsForm.get('price').valid && productsForm.get('price').touched">יש למלא מחיר</span>
-        </mat-error>
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile >
-      <mat-form-field floatLabel="always" class="example-full-width">
-        <mat-label>מחיר מבצע</mat-label>
-        <input type="number" class="price-input" min="0" matInput placeholder="מחיר מבצע" formControlName="sale_price" [errorStateMatcher]="matcher" nullValue>
-        <span class="currency-span" [ngStyle]="{'right':((productsForm.get('sale_price').value.toString().length)*10+5)+'px' }" *ngIf="productsForm.get('sale_price').value&&productsForm.get('sale_price').value.toString().length">₪</span>
+            <!-- <div  class="inc-button spinner-button"></div>
+            <div  class="dec-button spinner-button"></div> -->
+            <mat-error>
+              <span *ngIf="!productsForm.get('sale_price').valid && productsForm.get('sale_price').touched">יש למלא מחיר מבצע</span>
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field floatLabel="always" class="example-full-width">
+            <mat-label>מק"ט</mat-label>
+            <input matInput placeholder='מק"ט' formControlName="catalog_number"  [errorStateMatcher]="matcher" nullValue><!--formControlName="catalog_number"-->
+            <mat-error>
+              <span *ngIf="!productsForm.get('catalog_number').valid && productsForm.get('catalog_number').touched">יש למלא מק"ט</span>
 
-        <!-- <div  class="inc-button spinner-button"></div>
-        <div  class="dec-button spinner-button"></div> -->
-        <mat-error>
-          <span *ngIf="!productsForm.get('sale_price').valid && productsForm.get('sale_price').touched">יש למלא מחיר מבצע</span>
-        </mat-error>
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile >
-      <mat-form-field floatLabel="always" class="example-full-width">
-        <mat-label>מק"ט</mat-label>
-        <input matInput placeholder='מק"ט' formControlName="catalog_number"  [errorStateMatcher]="matcher" nullValue><!--formControlName="catalog_number"-->
-        <mat-error>
-          <span *ngIf="!productsForm.get('catalog_number').valid && productsForm.get('catalog_number').touched">יש למלא מק"ט</span>
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile >
+          <mat-form-field floatLabel="always" class="example-full-width">
+            <mat-label>כמות במלאי</mat-label>
+            <input type="number" min="0" matInput placeholder="כמות" formControlName="stock_units" [errorStateMatcher]="matcher">
+            <div  class="inc-button spinner-button"></div>
+            <div  class="dec-button spinner-button"></div>
+            <mat-error>
+              <span *ngIf="!productsForm.get('stock_units').valid && productsForm.get('stock_units').touched">יש למלא כמות במלאי</span>
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
 
-        </mat-error>
-      </mat-form-field>
-    </mat-grid-tile>
-    <mat-grid-tile >
-      <mat-form-field floatLabel="always" class="example-full-width">
-        <mat-label>כמות במלאי</mat-label>
-        <input type="number" min="0" matInput placeholder="כמות" formControlName="stock_units" [errorStateMatcher]="matcher">
-        <div  class="inc-button spinner-button"></div>
-        <div  class="dec-button spinner-button"></div>
-        <mat-error>
-          <span *ngIf="!productsForm.get('stock_units').valid && productsForm.get('stock_units').touched">יש למלא כמות במלאי</span>
-        </mat-error>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile colspan="4" rowspan="1" class="hidden-form-field">
-      <mat-form-field floatLabel="always" class=" example-full-width">
-        <mat-label>העלאת תמונות מוצר</mat-label>
-        <input hidden  matInput  >
-        <input id="file" #fileInput formControlName="img" hidden type='file' (change)="onSelectFile($event)" multiple >   
-       
-      </mat-form-field>
-    </mat-grid-tile>
+        <mat-grid-tile colspan="4" rowspan="1" class="hidden-form-field">
+          <mat-form-field floatLabel="always" class=" example-full-width">
+            <mat-label>העלאת תמונות מוצר</mat-label>
+            <input hidden  matInput  >
+            <input id="file" #fileInput formControlName="img" hidden type='file' (change)="onSelectFile($event)" multiple >   
+          
+          </mat-form-field>
+        </mat-grid-tile>
 </mat-grid-list>
 
 
 
 <div class="upload-img-container">
-  <div class="product-image">
+  <div class="product-image add">
     <button class="file-upload-button" type="button" mat-raised-button (click)="fileInput.click()">
       <p>לחץ לבחירת תמונה</p> 
        <mat-icon class="upload-icon" svgIcon="cloud_upload"></mat-icon>
@@ -126,6 +121,7 @@
      <div class="product-image" *ngFor='let url of urls'>
       <img class=""  [src]="url" >           
       <mat-icon class="cancel-icon" svgIcon="cancel" (click)="removeImage(url)"></mat-icon>
+      <mat-icon class="edit-icon" (click)="editImage(url)">edit</mat-icon>
      </div>
     </div>
     <mat-error>

@@ -39,12 +39,15 @@ export class SettingsService {
     return this.get();
   }
 
+  public lead() {
+    return this.http.get(environment.baseUrl + 'lead');
+  }
   public signUp(data: Settings) {
     return this.http.post(environment.baseUrl + 'signup', data, { responseType: 'text' });
   }
-  public iktuv() {
-    return this.http.get(environment.baseUrl + 'iktuv');
-  }
+  // public iktuv() {
+  //   return this.http.get(environment.baseUrl + 'iktuv');
+  // }
   public validateSubdomain(subdomain: string) {
     return this.http.post(environment.baseUrl + 'subdomain/validate', {
       subdomain,

@@ -1,3 +1,4 @@
+import { Coupon } from "./coupon";
 
 export class Shipment {
     id: number;
@@ -21,8 +22,6 @@ export class Shipment {
     customer_zip: string;
     // tslint:disable-next-line: variable-name
     customer_phone: string;
-    customer_company: string;
-    customer_note: string;
     // tslint:disable-next-line: variable-name
     delivery_type_id: number;
     // tslint:disable-next-line: variable-name
@@ -37,5 +36,7 @@ export class Shipment {
     digit4: string;
     payments: string;
     payment_id: string;
-
+    customer_company: string;
+    customer_note: string;
+    coupon: Coupon;
 }

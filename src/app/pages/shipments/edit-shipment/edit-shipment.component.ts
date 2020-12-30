@@ -30,6 +30,11 @@ export class EditShipmentComponent implements OnInit {
   deliveryTypes: DeliveryType[];
   id: number;
   shipment: Shipment = new Shipment();
+  gift_shipment: boolean;
+  discoutTypeList = [
+    { key: 1, text: '%' },
+    { key: 2, text: '₪', }
+  ];
   statusList = [
     { key: 0, text: 'ממתין למשלוח', color: '#C5A91E' },
     { key: 1, text: 'נשלח', color: '#66C51E' }
@@ -43,24 +48,23 @@ export class EditShipmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDeliveryTypes();
-
     this.id = this.data.id;
-    this.getShipmentById(this.id);
     this.shipmentForm = this.formBuilder.group({
       id: new FormControl({ value: null }, Validators.required),
       status: new FormControl({ value: null }, Validators.required),
-      customer_name: new FormControl({ value: '' }, Validators.required),
-      customer_email: new FormControl({ value: '' }),
-      customer_phone: new FormControl({ value: '' }),
-      customer_company: new FormControl({ value: '' }),
-      customer_note: new FormControl({ value: '' }),
+      customer_name: new FormControl({ value: '', disabled: false }, Validators.required),
+      customer_email: new FormControl({ value: '', disabled: false }),
+      customer_phone: new FormControl({ value: '', disabled: false }),
+      customer_company: new FormControl({ value: '', disabled: false }),
+      customer_note: new FormControl({ value: '', disabled: false }),
       sum: new FormControl({ value: 0, disabled: true }, Validators.required),
-      customer_address: new FormControl({ value: '' }, Validators.required),
-      customer_city: new FormControl({ value: '' }, Validators.required),
-      delivery_type_id: new FormControl({ value: null }, Validators.required),
+      customer_address: new FormControl({ value: '', disabled: false }),
+      customer_city: new FormControl({ value: '', disabled: false }),
+      delivery_type_id: new FormControl({ value: null }),
       catalog_number: new FormControl({ value: '', disabled: true }, Validators.required),
       order_details: this.formBuilder.array([])
     });
+    this.getShipmentById(this.id);
   }
   getDeliveryTypes() {
     this.settingsService.get().subscribe((settings: any) => {
@@ -73,6 +77,9 @@ export class EditShipmentComponent implements OnInit {
       console.log(this.shipment);
       var sum = this.shipment.delivery_cost;
       sum = +this.shipment.sum * 1 + sum * 1;
+      if (sum <= 0) {
+        this.gift_shipment = true;
+      }
       this.shipmentForm.setValue({
         id: shipment.id,
         status: shipment.status,
@@ -137,6 +144,7 @@ export class EditShipmentComponent implements OnInit {
       );
   }
   changeStatus(item) {
+    console.log(item);
     item.status = +item.status ? 0 : 1;
     this.shipmentForm.patchValue({
       status: item.status

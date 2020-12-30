@@ -32,6 +32,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+// import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddProductComponent } from './pages/products/add-product/add-product.component';
@@ -63,6 +64,10 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { ErrorComponent } from './pages/error/error.component';
 import { ClearingComponent } from './pages/settings/clearing/clearing.component';
+import { LeadComponent } from './pages/lead/lead.component';
+import { SearchComponent } from './components/search/search.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { CroperComponent } from './components/croper/croper.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +99,9 @@ import { ClearingComponent } from './pages/settings/clearing/clearing.component'
     DetailsComponent,
     ErrorComponent,
     ClearingComponent,
+    LeadComponent,
+    SearchComponent,
+    CroperComponent,
   ],
   imports: [
     BrowserModule,
@@ -124,6 +132,7 @@ import { ClearingComponent } from './pages/settings/clearing/clearing.component'
     MatNativeDateModule,
     MatStepperModule,
     MatCheckboxModule,
+    ImageCropperModule,
     FormsModule,
     ReactiveFormsModule,
     NgCircleProgressModule.forRoot({
@@ -146,4 +155,4 @@ import { ClearingComponent } from './pages/settings/clearing/clearing.component'
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

@@ -64,7 +64,7 @@
         <mat-tab-group [selectedIndex]="selectedIndex" (selectedTabChange)="navigateTab($event)" class="edit-settings-tabs" animationDuration="0ms">
             <mat-tab label="הגדרות חברה"> <app-edit-settings (formSubmit)="initialSettings()" [settings]="settings"></app-edit-settings> </mat-tab>
             <mat-tab label="הגדרות סליקה"> <app-clearing></app-clearing> </mat-tab>
-            <mat-tab label="סוגי משלוח"> <app-delivery-type (form_submit)="initialSettings()" [settings]="settings"></app-delivery-type> </mat-tab>
+            <mat-tab label="סוגי משלוח"> <app-delivery-type (form_submit)="initialSettings()" [settings]="settings" [showAdressForm]="showAdressForm"></app-delivery-type> </mat-tab>
             <mat-tab label="קישורים חיצוניים"><app-external-link (form_submit)="initialSettings()" [settings]="settings"></app-external-link>  </mat-tab>
             <mat-tab label="קטגוריות"> <app-category></app-category> </mat-tab>
 

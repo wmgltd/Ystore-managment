@@ -10,6 +10,7 @@ import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
 import { environment } from 'src/environments/environment';
 import { DeleteConfirmDialogComponent } from 'src/app/components/delete-confirm-dialog/delete-confirm-dialog.component';
+import { CroperComponent } from 'src/app/components/croper/croper.component';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -57,13 +58,14 @@ export class EditProductComponent implements OnInit {
   id: number;
   imgUrl = environment.imgUrl;
   urls = [];
-
+  cropedFile: any = '';
+  imageChangedEvent: any = '';
+  urlsAndEvent: urlsAndEvent[] = [];
   ngOnInit(): void {
     this.getCategories();
 
     this.id = this.data.id;
     this.getProductById(this.id);
-    console.log(this.urls);
   }
   getProductById(id: any) {
     this.productsService.get(id).subscribe((product: Product) => {
@@ -74,6 +76,7 @@ export class EditProductComponent implements OnInit {
           is_removed: false
         };
       });
+      this.urlsAndEvent = product.files.map(f => { return { url: f.path, event: '' } });
       this.productsForm.patchValue({
         fileSource: this.urls
       });
@@ -111,22 +114,27 @@ export class EditProductComponent implements OnInit {
       );
   }
   onSelectFile(event) {
+    this.imageChangedEvent = event;
+    var urlandevent = new urlsAndEvent();
+    urlandevent.event = event;
     if (event.target.files && event.target.files[0]) {
       const filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
         const reader = new FileReader();
 
         // tslint:disable-next-line: no-shadowed-variable
-        reader.onload = (event: any) => {
-          console.log(event.target.result);
+        reader.onload = (eve: any) => {
           this.urls.push({
             id: null,
-            path: event.target.result,
+            path: eve.target.result,
             is_removed: false
           });
           this.productsForm.patchValue({
             fileSource: this.urls
           });
+          urlandevent.url = eve.target.result;
+          urlandevent.event = event.target.files[i];
+          this.urlsAndEvent.push(urlandevent);
         };
 
         reader.readAsDataURL(event.target.files[i]);
@@ -170,5 +178,104 @@ export class EditProductComponent implements OnInit {
       }
       );
   }
+  editImage(url): void {
+    const urlAndEvent = this.urlsAndEvent.find((x) => x.url == url.path);
+    if (!urlAndEvent.event) {
+      this.toDataURL(this.imgUrl + urlAndEvent.url, function (dataUrl) {
+      })
+      getBase64ImageFromUrl(this.imgUrl + urlAndEvent.url)
+        .then((result) => {
+          urlAndEvent.event = result;
+          const dialogRef = this.dialog.open(CroperComponent, {
+            width: '75%',
+            minWidth: '650px',
+            data: { image: urlAndEvent.event }
+          });
 
+          dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+              const index = this.urls.indexOf(url);
+              if (index > -1) {
+                this.urls.splice(index, 1);
+                this.urls.push(result);
+                this.urlsAndEvent.forEach(element => {
+                  element.url == url ? element.url = result : element.url;
+                });
+                this.productsForm.patchValue({
+                  fileSource: this.urls
+                });
+              }
+            }
+
+          });
+        })
+        .catch(err => console.error(err));
+    }
+    else {
+      const dialogRef = this.dialog.open(CroperComponent, {
+        width: '75%',
+        minWidth: '650px',
+        data: { image: urlAndEvent.event ? urlAndEvent.event : this.imgUrl + urlAndEvent.url }
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          var thisurl = this.urls.find((x) => x.path == url.path);
+          const index = this.urls.indexOf(thisurl);
+          if (index > -1) {
+            if (this.urls[index].id) {
+              this.urls[index].is_removed = true;
+            }
+            else { this.urls.splice(index, 1); }
+            this.urls.push({
+              id: null,
+              path: result,
+              is_removed: false
+            });
+            this.urlsAndEvent.forEach(element => {
+              element.url == url ? element.url = result : element.url;
+            });
+            this.productsForm.patchValue({
+              fileSource: this.urls
+            });
+          }
+        }
+
+      });
+    }
+
+  }
+  toDataURL(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        callback(reader.result);
+      }
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open('GET', url);
+    xhr.responseType = 'blob';
+    xhr.send();
+  }
+}
+export class urlsAndEvent {
+  url: any;
+  event: any;
+}
+async function getBase64ImageFromUrl(imageUrl) {
+  var res = await fetch(imageUrl);
+  var blob = await res.blob();
+
+  return new Promise((resolve, reject) => {
+    var reader = new FileReader();
+    reader.addEventListener("load", function () {
+      resolve(reader.result);
+    }, false);
+
+    reader.onerror = () => {
+      return reject(this);
+    };
+    reader.readAsDataURL(blob);
+  })
 }

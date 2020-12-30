@@ -17,6 +17,8 @@ import { CategoryComponent } from './pages/settings/category/category.component'
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { ErrorComponent } from './pages/error/error.component';
+import { LeadComponent } from './pages/lead/lead.component';
+import { ClearingComponent } from './pages/settings/clearing/clearing.component';
 
 const routes: Routes = [
   {
@@ -30,6 +32,10 @@ const routes: Routes = [
   {
     path: 'error',
     component: ErrorComponent,
+  },
+  {
+    path: 'lead',
+    component: LeadComponent,
   },
   {
     path: '',
@@ -96,6 +102,10 @@ const routes: Routes = [
           path: '',
           pathMatch: 'full',
           redirectTo: 'company-details'
+        },
+        {
+          path: 'credit-clearing',
+          component: ClearingComponent
         },
         {
           path: 'company-details',

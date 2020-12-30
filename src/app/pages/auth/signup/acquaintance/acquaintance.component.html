@@ -1,33 +1,9 @@
 <div class="acquaintance-container"> 
     <div class="wizard-form">
     <div [formGroup]="regForm" (ngSubmit)="onFormSubmit()">
-        <h2>אנחנו רוצים להכיר יותר!</h2>
-        <p> מלאו את הפרטים הבאים, כדי שנדע איך לדבר איתכם</p>
+        <h2>אז איפה אתם?</h2>
+        <p> הוסיפו כמה פרטים על החנות שלכם, הפרטים האלו יהיו מוצגים ללקוחות שלכם</p>
         <mat-grid-list formGroupName="ownerDetailsForm" class="wizard-grid-list" cols="2" rowHeight="65px" gutterSize="10px">
-            <mat-grid-tile class="signup-form-field">
-                <mat-form-field >
-                    <mat-label>מספר ח.פ.</mat-label>
-                    <input matInput  formControlName="private_company" >
-                    <mat-error>
-                        <p *ngIf="!regForm.get('ownerDetailsForm').get('private_company').valid && regForm.get('ownerDetailsForm').get('private_company').touched"><img src="assets/img/error.svg"/>מספר ח.פ. לא תקין</p>
-                    </mat-error>
-                    <mat-hint>
-                        <p *ngIf="regForm.get('ownerDetailsForm').get('private_company').valid && regForm.get('ownerDetailsForm').get('private_company').touched"><img src="assets/img/valid.svg"/>מספר ח.פ. תקין</p>
-                    </mat-hint>
-                </mat-form-field>
-            </mat-grid-tile>
-            <mat-grid-tile class="signup-form-field">
-                <mat-form-field>
-                    <mat-label>שם מלא</mat-label>
-                    <input matInput  formControlName="owner_name" >
-                    <mat-error>
-                        <p *ngIf="!regForm.get('ownerDetailsForm').get('owner_name').valid && regForm.get('ownerDetailsForm').get('owner_name').touched"><img src="assets/img/error.svg"/>שם לא תקין</p>
-                    </mat-error>
-                    <mat-hint>
-                        <p *ngIf="regForm.get('ownerDetailsForm').get('owner_name').valid && regForm.get('ownerDetailsForm').get('owner_name').touched"><img src="assets/img/valid.svg"/> תקין</p>
-                    </mat-hint>
-                </mat-form-field>
-            </mat-grid-tile>
             <mat-grid-tile colspan="2" class="signup-form-field">
                 <mat-form-field>
                     <mat-label>טלפון</mat-label>
@@ -40,22 +16,38 @@
                     </mat-hint>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile  colspan="2" class="signup-form-field">
-                <mat-form-field class="example-full-width">
-                    <mat-label>דואר אלקטרוני</mat-label>
-                    <input matInput  formControlName="owner_email" email>
+             <mat-grid-tile class="signup-form-field">
+                <mat-form-field >
+                    <mat-label>כתובת העסק</mat-label>
+                    <input matInput  formControlName="company_address" >
                     <mat-error>
-                        <p *ngIf="!regForm.get('ownerDetailsForm').get('owner_email').valid && regForm.get('ownerDetailsForm').get('owner_email').touched"><img src="assets/img/error.svg"/>דואר אלקטרוני לא תקין</p>
+                        <p *ngIf="!regForm.get('ownerDetailsForm').get('company_address').valid && regForm.get('ownerDetailsForm').get('company_address').touched"><img src="assets/img/error.svg"/>כתובת העסק לא תקין</p>
                     </mat-error>
                     <mat-hint>
-                        <p *ngIf="regForm.get('ownerDetailsForm').get('owner_email').valid && regForm.get('ownerDetailsForm').get('owner_email').touched"><img src="assets/img/valid.svg"/>דואר אלקטרוני תקין</p>
+                        <p *ngIf="regForm.get('ownerDetailsForm').get('company_address').valid && regForm.get('ownerDetailsForm').get('company_address').touched"><img src="assets/img/valid.svg"/>כתובת העסק תקינה</p>
+                    </mat-hint>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile class="signup-form-field">
+                <mat-form-field >
+                    <mat-label>אנא בחר עיר</mat-label>
+                    <input matInput  formControlName="company_city" >
+                    <mat-error>
+                        <p *ngIf="!regForm.get('ownerDetailsForm').get('company_city').valid && regForm.get('ownerDetailsForm').get('company_city').touched"><img src="assets/img/error.svg"/>עיר לא תקינה</p>
+                    </mat-error>
+                    <mat-hint>
+                        <p *ngIf="regForm.get('ownerDetailsForm').get('company_city').valid && regForm.get('ownerDetailsForm').get('company_city').touched"><img src="assets/img/valid.svg"/>תקין</p>
                     </mat-hint>
                 </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile class="mat-right-grid-tile" colspan="2">
-                
-                    <button [disabled]="!regForm.get('ownerDetailsForm').valid" class="stepper-button" matStepperNext mat-stroked-button>יאללה בונים חנות</button>
-                 
+                <div>  
+                    <mat-checkbox color="primary" formControlName="is_policy_approved" >אני מאשר/ת את התקנון החנות</mat-checkbox>
+                    <mat-error>
+                     <p *ngIf="!regForm.get('ownerDetailsForm').get('is_policy_approved').valid && regForm.get('ownerDetailsForm').get('is_policy_approved').touched"><img src="assets/img/error.svg"/>חובה לאשר את תקנון החנות</p>
+                    </mat-error>
+                    <button [disabled]="!regForm.get('ownerDetailsForm').valid" (click)="signUp()" class="stepper-button"  mat-stroked-button matStepperNext>סיימנו! מעבר לחנות ←</button>
+                </div>   
         </mat-grid-tile>
         </mat-grid-list>
         

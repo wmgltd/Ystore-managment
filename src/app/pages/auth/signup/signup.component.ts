@@ -71,16 +71,14 @@ export class SignupComponent implements OnInit {
     this.isInitializing = false;
     this.registrationForm = new FormGroup({
       ownerDetailsForm: new FormGroup({
-        owner_name: new FormControl(null, Validators.required),
         owner_phone: new FormControl(null, [
           Validators.required,
           Validators.pattern(new RegExp('[0-9]{9}')),
         ]),
-        owner_email: new FormControl(null, Validators.required),
-        private_company: new FormControl(null, [
-          Validators.required,
-          Validators.pattern(new RegExp('[0-9]')),
-        ]),
+        company_address: new FormControl(null, Validators.required),
+        company_city: new FormControl(null, Validators.required),
+        password: new FormControl(123, Validators.required),
+        is_policy_approved: new FormControl(null, Validators.required),
       }),
       storeForm: new FormGroup({
         company_name: new FormControl(null, Validators.required),
@@ -92,12 +90,12 @@ export class SignupComponent implements OnInit {
         logo_name: new FormControl(null, Validators.required),
         logo: new FormControl(null, Validators.required),
       }),
-      detailsForm: new FormGroup({
-        company_address: new FormControl(null, Validators.required),
-        company_city: new FormControl(null, Validators.required),
-        password: new FormControl(123, Validators.required),
-        is_policy_approved: new FormControl(null, Validators.required),
-      }),
+      // detailsForm: new FormGroup({
+      //   company_address: new FormControl(null, Validators.required),
+      //   company_city: new FormControl(null, Validators.required),
+      //   password: new FormControl(123, Validators.required),
+      //   is_policy_approved: new FormControl(null, Validators.required),
+      // }),
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm, FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { SettingsService } from 'src/app/services/settings.service';
@@ -25,7 +25,8 @@ export class DeliveryTypeComponent implements OnInit {
   removedItems: any[] = [];
   matcher = new MyErrorStateMatcher();
   deliverySelected: DeliveryType;
-  showAdressForm: boolean = true;
+  @Input()
+  showAdressForm: boolean;
   @Output()
   formSubmit = new EventEmitter<string>();
   // tslint:disable-next-line: variable-name
@@ -60,7 +61,11 @@ export class DeliveryTypeComponent implements OnInit {
   ngOnInit() {
 
   }
-
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.showAdressForm) {
+      console.log(changes.showAdressForm);
+    }
+  }
   onFormSubmit() {
     if (this.settingsForm.valid) {
       this.settingsService.editDeliveryTypes({

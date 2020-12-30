@@ -1,0 +1,15 @@
+.zoom{
+    cursor: pointer;
+    color: black;
+}
+::ng-deep .cdk-overlay-container{
+    overflow-y: scroll;
+}
+.edit_buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button{
+        margin: 0 5px;
+    }
+}

@@ -13,7 +13,7 @@ export class ClearingComponent implements OnInit {
   masof;
   payments = [];
   settings: Settings;
-  clearing: Clearing;
+  clearing: Clearing = new Clearing();
   clearingForm: FormGroup;
   constructor(
     private settingsService: SettingsService,
@@ -36,7 +36,10 @@ export class ClearingComponent implements OnInit {
   getStore() {
     this.settingsService.get().subscribe((set: any) => {
       this.settings = set.data;
-      this.clearing = JSON.parse(this.settings.yaad_clearing);
+      if (this.settings.yaad_clearing) {
+        this.clearing = JSON.parse(this.settings.yaad_clearing);
+      }
+      console.log(this.clearing);
       this.clearing.masof = this.settings.yaad_masof;
       console.log(this.clearing);
       this.clearingForm.setValue({

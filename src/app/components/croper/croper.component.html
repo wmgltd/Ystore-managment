@@ -1,0 +1,28 @@
+<div class="croper">
+    <image-cropper 
+                [imageFile]="data.image" 
+                [maintainAspectRatio]="true" 
+                [aspectRatio]="3.9/2"
+                [containWithinAspectRatio]="true"
+                [cropperStaticWidth]="width"
+                [cropperStaticHeight]="height"  
+                [resizeToWidth]="390" 
+                [resizeToHeight] ="200"
+                [canvasRotation]="canvasRotation"           
+                [transform]="imageTransform"
+                [onlyScaleDown]="false"
+                [roundCropper]="false"
+                 (imageCropped)="imageCropped($event)"
+                 
+                format="png"></image-cropper>
+        <div class="edit_buttons">            
+            <button mat-mini-fab (click)="cancel()"><mat-icon class="zoom">cancel</mat-icon></button>
+            <button mat-mini-fab (click)="zoomUp()"> <mat-icon class="zoom" >zoom_in</mat-icon></button>
+            <button mat-mini-fab (click)="zoomOut()"> <mat-icon class="zoom" >zoom_out</mat-icon></button>
+            <button mat-mini-fab (click)="rotateLeft()"><mat-icon class="zoom">rotate_left</mat-icon></button>
+            <button mat-mini-fab (click)="rotateRight()"><mat-icon class="zoom">rotate_right</mat-icon></button>
+            <button mat-mini-fab (click)="flipVertical()"><mat-icon class="zoom">swap_verts</mat-icon></button>
+            <button mat-mini-fab (click)="flipHorizontal()"><mat-icon class="zoom">swap_horiz</mat-icon></button>            
+            <button mat-mini-fab (click)="closeDialog()"><mat-icon class="zoom">check</mat-icon></button>
+    </div>
+</div>

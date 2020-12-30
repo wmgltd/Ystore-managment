@@ -60,7 +60,9 @@ p{
 }
 .edit-item-button{
     width: 70px;
-    margin: 10px 0px 0px !important;
+    margin: 10px 0px 0px !important;    
+    float: left;
+
 }
 .remove-item-button{
     background: inherit;
@@ -72,7 +74,6 @@ p{
     color: #BC0000!important;
     width:120px;
     margin: 10px 0px 0px !important;
-    float: left;
     
 
 }
@@ -239,6 +240,10 @@ td.mat-footer-cell:first-of-type {
   mat-grid-tile:not(.hidden-form-field):not(.signup-form-field) .mat-form-field-infix:focus-within{
     border: 1px solid #051F43!important;
   }
+  mat-grid-tile.search:not(.hidden-form-field):not(.signup-form-field) .mat-form-field-appearance-legacy:not(.mat-form-field-disabled) .mat-form-field-infix:hover,
+  mat-grid-tile.search:not(.hidden-form-field):not(.signup-form-field) .mat-form-field-infix:focus-within{
+    border: 0!important;
+  }
   .mat-form-field-infix{
     font: 500 16px/24px Assistant;
   }
@@ -250,4 +255,6 @@ td.mat-footer-cell:first-of-type {
       overflow: hidden!important;
       text-overflow: unset!important;
   }
-
+.cdk-overlay-container{
+    overflow-y: scroll;
+}

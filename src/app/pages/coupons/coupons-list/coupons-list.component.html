@@ -6,12 +6,10 @@
     </mat-toolbar-row>
     <mat-toolbar-row>           
          <h5>סה״כ קופונים: <b>{{data.length}} קופונים</b></h5>
-         <button mat-button class="add-item-button add-item-button-primary" (click)="addCoupon()">הוסף קופון     
+         <button mat-button [disabled]="false" class="add-item-button add-item-button-primary" (click)="addCoupon()">הוספת קופון     
             <mat-icon class="add-item-icon" [inline]="false" svgIcon="plus"></mat-icon>
         </button>
     </mat-toolbar-row>   
- 
-
 </mat-toolbar>
     <div class="example-loading-shade"
          *ngIf="isLoadingResults">
@@ -76,4 +74,7 @@
 
       </mat-grid-list>
     </div>
+    <!-- <div class="soon">
+    בקרוב ב ystore...  
+    </div> -->
   </div>

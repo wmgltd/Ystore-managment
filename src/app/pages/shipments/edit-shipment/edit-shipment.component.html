@@ -18,7 +18,7 @@
           <mat-grid-tile colspan="1">
             <mat-form-field floatLabel="always" class="example-full-width">
               <mat-label>שם מלא</mat-label> 
-              <input  matInput placeholder="שם מלא" formControlName="customer_name"  >
+              <input  matInput placeholder="שם מלא" formControlName="customer_name">
               <mat-error>
                 <span *ngIf="!shipmentForm.get('customer_name').valid && shipmentForm.get('customer_name').touched">יש למלא שם מלא</span>
               </mat-error>
@@ -66,16 +66,16 @@
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
-          <mat-grid-tile colspan="1" *ngIf="shipment.delivery_type_id!=0">
+          <mat-grid-tile colspan="1" *ngIf="shipment.delivery_type_id && shipment.delivery_type_id!=0">
             <mat-form-field floatLabel="always" class="example-full-width">
               <mat-label>סוג המשלוח</mat-label> 
               <input  matInput placeholder="עיר" [value]="shipment.delivery_type" disabled>
             </mat-form-field>
           </mat-grid-tile>
-           <mat-grid-tile colspan="1" *ngIf="shipment.customer_note">
+           <mat-grid-tile colspan="3">
             <mat-form-field floatLabel="always" class="example-full-width">
               <mat-label>הערה להזמנה</mat-label> 
-              <input  matInput placeholder="כתובת למשלוח" formControlName="customer_note"  >
+              <input  matInput placeholder="הערה להזמנה" formControlName="customer_note"  >
             </mat-form-field>
           </mat-grid-tile>
       </mat-grid-list>
@@ -94,10 +94,21 @@
                 {{orderDetails.at(i).get('quantity').value.toString()}}
               </mat-grid-tile>
               <mat-grid-tile class="order-details-cost order-details-cell" colspan="2">
-                  {{orderDetails.at(i).get('cost').value.toString()}}
+                  {{(orderDetails.at(i).get('cost').value*orderDetails.at(i).get('quantity').value).toString()}}
                   <span  *ngIf="orderDetails.at(i).get('cost').value">₪</span>
               </mat-grid-tile>
           </ng-container>
+            <ng-container *ngIf="shipment.delivery_type_id">
+                <mat-grid-tile class="order-details-product order-details-cell" colspan="5">
+                      {{shipment.coupon.name}}
+                </mat-grid-tile>
+                <mat-grid-tile class="order-details-cell" colspan="1">
+                  1
+                </mat-grid-tile>
+                <mat-grid-tile class="order-details-cost order-details-cell" colspan="2">
+                    -{{shipment.coupon.discount}} {{discoutTypeList[shipment.coupon.discount_type-1].text}}
+                </mat-grid-tile>
+            </ng-container>
           <ng-container *ngIf="shipment.delivery_type_id!=0">
               <mat-grid-tile class="order-details-product order-details-cell" colspan="5">
                      משלוח: {{shipment.delivery_type}}
@@ -117,19 +128,19 @@
       </mat-grid-list>
       <mat-grid-list  cols="3" rowHeight="80px" [gutterSize]="'25px'" class="credit-card-details">
       <ng-container >
-          <mat-grid-tile class="order-details-product" colspan="1">              
+          <mat-grid-tile *ngIf="!gift_shipment" class="order-details-product" colspan="1">              
               <mat-form-field class="example-full-width">
                 <mat-label>אסמכתא</mat-label> 
                 <input matInput disabled="true" [value]="shipment.reference"/>
               </mat-form-field>
             </mat-grid-tile>
-          <mat-grid-tile class="order-details-product" colspan="1"> 
+          <mat-grid-tile *ngIf="!gift_shipment" class="order-details-product" colspan="1"> 
                 <mat-form-field class="example-full-width">
                     <mat-label>מס' אישור חברת אשראי</mat-label> 
                   <input matInput disabled="true" [value]="shipment.payment_id"/>
                   </mat-form-field>
             </mat-grid-tile>
-          <mat-grid-tile class="order-details-product" colspan="1" >              
+          <mat-grid-tile *ngIf="!gift_shipment" class="order-details-product" colspan="1" >              
               <mat-form-field class="example-full-width">
                 <mat-label>4 ספרות אחרונות של הכרטיס</mat-label> 
                 <input matInput disabled="true" [value]="shipment.digit4"/>
@@ -147,13 +158,13 @@
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
-            <mat-grid-tile class="order-details-product" colspan="1" >              
+            <mat-grid-tile *ngIf="!gift_shipment" class="order-details-product" colspan="1" >              
               <mat-form-field class="example-full-width">
                   <mat-label>מס' תשלומים</mat-label> 
                 <input matInput disabled="true" [value]="shipment.payments"/>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile *ngIf="shipment.hesh!='0'" class="order-details-product" colspan="1"  >              
+            <mat-grid-tile *ngIf="shipment.hesh!='0'&&!gift_shipment" class="order-details-product" colspan="1"  >              
               <mat-form-field class="example-full-width">
                   <mat-label>מס' חשבונית</mat-label> 
                 <input matInput disabled="true" [value]="shipment.hesh"/>
@@ -165,9 +176,9 @@
       <button mat-button type="submit" [disabled]="!shipmentForm.valid" class="save-item-button save-item-button-primary edit-item-button" >
       שמור
       </button>
-      <button mat-button type="button" (click)="openDeleteConfirmModal()" class="save-item-button remove-item-button " >
+      <!-- <button mat-button type="button" (click)="openDeleteConfirmModal()" class="save-item-button remove-item-button " >
         הסר הזמנה
-      </button>
+      </button> -->
     </form>
 </mat-dialog-content>
 </div>

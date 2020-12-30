@@ -75,6 +75,10 @@ export class AuthGuardService {
           this.settingsService.setClientId(response.data.client_id);
           this.settingsService.setMasof(response.data.masof);
           this.auth.removeToken();
+          if (!response.data.status) {
+            this.router.navigate(['lead']);
+            return false;
+          }
           return true;
         }
         // this.isInitializing = false;
