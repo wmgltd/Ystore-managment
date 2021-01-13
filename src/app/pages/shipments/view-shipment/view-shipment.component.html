@@ -13,7 +13,7 @@
     <mat-dialog-content>
         <form [formGroup]="shipmentForm" >
 
-        <mat-grid-list cols="3" rowHeight="80" [gutterSize]="'25px'">
+        <mat-grid-list cols="3" rowHeight="80" [gutterSize]="'25px'"  class="credit-card-details">
          
       <mat-grid-tile colspan="1">
         <mat-form-field floatLabel="always" class="example-full-width">
@@ -48,7 +48,6 @@
                 <input  matInput placeholder="טלפון" formControlName="customer_company"  >
               </mat-form-field>
       </mat-grid-tile> 
-      <mat-grid-tile colspan="1"></mat-grid-tile>
       <mat-grid-tile colspan="1">
         <mat-form-field floatLabel="always" class="example-full-width">
           <mat-label>כתובת למשלוח</mat-label> 
@@ -144,19 +143,19 @@
    </mat-grid-list>
    <mat-grid-list  cols="3" rowHeight="80px" [gutterSize]="'25px'" class="credit-card-details">
       <ng-container >
-          <mat-grid-tile class="order-details-product" colspan="1">              
+          <mat-grid-tile *ngIf="!gift_shipment" class="order-details-product" colspan="1">              
               <mat-form-field class="example-full-width">
                 <mat-label>אסמכתא</mat-label> 
                 <input matInput disabled="true" [value]="shipment.reference"/>
               </mat-form-field>
             </mat-grid-tile>
-          <mat-grid-tile class="order-details-product" colspan="1"> 
+          <mat-grid-tile *ngIf="!gift_shipment" class="order-details-product" colspan="1"> 
                 <mat-form-field class="example-full-width">
                     <mat-label>מס' אישור חברת אשראי</mat-label> 
                   <input matInput disabled="true" [value]="shipment.payment_id"/>
                   </mat-form-field>
             </mat-grid-tile>
-          <mat-grid-tile class="order-details-product" colspan="1" >              
+          <mat-grid-tile *ngIf="!gift_shipment" class="order-details-product" colspan="1" >              
               <mat-form-field class="example-full-width">
                 <mat-label>4 ספרות אחרונות של הכרטיס</mat-label> 
                 <input matInput disabled="true" [value]="shipment.digit4"/>
@@ -173,13 +172,14 @@
                     <span *ngIf="!shipmentForm.get('sum').valid && shipmentForm.get('sum').touched">יש למלא סכום</span>
                   </mat-error>
                 </mat-form-field>
-              </mat-grid-tile>            <mat-grid-tile class="order-details-product" colspan="1" >              
-              <mat-form-field class="example-full-width">
+              </mat-grid-tile >            
+              <mat-grid-tile class="order-details-product" colspan="1" >              
+              <mat-form-field *ngIf="!gift_shipment" class="example-full-width">
                   <mat-label>מס' תשלומים</mat-label> 
                 <input matInput disabled="true" [value]="shipment.payments"/>
                 </mat-form-field>
             </mat-grid-tile>
-            <mat-grid-tile  class="order-details-product" colspan="1" >              
+            <mat-grid-tile  *ngIf="!gift_shipment" class="order-details-product" colspan="1" >              
               <mat-form-field class="example-full-width">
                   <mat-label>מס' חשבונית</mat-label> 
                 <input matInput disabled="true" [value]="shipment.hesh"/>

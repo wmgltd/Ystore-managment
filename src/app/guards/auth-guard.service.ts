@@ -43,6 +43,9 @@ export class AuthGuardService {
           return false;
         }
       }
+      else {
+        this.settingsService.get().subscribe((x: any) => { if (!x.data.status) this.router.navigate(['error']); return false; });
+      }
     }
 
     // if (this.auth.isAuthenticated() !== route.data.expectedAuth && !route.queryParams.store) {

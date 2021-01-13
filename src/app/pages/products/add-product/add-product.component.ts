@@ -115,7 +115,7 @@ export class AddProductComponent implements OnInit {
     const dialogRef = this.dialog.open(CroperComponent, {
       width: '75%',
       minWidth: '650px',
-      data: { image: urlAndEvent.event }
+      data: { image: urlAndEvent.event, aspectRatio: 3.9 / 2, toHeight: 200, toWidth: 390 }
     });
 
     dialogRef.afterClosed().subscribe(result => {

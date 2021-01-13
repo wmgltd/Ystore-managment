@@ -21,6 +21,7 @@
         width: fit-content;
         img{
             max-height: 110px;
+            max-width: 100%;
         }
         .company-img{
             position: absolute;
@@ -61,10 +62,11 @@
     width: 100%;
     .mat-card-image:first-child{
         border-radius: 10px;
-        height:120px;
+        height:105px;
         background-repeat: no-repeat;
         background-position: center center;
         width: 100%;
+        background-size: cover;
     }
     .mat-card-title{
         font: 700 18px/26px Assistant;

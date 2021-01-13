@@ -50,6 +50,7 @@ export class AddCouponComponent implements OnInit {
       discount_type: [null, Validators.required],
       quantity: [null, Validators.required],
       purchase_amount: [0],
+      including_shipping: [1, Validators.required],
       expiry_date: [null, Validators.required]
     });
   }

@@ -98,7 +98,7 @@
                   <span  *ngIf="orderDetails.at(i).get('cost').value">₪</span>
               </mat-grid-tile>
           </ng-container>
-            <ng-container *ngIf="shipment.delivery_type_id">
+            <ng-container *ngIf="shipment.coupon">
                 <mat-grid-tile class="order-details-product order-details-cell" colspan="5">
                       {{shipment.coupon.name}}
                 </mat-grid-tile>
@@ -106,7 +106,7 @@
                   1
                 </mat-grid-tile>
                 <mat-grid-tile class="order-details-cost order-details-cell" colspan="2">
-                    -{{shipment.coupon.discount}} {{discoutTypeList[shipment.coupon.discount_type-1].text}}
+                    -{{shipment.coupon.discount}} {{discoutTypeList[shipment.coupon.discount_type-1]?.text}}
                 </mat-grid-tile>
             </ng-container>
           <ng-container *ngIf="shipment.delivery_type_id!=0">

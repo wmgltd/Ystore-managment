@@ -15,6 +15,7 @@ export class ViewShipmentComponent implements OnInit {
     { key: 1, text: '%' },
     { key: 2, text: '₪', }
   ];
+  gift_shipment: boolean;
   id: number;
   shipment: Shipment = new Shipment();
   constructor(
@@ -48,6 +49,10 @@ export class ViewShipmentComponent implements OnInit {
       this.shipment = shipment;
       var sum = this.shipment.delivery_cost;
       sum = +this.shipment.sum * 1 + sum * 1;
+      if (sum <= 0) {
+        this.gift_shipment = true;
+        sum = 0;
+      }
       this.shipmentForm.setValue({
         customer_name: shipment.customer_name,
         customer_email: shipment.customer_email,

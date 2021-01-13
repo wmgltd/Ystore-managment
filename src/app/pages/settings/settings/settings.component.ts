@@ -4,6 +4,9 @@ import { Settings } from 'src/app/models/settings';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { CroperComponent } from 'src/app/components/croper/croper.component';
+import { TranslationWidth } from '@angular/common';
 
 @Component({
   selector: 'app-settings',
@@ -24,7 +27,9 @@ export class SettingsComponent implements OnInit {
     { label: 'קטגוריות', path: '/settings/category' }
 
   ];
-  constructor(private router: Router, private settingsService: SettingsService) { }
+  constructor(
+    private router: Router, private settingsService: SettingsService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initialSettings();
@@ -51,22 +56,43 @@ export class SettingsComponent implements OnInit {
 
   }
   onSelectFile(event, columnName: string) {
+
     if (event.target.files && event.target.files[0]) {
       const filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
         const reader = new FileReader();
 
-        // tslint:disable-next-line: no-shadowed-variable
-        reader.onload = (event: any) => {
+        reader.onload = (eve: any) => {
+          var banner;
           this.settingsService.uploadImage(this.settings.id,
-            event.target.result, columnName,
+            eve.target.result, columnName,
             this.settings[columnName])
             .subscribe(() => {
               this.initialSettings();
+              console.log(event.target.files[i]);
+              var ratio = 5.42;
+              var toHeight = 225;
+              var toWidth = 1220;
+              if (columnName == "logo") {
+                ratio = 2;
+                toHeight = 100;
+                toWidth = 200;
+              }
+              const dialogRef = this.dialog.open(CroperComponent, {
+                width: '75%',
+                minWidth: '650px',
+                data: { image: event.target.files[i], aspectRatio: ratio, toHeight: toHeight, toWidth: toWidth }
+              });
+
+              dialogRef.afterClosed().subscribe(result => {
+                console.log(result);
+                this.settingsService.uploadImage(this.settings.id, result, columnName, this.settings[columnName]).subscribe(() => this.initialSettings());
+              });
+              console.log(eve.target.result);
             });
-          console.log(event.target.result);
           // TODO save file
         };
+        // tslint:disable-next-line: no-shadowed-variable
 
         reader.readAsDataURL(event.target.files[i]);
       }

@@ -7,6 +7,7 @@ import {
   FormGroup,
   NgForm,
   Validators,
+  AbstractControl,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { CouponsService } from 'src/app/services/coupons.service';
@@ -17,6 +18,8 @@ import {
   MatDialog,
 } from '@angular/material/dialog';
 import { DeleteConfirmDialogComponent } from 'src/app/components/delete-confirm-dialog/delete-confirm-dialog.component';
+import { map } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 /** Error when invalid control is dirty, touched, or submitted. */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -60,7 +63,7 @@ export class EditCouponComponent implements OnInit {
     public dialogRef: MatDialogRef<EditCouponComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.id = this.data.id;
@@ -68,10 +71,12 @@ export class EditCouponComponent implements OnInit {
     this.couponsForm = this.formBuilder.group({
       id: [null, Validators.required],
       name: [null, Validators.required],
-      code: [null, Validators.required],
+      code: [{ value: null, disabled: true }, Validators.required],
       discount: [null, Validators.required],
       discount_type: [null, Validators.required],
       quantity: [null, Validators.required],
+      purchase_amount: [0],
+      including_shipping: [0],
       quantity_utilized: [null, Validators.required],
       expiry_date: [null, Validators.required],
       status: [null, Validators.required],
@@ -79,6 +84,7 @@ export class EditCouponComponent implements OnInit {
   }
   getcouponById(id: any) {
     this.couponsService.get(id).subscribe((coupon: Coupon) => {
+      console.log(Number(coupon.including_shipping));
       this.couponsForm.setValue({
         id: coupon.id,
         name: coupon.name,
@@ -86,6 +92,8 @@ export class EditCouponComponent implements OnInit {
         discount: coupon.discount,
         discount_type: +coupon.discount_type,
         quantity: coupon.quantity,
+        purchase_amount: coupon.min_purchase_amount,
+        including_shipping: Number(coupon.including_shipping),
         quantity_utilized: coupon.quantity_utilized,
         expiry_date: coupon.expiry_date,
         status: coupon.status,
@@ -95,7 +103,7 @@ export class EditCouponComponent implements OnInit {
   openDeleteConfirmModal() {
     const dialogRef = this.dialog.open(DeleteConfirmDialogComponent, {
       width: '400px',
-      data: {},
+      data: { canDeleted: true },
     });
 
     dialogRef.afterClosed().subscribe((result: boolean) => {
@@ -114,6 +122,7 @@ export class EditCouponComponent implements OnInit {
     );
   }
   onFormSubmit() {
+    console.log(this.couponsForm.value);
     this.couponsService.edit(this.couponsForm.value).subscribe(
       (coupon: Coupon) => {
         this.dialogRef.close();
@@ -123,5 +132,20 @@ export class EditCouponComponent implements OnInit {
         this.dialogRef.close();
       }
     );
+  }
+  private uniqueCode() {
+    return (ctrl: AbstractControl) => {
+      // this is how you define a validator function
+      const code = ctrl.value;
+      return code // async validators return an Observable or Promise
+        ? this.couponsService
+          .validation_code(code)
+          .pipe(
+            map((isUnique) =>
+              isUnique ? null : { subdomainNotUnique: true }
+            )
+          ) // validators return null if they're valid, otherwise some object
+        : of(null); // don't bother checking if no value
+    };
   }
 }

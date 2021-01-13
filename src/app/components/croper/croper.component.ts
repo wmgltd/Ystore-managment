@@ -9,7 +9,7 @@ import { ImageCroppedEvent, ImageTransform } from 'ngx-image-cropper';
 })
 export class CroperComponent implements OnInit {
   cropedFile;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { image: any }, public dialogRef: MatDialogRef<CroperComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { image: any, aspectRatio: any, toHeight, toWidth }, public dialogRef: MatDialogRef<CroperComponent>) { }
   width = 400;
   height = 200;
   scale = 1;
@@ -18,6 +18,7 @@ export class CroperComponent implements OnInit {
   rotation = 0;
   ngOnInit(): void {
     this.imageTransform.scale = 1.2;
+    console.log(this.data.image);
   }
   imageCropped(event: ImageCroppedEvent) {
     this.cropedFile = event.base64;

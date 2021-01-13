@@ -215,7 +215,7 @@ export class EditProductComponent implements OnInit {
       const dialogRef = this.dialog.open(CroperComponent, {
         width: '75%',
         minWidth: '650px',
-        data: { image: urlAndEvent.event ? urlAndEvent.event : this.imgUrl + urlAndEvent.url }
+        data: { image: urlAndEvent.event ? urlAndEvent.event : this.imgUrl + urlAndEvent.url, aspectRatio: 3.9 / 2, toHeight: 200, toWidth: 390 }
       });
 
       dialogRef.afterClosed().subscribe(result => {
@@ -233,7 +233,12 @@ export class EditProductComponent implements OnInit {
               is_removed: false
             });
             this.urlsAndEvent.forEach(element => {
-              element.url == url ? element.url = result : element.url;
+              console.log(element.url);
+              console.log(url);
+              console.log(result);
+              if (element.url == url.path) {
+                element.url = result;
+              }
             });
             this.productsForm.patchValue({
               fileSource: this.urls

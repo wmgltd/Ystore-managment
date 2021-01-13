@@ -1,25 +1,49 @@
 <div class="example-container mat-elevation-z8">
-    <mat-toolbar class="mat-toolbar-multiple">
-        <mat-toolbar-row> 
-            <h1>מוצרים</h1>
-
-        </mat-toolbar-row>
-        <mat-toolbar-row>           
-             <h5>סה״כ מוצרים: <b>{{data.length}} מוצרים</b></h5>
-             <button mat-button class="add-item-button" (click)="addProduct()">הוספת מוצר     
-                <mat-icon class="add-item-icon"  [inline]="false" svgIcon="plus"></mat-icon>
-            </button>
-        </mat-toolbar-row>   
-     
-
-    </mat-toolbar>
-
+            <mat-toolbar class="mat-toolbar-multiple">
+                <mat-toolbar-row> 
+                    <h1>מוצרים</h1>
+                </mat-toolbar-row>
+                <mat-toolbar-row>           
+                    <h5>סה״כ מוצרים: <b>{{data.length}} מוצרים</b></h5>                      
+                    <app-search class="search" [fullArray]="data" (ReturnFilterArray)="onChangeSearch($event)" [filterby]="filterBy"></app-search>
+                    <button mat-button class="add-item-button" (click)="addProduct()">הוספת מוצר     
+                        <mat-icon class="add-item-icon"  [inline]="false" svgIcon="plus"></mat-icon>
+                    </button>
+                </mat-toolbar-row>   
+            </mat-toolbar>
     <div class="example-loading-shade" *ngIf="isLoadingResults">
         <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
     </div>
      
     <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="data" class="example-table mat-elevation-z8" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
+        <mat-toolbar-row class="filter"> 
+            <h5>סנן לפי</h5>
+             <mat-form-field floatLabel="always" class="example-full-width filterField">
+                <mat-label>קטגוריה</mat-label>
+                <mat-select placeholder="קטגוריה" (selectionChange)="filter()" [(ngModel)]="filterCategory"> 
+                    <mat-option [value]="0">
+                        הצג הכל
+                    </mat-option>
+                    <mat-option *ngFor="let category of categories" [value]="category.id">
+                        {{category.value}}
+                    </mat-option>
+                </mat-select>  
+
+            </mat-form-field>
+            <mat-form-field floatLabel="always" class="example-full-width filterField">
+                <mat-label>סטטוס</mat-label>
+                <mat-select placeholder="סטטוס" (selectionChange)="filter()" [(ngModel)]="filterStatus"> 
+                    <mat-option [value]="0">
+                        הצג הכל
+                    </mat-option>
+                    <mat-option *ngFor="let status of statusList" [value]="status.status">
+                        {{status.label}}
+                    </mat-option>
+                </mat-select>  
+
+            </mat-form-field>
+        </mat-toolbar-row>
+        <table mat-table [dataSource]="filterArray" class="example-table mat-elevation-z8" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
 
             <!-- products Status Column -->
             <ng-container matColumnDef="status">

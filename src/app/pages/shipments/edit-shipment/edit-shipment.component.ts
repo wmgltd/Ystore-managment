@@ -75,10 +75,10 @@ export class EditShipmentComponent implements OnInit {
     this.shipmentsService.get(id).subscribe((shipment: Shipment) => {
       this.shipment = shipment;
       console.log(this.shipment);
-      var sum = this.shipment.delivery_cost;
-      sum = +this.shipment.sum * 1 + sum * 1;
+      var sum = this.shipment.sum;
       if (sum <= 0) {
         this.gift_shipment = true;
+        sum = 0;
       }
       this.shipmentForm.setValue({
         id: shipment.id,

@@ -23,6 +23,20 @@ export class ProductsComponent implements OnInit {
   noProduct: boolean = false;
   imgUrl = environment.imgUrl;
   categories: Category[];
+  filterBy: string[] = ["name", "catalog_number"];
+  filterArray: Product[];
+  filterCategory;
+  filterStatus;
+  filterBysearch;
+  statusList = [{
+    status: "0",
+    label: "לא פעיל"
+  },
+  {
+    status: "1",
+    label: "פעיל"
+  }];
+
   constructor(private productsService: ProductsService
     , public dialog: MatDialog,
     private categoryService: CategoryService,) {
@@ -53,6 +67,11 @@ export class ProductsComponent implements OnInit {
       console.log('The dialog was closed');
       this.getProductsList()
     });
+  }
+  onChangeSearch(event) {
+    this.filterArray = event;
+    this.filterBysearch = event;
+    this.filter();
   }
   editProduct(id: number): void {
     const dialogRef = this.dialog.open(EditProductComponent, {
@@ -96,6 +115,8 @@ export class ProductsComponent implements OnInit {
           return -1;
         });
         console.log(this.data);
+        this.filterArray = this.data;
+        this.filterBysearch = this.data;
         this.isLoadingResults = false;
         if (this.data.length == 0) {
           console.log("aaa");
@@ -141,5 +162,17 @@ export class ProductsComponent implements OnInit {
       }, err => {
         console.error(err);
       });
+  }
+  filter() {
+    this.filterArray = this.filterBysearch.filter((item) => !this.filterCategory || (item.category_id == this.filterCategory))
+    this.filterArray = this._filter(this.filterCategory, this.filterBysearch, "category_id");
+    this.filterArray = this._filter(this.filterStatus, this.filterArray, "status");
+  }
+  _filter(value: any, array: any[], key) {
+    let filterArray = array;
+    if (value) {
+      filterArray = array.filter(item => value == item[key]);
+    }
+    return filterArray
   }
 }

@@ -17,7 +17,7 @@
     </div>
 
     <div class="mat-elevation-z8">
-      <mat-grid-list class="card-list" [cols]="breakpoint" rowHeight="230" [gutterSize]="'25px'">
+      <mat-grid-list class="card-list" [cols]="breakpoint" rowHeight="265" [gutterSize]="'25px'">
         <mat-grid-tile *ngFor="let item of data; let i = index">      
           <mat-card [ngClass]="{'mat-card-inactive': item.status==0}">
             <mat-card-title>
@@ -41,13 +41,15 @@
               <mat-grid-tile><p class="mad-grid-text-left">{{item.discount}}{{item.discount_type==1?'%':''}} {{item.discount_type==1?'':'ש"ח'}}</p></mat-grid-tile>
               <mat-grid-tile><p class="mad-grid-text-right"> תאריך תפוגה:</p></mat-grid-tile>
               <mat-grid-tile><p class="mad-grid-text-left"> {{item.expiry_date}}</p></mat-grid-tile>
+              <mat-grid-tile><p class="mad-grid-text-right">מינימום סכום</p> </mat-grid-tile>
+              <mat-grid-tile><p class="mad-grid-text-left"> {{item.min_purchase_amount}}</p></mat-grid-tile>
             </mat-grid-list>
             
             </div>
             <mat-divider [vertical]="true"></mat-divider>
 
             <div class="card-analytics">
-              <mat-grid-list class="card-analytics-grid" cols="2" rowHeight="120" >
+              <mat-grid-list class="card-analytics-grid" cols="2" rowHeight="163" >
                 <mat-grid-tile> 
                   <mat-list>
                     <mat-list-item >
@@ -61,8 +63,7 @@
                 </mat-grid-tile>
                 <mat-grid-tile> 
                   <app-chart [status]="item.status==1" [quantity]="item.quantity_utilized" [percentage]="(item.quantity_utilized/item.quantity*100)"></app-chart>
-
-              </mat-grid-tile>
+                </mat-grid-tile>
                </mat-grid-list>
 
             </div>

@@ -12,5 +12,7 @@ export class Coupon {
     quantity_utilized: number;
     // tslint:disable-next-line: variable-name
     expiry_date: string;
+    min_purchase_amount;
+    including_shipping: boolean;
     status: number;
 }

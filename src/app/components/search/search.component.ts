@@ -33,22 +33,18 @@ export class SearchComponent implements OnInit {
     console.log(value);
     const filterValue = String(value).toLowerCase();
     return this.fileterArray.filter(option =>
-      this.filterby.find(by => option["" + by + ""].toLowerCase().indexOf(filterValue) >= 0)
+      this.filterby.find(by => option["" + by + ""]?.toLowerCase().indexOf(filterValue) >= 0)
     );
   }
   onChangeSearch(event) {
     var array;
     console.log(event);
     if (event) {
-      console.log("aaaaaaa");
       array = this._filter(event);
     }
     else {
-      console.log("bbbbbbbbbb");
       array = this.fullArray;
     }
-    console.log(this.fullArray);
-    console.log(array);
     this.ReturnFilterArray.emit(array);
   }
 }
