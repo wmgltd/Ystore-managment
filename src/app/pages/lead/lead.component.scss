@@ -22,6 +22,9 @@
         font-weight: bold;
         color:#093874;
     }
+    h4{
+        font-size: 22px;
+    }
     .content{
         font-size: 16px;
         color:#093874;
@@ -34,6 +37,22 @@
         height: 50px;
         font-size: 16px;
         margin-top: 60px;
+    }
+    .yaad_link_back {
+        height: 45px;
+        border: 1px solid #093874;
+        border-radius: 10px;
+        color: #093874;
+        padding: 0 20px;
+        font: normal normal normal 16px/14px Heebo;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 41px;
+        text-decoration: none;
+        width: 157px;
+        text-align: center;
+        margin: 40px auto 0 auto;
     }
 }
 footer{
@@ -60,4 +79,5 @@ footer{
     .mat-grid-tile{
         overflow: visible;
     }
+    
 }

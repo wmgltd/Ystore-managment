@@ -36,6 +36,10 @@ const routes: Routes = [
   {
     path: 'lead',
     component: LeadComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      expectedAuth: false
+    }
   },
   {
     path: '',

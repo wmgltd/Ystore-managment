@@ -39,8 +39,8 @@ export class SettingsService {
     return this.get();
   }
 
-  public lead() {
-    return this.http.get(environment.baseUrl + 'lead');
+  public lead(data) {
+    return this.http.post(environment.baseUrl + 'lead', data, { responseType: 'text' });
   }
   public signUp(data: Settings) {
     return this.http.post(environment.baseUrl + 'signup', data, { responseType: 'text' });
